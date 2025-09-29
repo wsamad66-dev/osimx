@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Étudiant à l'Étranger - Votre avenir en France commence aujourd'hui</title>
+    <meta name="description" content="Accompagnement pour étudiants africains souhaitant étudier en France : admission, visa, logement et plus. Étudier en France depuis l'Afrique, c'est possible !">
+    <meta name="keywords" content="étudier en France depuis l'Afrique, visa étudiant France, accompagnement études France, bourses études France">
+    
+    <!-- Bootstrap CSS pour design responsive et moderne -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts : Montserrat pour titres, Roboto pour texte -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Font Awesome pour icônes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bleu-profond: #001F3F;
+            --or-chaleureux: #FFD700;
+            --fond-clair: #F8F9FA;
+            --blanc: #FFFFFF;
+            --gris-texte: #6C757D;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--fond-clair);
+            color: var(--gris-texte);
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--bleu-profond);
+            font-weight: 700;
+        }
+        .navbar {
+            background-color: var(--blanc);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--bleu-profond) !important;
+            font-size: 1.5rem;
+        }
+        .btn-primary {
+            background-color: var(--or-chaleureux);
+            border-color: var(--or-chaleureux);
+            color: var(--bleu-profond);
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #E6C200;
+            border-color: #E6C200;
+            color: var(--bleu-profond);
+        }
+        .hero {
+            background: linear-gradient(rgba(0,31,63,0.7), rgba(0,31,63,0.7)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--blanc);
+            padding: 150px 0;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        .hero h1 {
+            color: var(--blanc);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 18px;
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        }
+        .testimonial {
+            background-color: var(--blanc);
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .step {
+            text-align: center;
+            width: 30%;
+            margin: 20px;
+            background: var(--blanc);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            padding: 32px 16px;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .step:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            transform: translateY(-4px) scale(1.02);
+        }
+        @media (max-width: 768px) {
+            .step {
+                width: 100%;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+        .popup-trigger {
+            cursor: pointer;
+            color: var(--or-chaleureux);
+            text-decoration: underline;
+        }
+        footer {
+            background-color: var(--bleu-profond);
+            color: var(--blanc);
+            padding: 40px 0;
+            border-radius: 32px 32px 0 0;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+        }
+    </style>
+    <!-- Google Analytics (placeholder - remplacer par ID réel) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    <!-- Pixel Facebook (placeholder - remplacer par ID réel) -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'FB_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#accueil">L'Étudiant à l'Étranger</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#accueil">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ressources">Ressources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#temoignages">Témoignages</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact-section.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Accueil -->
+    <section id="accueil" class="hero">
+        <div class="container">
+            <h1>Votre avenir en France commence aujourd'hui</h1>
+            <p>Nous accompagnons les étudiants africains dans toutes les étapes pour étudier en France : admission, visa, logement et plus.</p>
+            <a href="contact-section.html" class="btn btn-primary btn-lg">Postuler maintenant</a>
+        </div>
+    </section>
+    <section class="section-padding bg-light">
+        <div class="container">
+            <!-- Présentation services -->
+            <div class="row text-center mb-5">
+                <div class="col">
+                    <h2>Nos Services</h2>
+                    <p class="lead">De l'admission à l'installation, nous vous guidons pas à pas.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                            <h5>Admission Universitaire</h5>
+                            <p>Sélection et inscription dans les meilleures universités françaises.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-passport fa-3x text-primary mb-3"></i>
+                            <h5>Accompagnement Visa</h5>
+                            <p>Préparation complète des documents pour obtenir votre visa étudiant.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                            <h5>Logement & Installation</h5>
+                            <p>Recherche de logement et orientation sur place en France.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-language fa-3x text-primary mb-3"></i>
+                            <h5>Préparation Linguistique</h5>
+                            <p>Cours de français et préparation aux tests DELF/TCF.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Témoignages défilants (simulé avec carousel Bootstrap) -->
+            <div class="row mt-5" id="temoignages">
+                <div class="col">
+                    <h2 class="text-center mb-4">Témoignages</h2>
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="testimonial mx-auto" style="max-width: 600px;">
+                                    <p>\"Grâce à L'Étudiant à l'Étranger, j'ai obtenu mon visa et je suis maintenant à Paris en master. Une équipe incroyable !\"</p>
+                                    <cite>- Amina, du Sénégal, étudiante à Sorbonne Université</cite>
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Amina" class="rounded-circle mx-auto d-block mt-3" style="width: 80px;">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="testimonial mx-auto" style="max-width: 600px;">
+                                    <p>\"Leur accompagnement pour le logement m'a sauvé du stress. Je recommande à 100% !\"</p>
+                                    <cite>- Kofi, du Ghana, étudiant en ingénierie</cite>
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Kofi" class="rounded-circle mx-auto d-block mt-3" style="width: 80px;">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Comment ça marche -->
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <h2>Comment ça marche ?</h2>
+                    <p class="lead">En 3 étapes simples, réalisez votre rêve d'études en France.</p>
+                </div>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-handshake fa-3x text-warning mb-3"></i>
+                    <h5>1. Consultation</h5>
+                    <p>Contactez-nous pour évaluer votre profil et vos objectifs.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-file-alt fa-3x text-warning mb-3"></i>
+                    <h5>2. Dossier</h5>
+                    <p>Nous préparons et soumettons votre candidature complète.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-plane-arrival fa-3x text-warning mb-3"></i>
+                    <h5>3. Installation</h5>
+                    <p>Accompagnement sur place pour visa, logement et intégration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- À propos -->
+    <section id="apropos" class="section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>À propos de nous</h2>
+                    <p>Notre mission est d'aider les étudiants africains à réaliser leur rêve d'études en France. Depuis 2018, nous avons accompagné plus de 500 étudiants avec des valeurs de confiance, d'excellence et de proximité.</p>
+                    <p>Que vous veniez du Sénégal, du Nigeria ou du Maroc, nous ouvrons les portes de l'éducation française pour vous.</p>
+                    <div class="mt-4">
+                        <h5>Chiffres clés</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> +500 étudiants accompagnés</li>
+                            <li><i class="fas fa-check text-success"></i> 95% de succès aux visas</li>
+                            <li><i class="fas fa-check text-success"></i> Partenariats avec 20+ universités</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=600&q=80" alt="Équipe" class="img-fluid rounded shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services -->
+    <section id="services" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Nos Programmes & Services</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h4>Sélection et Inscription Universitaire</h4>
+                    <p>Nous vous aidons à choisir le programme adapté et à soumettre votre dossier via Campus France.</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h4>Accompagnement Visa et Documents</h4>
+                    <p>Préparation personnalisée pour le visa long séjour étudiant, avec suivi des rendez-vous.</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h4>Recherche de Bourses et Finances</h4>
+                    <p>Conseils pour les bourses Eiffel, Campus France et aides financières adaptées aux Africains.</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h4>Orientation et Logement</h4>
+                    <p>Recherche de résidences CROUS, colocations et cours de français avant départ.</p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="contact-section.html" class="btn btn-primary btn-lg">Découvrez nos forfaits</a>
+            </div>
+        </div>
+    </section>
+    <!-- Ressources -->
+    <section id="ressources" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5">Espace Ressources Étudiants</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-download fa-3x text-primary mb-3"></i>
+                            <h5>Guides Téléchargeables</h5>
+                            <p>Checklist documents, budget étudiant, packing list pour la France.</p>
+                            <a href="#" class="popup-trigger" data-bs-toggle="modal" data-bs-target="#guideModal">Téléchargez gratuitement</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-blog fa-3x text-primary mb-3"></i>
+                            <h5>Blog</h5>
+                            <p>Mises à jour sur les visas 2024, culture française, jobs étudiants à Paris.</p>
+                            <a href="blog.html">Lire les articles</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-question-circle fa-3x text-primary mb-3"></i>
+                            <h5>FAQ</h5>
+                            <p>Réponses à vos questions : Coûts, délais visa, vie étudiante en France.</p>
+                            <a href="#">Consulter la FAQ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal pour guide gratuit (capture email) -->
+    <div class="modal fade" id="guideModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Téléchargez votre guide gratuit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="emailGuide" class="form-label">Votre email</label>
+                            <input type="email" class="form-control" id="emailGuide" placeholder="Entrez votre email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Recevoir le guide</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section Contact/Information moderne -->
+    <!-- Section contact supprimée, voir contact-section.html pour le formulaire -->
+    <footer class="mt-5">
+        <div class="container text-center">
+            <p>&copy; 2025 L'Étudiant à l'Étranger. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
