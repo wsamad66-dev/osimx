@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 const testimonials = [
@@ -134,10 +135,12 @@ export function TestimonialsSection() {
             <div className="md:flex">
               {/* Student Photo */}
               <div className="md:w-1/3 relative">
-                <img 
+                <Image 
                   src={testimonials[currentIndex].image}
                   alt={`${testimonials[currentIndex].name} - étudiant ${testimonials[currentIndex].country}`}
                   className="w-full h-64 md:h-full object-cover"
+                  width={400}
+                  height={256}
                 />
                 <div className="absolute top-4 left-4 bg-yellow-500 text-blue-900 px-3 py-1 rounded-full text-sm font-bold">
                   ⭐ {testimonials[currentIndex].rating}/5
