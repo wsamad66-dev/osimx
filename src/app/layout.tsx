@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Montserrat, Roboto } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
@@ -51,17 +52,18 @@ export default function RootLayout({
     <html lang="fr" className={`${montserrat.variable} ${roboto.variable}`}>
       <head>
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'GA_MEASUREMENT_ID');
-            `,
-          }}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+          strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'GA_MEASUREMENT_ID');
+          `}
+        </Script>
         {/* Facebook Pixel */}
         <script
           dangerouslySetInnerHTML={{
@@ -81,7 +83,8 @@ export default function RootLayout({
         />
         <noscript>
           <img height="1" width="1" style={{display:'none'}} 
-               src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1"/>
+               src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1" 
+               alt="Facebook pixel"/>
         </noscript>
       </head>
       <body className="font-roboto bg-gray-50 text-gray-700">

@@ -76,6 +76,7 @@ export default function ContactPage() {
         message: ''
       })
     } catch (error) {
+      console.error('Error submitting form:', error)
       setSubmitStatus('error')
     }
     
@@ -103,7 +104,7 @@ export default function ContactPage() {
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="font-montserrat font-bold text-4xl lg:text-5xl text-white mb-6">
-              Commencez Votre Projet d'Études
+              Commencez Votre Projet d&apos;Études
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
               Remplissez le formulaire ci-dessous pour une consultation gratuite. 
@@ -126,7 +127,7 @@ export default function ContactPage() {
                     <span className="text-2xl font-bold text-blue-900">LÉ</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">L'Étudiant à l'Étranger</h3>
+                    <h3 className="text-xl font-bold text-white">L&apos;Étudiant à l&apos;Étranger</h3>
                     <p className="text-blue-200 text-sm">Guidance • Admissions • Vie étudiante</p>
                   </div>
                 </div>
@@ -178,7 +179,7 @@ export default function ContactPage() {
                   📋 Formulaire de Contact
                 </h3>
                 <p className="text-blue-100">
-                  Décrivez votre projet d'études. Plus vous donnez de détails, 
+                  Décrivez votre projet d&apos;études. Plus vous donnez de détails, 
                   mieux nous pourrons vous accompagner.
                 </p>
               </div>

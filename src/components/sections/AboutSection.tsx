@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 
 const teamMembers = [
   {
@@ -181,10 +182,12 @@ export function AboutSection() {
           </div>
 
           <div>
-            <img 
+            <Image 
               src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8078f7c5-078f-41b9-ab9d-87714686dab2.png"
               alt="Campus universitaire français avec étudiants internationaux"
               className="rounded-3xl shadow-2xl w-full object-cover h-96"
+              width={500}
+              height={384}
             />
           </div>
         </div>
@@ -229,10 +232,12 @@ export function AboutSection() {
                 onClick={() => setActiveTeamMember(activeTeamMember === index ? null : index)}
               >
                 <div className="relative overflow-hidden">
-                  <img
+                  <Image
                     src={member.image}
                     alt={member.name}
                     className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                    width={400}
+                    height={256}
                   />
                   <div className="absolute top-4 right-4 bg-yellow-500 text-blue-900 px-3 py-1 rounded-full text-sm font-bold">
                     {member.experience}

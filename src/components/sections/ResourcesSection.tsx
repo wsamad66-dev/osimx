@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 const resourceCategories = [
@@ -300,10 +301,12 @@ export function ResourcesSection() {
                 className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer"
               >
                 <div className="relative overflow-hidden">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    width={400}
+                    height={192}
                   />
                   <div className="absolute top-4 left-4 bg-yellow-500 text-blue-900 px-3 py-1 rounded-full text-xs font-bold">
                     {post.category}
