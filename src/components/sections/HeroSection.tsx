@@ -1,131 +1,78 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { Sparkles, ArrowRight, TrendingUp } from 'lucide-react'
 
-const heroImages = [
-  'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e33ac1c1-14ac-4153-8832-a92255fae303.png',
-  'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1bde2eae-6a84-4b1d-b8ee-d81025034cfa.png',
-  'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b1b618e1-d69e-4270-8e19-c73f822d5aa8.png'
-]
-
-export function HeroSection() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    setIsLoaded(true)
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const scrollToContact = () => {
-    window.location.href = '/contact'
-  }
-
+export default function HeroSection() {
   return (
-    <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Images with Parallax Effect */}
-      <div className="absolute inset-0">
-        {heroImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,31,63,0.7), rgba(0,31,63,0.7)), url('${image}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              transform: isLoaded ? 'scale(1.05)' : 'scale(1)',
-              transition: 'transform 20s ease-out'
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-yellow-500 rounded-full animate-pulse opacity-60"></div>
-        <div className="absolute top-40 right-20 w-3 h-3 bg-yellow-400 rounded-full animate-bounce opacity-40"></div>
-        <div className="absolute bottom-32 left-20 w-2 h-2 bg-yellow-300 rounded-full animate-ping opacity-50"></div>
-        <div className="absolute bottom-20 right-32 w-4 h-4 bg-yellow-500 rounded-full animate-pulse opacity-30"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`transform transition-all duration-1000 ${
-          isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <h1 className="font-montserrat font-bold text-4xl sm:text-5xl lg:text-6xl mb-6 leading-tight">
-            Votre avenir en France
-            <span className="block text-yellow-500 mt-2">commence aujourd'hui</span>
-          </h1>
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Decorative circles */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-indigo-200 rounded-full opacity-20 blur-3xl"></div>
+      
+      <div className="container mx-auto px-4 py-20">
+        <div className="max-w-5xl mx-auto text-center">
           
-          <p className="text-xl lg:text-2xl mb-8 text-blue-100 leading-relaxed max-w-3xl mx-auto">
-            Nous accompagnons les étudiants africains dans toutes les étapes pour étudier en France : 
-            <span className="text-yellow-400 font-semibold"> admission, visa, logement et plus</span>
+          {/* Creative Badge */}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-lg shadow-blue-100 border border-blue-100 mb-8">
+            <Sparkles className="w-4 h-4 text-yellow-500" />
+            <span className="text-sm font-medium bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Plus de 2000 étudiants accompagnés avec succès
+            </span>
+          </div>
+
+          {/* Hero Title with Gradient */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span className="text-gray-900">Réalisez vos rêves</span>
+            <br />
+            <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              d&apos;études à l&apos;étranger
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+            Accompagnement personnalisé de <span className="font-semibold text-gray-900">A à Z</span> pour étudier en France, 
+            au Canada, en Belgique et dans d&apos;autres destinations prestigieuses.
           </p>
 
-          {/* Key Benefits */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-              <div className="text-3xl font-bold text-yellow-500 mb-2">500+</div>
-              <div className="text-sm text-blue-100">Étudiants accompagnés</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-              <div className="text-3xl font-bold text-yellow-500 mb-2">95%</div>
-              <div className="text-sm text-blue-100">Taux de succès visa</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-              <div className="text-3xl font-bold text-yellow-500 mb-2">20+</div>
-              <div className="text-sm text-blue-100">Universités partenaires</div>
-            </div>
-          </div>
-
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              onClick={scrollToContact}
-              size="lg"
-              className="bg-yellow-500 text-blue-900 hover:bg-yellow-400 font-bold px-8 py-4 rounded-full text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Link 
+              href="/contact"
+              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-blue-200 transition-all duration-300 flex items-center justify-center gap-2"
             >
-              🚀 Postuler maintenant
-            </Button>
-            <Button
-              onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-blue-900 font-semibold px-8 py-4 rounded-full text-lg transform transition-all duration-300 hover:scale-105"
+              Consultation Gratuite
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link 
+              href="/services"
+              className="px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300"
             >
-              📚 Découvrir nos services
-            </Button>
+              Découvrir nos services
+            </Link>
           </div>
-        </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-yellow-500 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-yellow-500 rounded-full mt-2 animate-pulse"></div>
-        </div>
-      </div>
+          {/* Stats with Creative Design */}
+          <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-green-500" />
+                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">95%</div>
+              </div>
+              <div className="text-sm font-medium text-gray-600">Taux de réussite</div>
+            </div>
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">2000+</div>
+              <div className="text-sm font-medium text-gray-600">Étudiants accompagnés</div>
+            </div>
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+              <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">15+</div>
+              <div className="text-sm font-medium text-gray-600">Pays destinations</div>
+            </div>
+          </div>
 
-      {/* Image Indicators */}
-      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentImageIndex 
-                ? 'bg-yellow-500 scale-125' 
-                : 'bg-white/50 hover:bg-white/70'
-            }`}
-          />
-        ))}
+        </div>
       </div>
     </section>
   )

@@ -1,0 +1,11 @@
+╔══════════════════════════════════════════════╗
+║         OSIM - Test Document                 ║
+║         Generated: 2025-10-09T14:02:54.812Z    ║
+╚══════════════════════════════════════════════╝
+
+This is a test document for Sanity upload API.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+Test ID: pokyed

@@ -59,27 +59,40 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     try {
-      // Simulate form submission - replace with actual endpoint
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      setSubmitStatus('success')
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        country: '',
-        interest: '',
-        studyLevel: '',
-        budget: '',
-        timeline: '',
-        message: ''
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          country: '',
+          interest: '',
+          studyLevel: '',
+          budget: '',
+          timeline: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+        console.error('Form submission error:', data.error)
+      }
     } catch (error) {
       console.error('Error submitting form:', error)
       setSubmitStatus('error')
     }
-    
+
     setIsSubmitting(false)
   }
 
