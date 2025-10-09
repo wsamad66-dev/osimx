@@ -72,13 +72,13 @@ export function FloatingCTA() {
             </button>
           </motion.div>
 
-          {/* Desktop Version (Bottom Left) */}
+          {/* Desktop Version (Bottom Right) */}
           <motion.div
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            className="fixed bottom-8 left-8 z-50 hidden md:block"
+            className="fixed bottom-8 right-8 z-50 hidden md:block"
           >
             <div className="relative">
               {/* Pulse rings */}
