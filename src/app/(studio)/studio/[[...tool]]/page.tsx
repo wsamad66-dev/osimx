@@ -2,7 +2,7 @@
 
 import { NextStudio } from 'next-sanity/studio'
 import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
+import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 
 // Import schemas
@@ -24,12 +24,12 @@ if (!projectId) {
 const config = defineConfig({
   name: 'default',
   title: 'OSIM Student Portal',
-  
+
   projectId,
   dataset,
-  
+
   plugins: [
-    deskTool(),
+    structureTool(),
     visionTool(),
   ],
   
