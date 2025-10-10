@@ -56,7 +56,7 @@ export async function EnhancedNavigationServer() {
   // Only fetch from Sanity if configured
   if (isSanityConfigured && client) {
     try {
-      navigationData = await client.fetch<NavigationContent>(NAVIGATION_QUERY, {
+      navigationData = await client.fetch<NavigationContent>(NAVIGATION_QUERY, {}, {
         next: { revalidate: 60 }, // Revalidate every 60 seconds
       })
     } catch (error) {

@@ -168,6 +168,7 @@ export function Step3DocumentUpload({ defaultValues, onNext, onBack }: Step3Docu
     const uploadedDocs = files
       .filter((f) => f.assetId)
       .map((f) => ({
+        file: f.file,
         name: f.name,
         size: f.size,
         type: f.type,
@@ -175,7 +176,7 @@ export function Step3DocumentUpload({ defaultValues, onNext, onBack }: Step3Docu
         url: f.url!,
       }))
 
-    onNext({ documents: uploadedDocs })
+    onNext({ documents: uploadedDocs as any })
   }
 
   return (
