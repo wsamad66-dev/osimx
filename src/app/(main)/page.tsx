@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { HeroSectionServer } from '@/components/hero/HeroSectionServer'
 import { AnimatedStatsSection } from '@/components/sections/AnimatedStatsSection'
 import { InteractiveDestinations } from '@/components/sections/InteractiveDestinations'
-import TestimonialsSection from '@/components/testimonials/TestimonialsSection'
+import TestimonialsGrid from '@/components/testimonials/TestimonialsGrid'
 import { FinalCTASection } from '@/components/sections/FinalCTASection'
 import { FloatingCTA } from '@/components/widgets/FloatingCTA'
 
@@ -28,13 +28,13 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <>
       <HeroSectionServer />
       <AnimatedStatsSection />
       <InteractiveDestinations />
-      <TestimonialsSection />
+      <TestimonialsGrid />
       <FinalCTASection />
       <FloatingCTA />
-    </main>
+    </>
   )
 }

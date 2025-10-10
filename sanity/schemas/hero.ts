@@ -8,16 +8,96 @@ export default defineType({
     defineField({
       name: 'headline',
       title: 'Headline',
-      type: 'string',
-      description: 'Main attention-grabbing headline',
-      validation: (Rule) => Rule.required().max(100),
+      type: 'array',
+      description: 'Main attention-grabbing headline (vous pouvez formater le texte)',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'H1', value: 'h1' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Gras', value: 'strong' },
+              { title: 'Italique', value: 'em' },
+              { title: 'Souligné', value: 'underline' },
+            ],
+            annotations: [
+              {
+                name: 'color',
+                title: 'Couleur du texte',
+                type: 'object',
+                fields: [
+                  {
+                    name: 'value',
+                    title: 'Couleur',
+                    type: 'string',
+                    options: {
+                      list: [
+                        { title: 'Noir (défaut)', value: '#111827' },
+                        { title: 'Bleu', value: '#2563EB' },
+                        { title: 'Bleu foncé', value: '#1E40AF' },
+                        { title: 'Orange', value: '#F97316' },
+                        { title: 'Violet', value: '#9333EA' },
+                        { title: 'Vert', value: '#10B981' },
+                      ],
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subheadline',
       title: 'Subheadline',
-      type: 'text',
-      description: 'Supporting text that provides more context',
-      validation: (Rule) => Rule.required().max(250),
+      type: 'array',
+      description: 'Supporting text (vous pouvez formater le texte)',
+      of: [
+        {
+          type: 'block',
+          styles: [{ title: 'Normal', value: 'normal' }],
+          marks: {
+            decorators: [
+              { title: 'Gras', value: 'strong' },
+              { title: 'Italique', value: 'em' },
+            ],
+            annotations: [
+              {
+                name: 'color',
+                title: 'Couleur du texte',
+                type: 'object',
+                fields: [
+                  {
+                    name: 'value',
+                    title: 'Couleur',
+                    type: 'string',
+                    options: {
+                      list: [
+                        { title: 'Gris (défaut)', value: '#4B5563' },
+                        { title: 'Bleu', value: '#2563EB' },
+                        { title: 'Noir', value: '#111827' },
+                      ],
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'urgencyBadge',
+      title: 'Urgency Badge Text',
+      type: 'string',
+      description: 'Texte du badge d\'urgence (ex: "Promotion : 1ère consultation offerte")',
+      initialValue: 'Promotion : 1ère consultation offerte (12 places)',
     }),
     defineField({
       name: 'heroImage',

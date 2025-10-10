@@ -26,7 +26,6 @@ const quickLinks = [
   { label: 'Ressources', href: '/resources' },
   { label: 'Témoignages', href: '/testimonials' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '/contact' },
 ]
 
 const destinations = [

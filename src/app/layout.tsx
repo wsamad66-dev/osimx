@@ -2,9 +2,6 @@ import type { Metadata } from 'next'
 import { Poppins, Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
-import { EnhancedNavigation } from '@/components/layout/EnhancedNavigation'
-import { EnhancedFooter } from '@/components/layout/EnhancedFooter'
-import { WhatsAppWidget } from '@/components/widgets/WhatsAppWidget'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -142,12 +139,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="font-inter bg-white text-gray-900">
-        <EnhancedNavigation />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <EnhancedFooter />
-        <WhatsAppWidget />
+        {children}
       </body>
     </html>
   )

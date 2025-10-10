@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
 import TestimonialCard from './TestimonialCard'
 import type { Testimonial } from '@/lib/sanity/client'
+import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
 
 interface TestimonialCarouselProps {
   testimonials: Testimonial[]
@@ -16,6 +17,7 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
   const [progress, setProgress] = useState(0)
   const [showCTA, setShowCTA] = useState(false)
   const [viewedCount, setViewedCount] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -200,8 +202,8 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
             transition={{ type: 'spring', stiffness: 100, damping: 20 }}
             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
           >
-            <a
-              href="/contact"
+            <button
+              onClick={() => setIsModalOpen(true)}
               className="group relative flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#f29100] to-[#ff9e0a] text-white font-bold text-lg rounded-full shadow-2xl hover:shadow-[0_10px_40px_rgba(242,145,0,0.5)] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#f29100]/50"
               aria-label="Parler à un conseiller"
             >
@@ -221,7 +223,7 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
               />
-            </a>
+            </button>
 
             {/* Close Button */}
             <button
@@ -239,6 +241,11 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
       <div className="text-center mt-6 text-white/70 text-sm">
         Témoignage {currentIndex + 1} sur {testimonials.length}
       </div>
+
+      <QuickRegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   )
 }

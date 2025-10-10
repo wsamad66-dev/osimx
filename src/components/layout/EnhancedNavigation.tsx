@@ -3,37 +3,75 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
-import { Menu, X, Sparkles } from 'lucide-react'
+import { Menu, X, Sparkles, ChevronDown } from 'lucide-react'
+import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
+import type { NavigationContent } from '@/lib/sanity-queries'
 
-const navLinks = [
-  { href: '/', label: 'Accueil' },
-  { href: '/about', label: 'À propos' },
-  { href: '/services', label: 'Services' },
-  { href: '/resources', label: 'Ressources' },
-  { href: '/testimonials', label: 'Témoignages' },
-  { href: '/contact', label: 'Contact' },
-]
+interface EnhancedNavigationProps {
+  navigationData?: NavigationContent
+}
 
-export function EnhancedNavigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
+// Fallback data
+const defaultNavData: NavigationContent = {
+  _id: 'default',
+  _type: 'navigation',
+  title: 'Default Navigation',
+  logo: {
+    text: "L'Étudiant à l'Étranger",
+  },
+  menuItems: [
+    { label: 'Accueil', link: '/', order: 1, _key: '1' },
+    {
+      label: 'Services',
+      link: '/services',
+      hasDropdown: true,
+      dropdownItems: [
+        { label: 'Admission', link: '/services/admission', _key: 's1' },
+        { label: 'Visa', link: '/services/visa', _key: 's2' },
+        { label: 'Logement', link: '/services/logement', _key: 's3' },
+      ],
+      order: 2,
+      _key: '2',
+    },
+    {
+      label: 'Destinations',
+      link: '/destinations',
+      hasDropdown: true,
+      dropdownItems: [
+        { label: 'France', link: '/destinations/france', _key: 'd1' },
+        { label: 'Canada', link: '/destinations/canada', _key: 'd2' },
+        { label: 'Belgique', link: '/destinations/belgique', _key: 'd3' },
+        { label: 'Allemagne', link: '/destinations/allemagne', _key: 'd4' },
+        { label: 'Espagne', link: '/destinations/espagne', _key: 'd5' },
+        { label: 'Chine', link: '/destinations/chine', _key: 'd6' },
+      ],
+      order: 3,
+      _key: '3',
+    },
+  ],
+  ctaButton: {
+    text: 'Démarrer',
+    link: '#',
+    style: 'black',
+    openModal: true,
+  },
+  isActive: true,
+}
+
+export function EnhancedNavigation({ navigationData }: EnhancedNavigationProps) {
+  const navData = navigationData || defaultNavData
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
   const { scrollYProgress } = useScroll()
-  
+
   // Smooth progress bar animation
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   })
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   // Close mobile menu on escape
   useEffect(() => {
@@ -60,140 +98,101 @@ export function EnhancedNavigation() {
         style={{ scaleX }}
       />
 
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          isScrolled
-            ? 'bg-white/95 backdrop-blur-2xl shadow-2xl border-b border-gray-200/50'
-            : 'bg-gradient-to-b from-black/30 via-black/10 to-transparent backdrop-blur-sm'
-        }`}
-      >
-        {/* Animated gradient orb on scroll */}
-        {isScrolled && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            className="absolute inset-0 overflow-hidden pointer-events-none"
-          >
-            <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl" />
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-gradient-to-br from-orange-500/20 to-pink-500/20 rounded-full blur-3xl" />
-          </motion.div>
-        )}
-
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
+        <nav className="max-w-7xl mx-auto px-6 lg:pl-8 lg:pr-28 relative">
           <div className="flex items-center justify-between h-20">
-            {/* Logo - Enhanced with animation */}
-            <Link href="/" className="flex items-center space-x-3 group relative z-10">
-              <motion.div 
-                className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500 flex items-center justify-center overflow-hidden"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                {/* Shine effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: 'linear', repeatDelay: 2 }}
-                />
-                <Sparkles className="w-6 h-6 text-white relative z-10" />
-              </motion.div>
-              <motion.span 
-                className={`text-xl font-bold font-poppins transition-all duration-500 ${
-                  isScrolled ? 'text-gray-900' : 'text-white drop-shadow-lg'
-                }`}
-                whileHover={{ scale: 1.02 }}
-              >
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-3 group relative z-10 hover:opacity-90 transition-opacity">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 5C11.7157 5 5 11.7157 5 20C5 28.2843 11.7157 35 20 35C28.2843 35 35 28.2843 35 20C35 11.7157 28.2843 5 20 5Z" fill="#1F2937"/>
+                <path d="M15 15C15 12.2386 17.2386 10 20 10C22.7614 10 25 12.2386 25 15V20C25 22.7614 22.7614 25 20 25C17.2386 25 15 22.7614 15 20V15Z" fill="white"/>
+              </svg>
+              <span className="text-xl font-semibold text-gray-900">
                 L'Étudiant à l'Étranger
-              </motion.span>
+              </span>
             </Link>
 
             {/* Desktop Navigation - Center */}
-            <div className="hidden lg:flex items-center space-x-1 relative z-10">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
+            <div className="hidden lg:flex items-center space-x-10 absolute left-1/2 -translate-x-1/2 z-10">
+              {navData.menuItems.map((link) => (
+                <div
+                  key={link._key}
+                  className="relative"
+                  onMouseEnter={() => {
+                    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
+                    if (link.hasDropdown) setOpenDropdown(link.label)
+                  }}
+                  onMouseLeave={() => {
+                    closeTimeoutRef.current = setTimeout(() => setOpenDropdown(null), 200)
+                  }}
                 >
-                  <Link
-                    href={link.href}
-                    className={`relative px-5 py-2.5 rounded-xl font-medium transition-all duration-300 font-inter group ${
-                      isScrolled
-                        ? 'text-gray-700 hover:text-blue-600'
-                        : 'text-white/95 hover:text-white'
-                    }`}
-                  >
-                    {/* Background glow on hover */}
-                    <span className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 ${
-                      isScrolled 
-                        ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10' 
-                        : 'bg-white/10 backdrop-blur-sm'
-                    }`} />
-                    
-                    {/* Text */}
-                    <span className="relative z-10">{link.label}</span>
-                    
-                    {/* Animated underline */}
-                    <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 w-0 group-hover:w-4/5 transition-all duration-300`} />
-                  </Link>
-                </motion.div>
+                  {link.hasDropdown ? (
+                    <button
+                      className="flex items-center gap-1 text-gray-500 hover:text-gray-900 transition-colors duration-200"
+                    >
+                      {link.label}
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.link}
+                      className={`flex items-center gap-1 transition-colors duration-200 ${
+                        link.label === 'Accueil'
+                          ? 'text-gray-900 font-semibold'
+                          : 'text-gray-500 hover:text-gray-900'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+
+                  {/* Dropdown Menu */}
+                  {link.hasDropdown && link.dropdownItems && openDropdown === link.label && (
+                    <div
+                      className="absolute top-full left-0 mt-2 py-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 z-50"
+                      onMouseEnter={() => {
+                        if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
+                      }}
+                      onMouseLeave={() => {
+                        closeTimeoutRef.current = setTimeout(() => setOpenDropdown(null), 200)
+                      }}
+                    >
+                      {link.dropdownItems.map((item) => (
+                        <Link
+                          key={item._key}
+                          href={item.link}
+                          className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-150 text-sm"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 
-            {/* CTA Button - Enhanced */}
-            <motion.div 
-              className="hidden lg:block relative z-10"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              <Link
-                href="/contact"
-                className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold font-poppins overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            {/* CTA Button */}
+            <div className="hidden lg:flex items-center">
+              <button
+                onClick={() => navData.ctaButton.openModal ? setIsModalOpen(true) : window.location.href = navData.ctaButton.link}
+                className={`px-8 py-3 rounded-xl font-medium text-white transition-colors duration-200 ${
+                  navData.ctaButton.style === 'blue'
+                    ? 'bg-blue-600 hover:bg-blue-700'
+                    : navData.ctaButton.style === 'orange'
+                    ? 'bg-orange-500 hover:bg-orange-600'
+                    : 'bg-black hover:bg-gray-900'
+                }`}
               >
-                {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600" />
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                  style={{ backgroundSize: '200% 200%' }}
-                />
-                
-                {/* Shine effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: 'linear', repeatDelay: 1 }}
-                />
-                
-                {/* Pulse rings */}
-                <motion.span
-                  className="absolute inset-0 rounded-xl border-2 border-orange-400"
-                  animate={{
-                    scale: [1, 1.05, 1],
-                    opacity: [0.5, 0, 0.5],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                
-                <Sparkles className="w-4 h-4 text-white relative z-10" />
-                <span className="text-white relative z-10">Démarrer</span>
-              </Link>
-            </motion.div>
+                {navData.ctaButton.text}
+              </button>
+            </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden p-2.5 rounded-xl transition-all duration-300 relative z-10 ${
-                isScrolled
-                  ? 'text-gray-900 hover:bg-blue-500/10'
-                  : 'text-white hover:bg-white/20'
-              }`}
+              className="lg:hidden p-2.5 rounded-xl transition-all duration-200 text-gray-900 hover:bg-gray-100"
               aria-label="Toggle menu"
-              whileTap={{ scale: 0.95 }}
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (
@@ -218,7 +217,7 @@ export function EnhancedNavigation() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.button>
+            </button>
           </div>
         </nav>
       </header>
@@ -245,16 +244,8 @@ export function EnhancedNavigation() {
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-50 lg:hidden shadow-2xl overflow-y-auto"
             >
-              {/* Gradient header */}
-              <div className="relative h-32 bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500 overflow-hidden">
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-600/30"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 90, 0],
-                  }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                />
+              {/* Gradient header - Simplifié */}
+              <div className="relative h-32 bg-gradient-to-br from-blue-600 via-purple-600 to-orange-500">
                 <div className="relative z-10 h-full flex items-center justify-center">
                   <div className="text-center">
                     <Sparkles className="w-8 h-8 text-white mx-auto mb-2" />
@@ -265,85 +256,75 @@ export function EnhancedNavigation() {
 
               {/* Navigation Links */}
               <div className="p-6 space-y-2">
-                {navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.08, duration: 0.3 }}
-                  >
+                {navData.menuItems.map((link) => (
+                  <div key={link._key}>
                     <Link
-                      href={link.href}
+                      href={link.link}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="group relative block py-4 px-5 rounded-xl text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 font-inter overflow-hidden"
+                      className="group relative block py-4 px-5 rounded-xl text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-all duration-200 font-inter"
                     >
-                      {/* Hover background */}
-                      <span className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
-                      
-                      {/* Border accent */}
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-blue-600 to-purple-600 group-hover:h-full transition-all duration-300 rounded-full" />
-                      
-                      <span className="relative z-10 flex items-center justify-between">
+                      <span className="flex items-center justify-between">
                         {link.label}
-                        <motion.span
-                          className="text-gray-400 group-hover:text-blue-600"
-                          initial={{ x: -10, opacity: 0 }}
-                          whileHover={{ x: 0, opacity: 1 }}
-                        >
-                          →
-                        </motion.span>
+                        <span className="text-gray-400 group-hover:text-blue-600">→</span>
                       </span>
                     </Link>
-                  </motion.div>
+
+                    {/* Dropdown pour mobile */}
+                    {link.hasDropdown && link.dropdownItems && (
+                      <div className="ml-4 mt-1 space-y-1">
+                        {link.dropdownItems.map((item) => (
+                          <Link
+                            key={item._key}
+                            href={item.link}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block py-2 px-4 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-150"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
 
                 {/* CTA Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.08, duration: 0.3 }}
-                  className="pt-4"
-                >
-                  <Link
-                    href="/contact"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="group relative block w-full text-center px-6 py-4 rounded-xl font-bold font-poppins overflow-hidden shadow-lg"
+                <div className="pt-4">
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false)
+                      if (navData.ctaButton.openModal) {
+                        setIsModalOpen(true)
+                      } else {
+                        window.location.href = navData.ctaButton.link
+                      }
+                    }}
+                    className={`w-full text-center px-6 py-4 rounded-xl font-bold text-white shadow-lg transition-all duration-200 flex items-center justify-center gap-2 ${
+                      navData.ctaButton.style === 'blue'
+                        ? 'bg-blue-600 hover:bg-blue-700'
+                        : navData.ctaButton.style === 'orange'
+                        ? 'bg-orange-500 hover:bg-orange-600'
+                        : 'bg-black hover:bg-gray-900'
+                    }`}
                   >
-                    {/* Gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600" />
-                    
-                    {/* Animated overlay */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500"
-                      animate={{
-                        x: ['-100%', '100%'],
-                      }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                    />
-                    
-                    <span className="relative z-10 text-white flex items-center justify-center gap-2">
-                      <Sparkles className="w-5 h-5" />
-                      Démarrer mon projet
-                    </span>
-                  </Link>
-                </motion.div>
+                    <Sparkles className="w-5 h-5" />
+                    {navData.ctaButton.text}
+                  </button>
+                </div>
 
                 {/* Decorative bottom text */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                  className="pt-8 text-center"
-                >
+                <div className="pt-8 text-center">
                   <p className="text-sm text-gray-500 font-inter">
                     Transformez votre avenir avec nous ✨
                   </p>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      {/* Registration Modal */}
+      <QuickRegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   )
 }

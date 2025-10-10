@@ -224,16 +224,16 @@ export function Step1PersonalInfo({ defaultValues, onNext }: Step1PersonalInfoPr
               onValueChange={(value) => setValue('country', value)}
               defaultValue={defaultValues?.country}
             >
-              <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 ${
-                errors.country 
-                  ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50' 
+              <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 bg-white ${
+                errors.country
+                  ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50'
                   : 'focus:ring-2 focus:ring-[#26a5de]/20 focus:border-[#26a5de] hover:border-[#26a5de]/60'
               }`}>
                 <SelectValue placeholder="Sélectionnez votre pays" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white max-h-[300px]">
                 {COUNTRIES.map((country) => (
-                  <SelectItem key={country} value={country}>
+                  <SelectItem key={country} value={country} className="bg-white hover:bg-gray-100 cursor-pointer">
                     {country}
                   </SelectItem>
                 ))}
@@ -263,16 +263,16 @@ export function Step1PersonalInfo({ defaultValues, onNext }: Step1PersonalInfoPr
             onValueChange={(value) => setValue('nationality', value)}
             defaultValue={defaultValues?.nationality}
           >
-            <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 ${
-              errors.nationality 
-                ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50' 
+            <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 bg-white ${
+              errors.nationality
+                ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50'
                 : 'focus:ring-2 focus:ring-[#26a5de]/20 focus:border-[#26a5de] hover:border-[#26a5de]/60'
             }`}>
               <SelectValue placeholder="Sélectionnez votre nationalité" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white max-h-[300px]">
               {COUNTRIES.map((country) => (
-                <SelectItem key={country} value={country}>
+                <SelectItem key={country} value={country} className="bg-white hover:bg-gray-100 cursor-pointer">
                   {country}
                 </SelectItem>
               ))}

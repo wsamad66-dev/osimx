@@ -351,6 +351,22 @@
   backface-visibility: hidden;
 }
 
+/* Animation pulse subtile pour CTA */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Reduce motion for accessibility and performance */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -359,5 +375,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  .animate-pulse-subtle {
+    animation: none !important;
   }
 }

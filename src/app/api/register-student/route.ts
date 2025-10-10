@@ -67,21 +67,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate documents
-    if (!step3.documents || step3.documents.length === 0) {
-      return NextResponse.json(
-        { error: 'Au moins un document est requis' },
-        { status: 400 }
+    // Validate documents (optional for quick registration)
+    const hasDocuments = step3.documents && step3.documents.length > 0
+    
+    // If documents are provided, validate they are properly uploaded
+    if (hasDocuments) {
+      const allDocumentsUploaded = step3.documents.every((doc: any) => 
+        doc.assetId && doc.assetId !== 'temp-placeholder'
       )
-    }
-
-    // Validate that all documents have assetId (uploaded successfully)
-    const allDocumentsUploaded = step3.documents.every((doc: any) => doc.assetId)
-    if (!allDocumentsUploaded) {
-      return NextResponse.json(
-        { error: 'Tous les documents doivent être téléchargés avec succès' },
-        { status: 400 }
-      )
+      if (!allDocumentsUploaded) {
+        return NextResponse.json(
+          { error: 'Tous les documents doivent être téléchargés avec succès' },
+          { status: 400 }
+        )
+      }
     }
 
     // ===================================
@@ -117,20 +116,24 @@ export async function POST(request: NextRequest) {
     // 5. PREPARE DOCUMENTS WITH SANITY REFERENCES
     // ===================================
     console.log('📎 Preparing document references...')
-    const documentsWithReferences = step3.documents.map((doc: any) => ({
-      _type: 'object',
-      file: {
-        _type: 'file',
-        asset: {
-          _type: 'reference',
-          _ref: doc.assetId, // Reference to uploaded Sanity asset
-        },
-      },
-      name: doc.name,
-      mimeType: doc.type,
-      size: doc.size,
-      uploadedAt: new Date().toISOString(),
-    }))
+    const documentsWithReferences = hasDocuments 
+      ? step3.documents
+          .filter((doc: any) => doc.assetId && doc.assetId !== 'temp-placeholder')
+          .map((doc: any) => ({
+            _type: 'object',
+            file: {
+              _type: 'file',
+              asset: {
+                _type: 'reference',
+                _ref: doc.assetId, // Reference to uploaded Sanity asset
+              },
+            },
+            name: doc.name,
+            mimeType: doc.type,
+            size: doc.size,
+            uploadedAt: new Date().toISOString(),
+          }))
+      : [] // Empty array for quick registration without documents
 
     // ===================================
     // 6. CREATE STUDENT DOCUMENT IN SANITY

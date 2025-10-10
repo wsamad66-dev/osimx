@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Award, Users, Globe, Target, TrendingUp, Building2, CheckCircle, Star } from 'lucide-react'
 import { useAnimatedCounter, usePercentageCounter, usePlusCounter } from '@/hooks/useAnimatedCounter'
 import { useScrollReveal, fadeUpVariants } from '@/hooks/useScrollReveal'
+import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
 
 interface StatCardProps {
   icon: React.ElementType
@@ -106,6 +107,7 @@ function StatCard({
 
 export function AnimatedStatsSection() {
   const { ref, variants } = useScrollReveal({ threshold: 0.2 })
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const stats = [
     {
@@ -263,7 +265,7 @@ export function AnimatedStatsSection() {
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => setIsModalOpen(true)}
             role="button"
             tabIndex={0}
             aria-label="Rejoindre nos étudiants"
@@ -279,6 +281,11 @@ export function AnimatedStatsSection() {
           </div>
         </motion.div>
       </div>
+
+      <QuickRegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   )
 }

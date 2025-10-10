@@ -66,16 +66,16 @@ export function Step2EducationInfo({ defaultValues, onNext, onBack }: Step2Educa
             onValueChange={(value) => setValue('educationLevel', value as any)}
             defaultValue={defaultValues?.educationLevel}
           >
-            <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 ${
-              errors.educationLevel 
-                ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50' 
+            <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 bg-white ${
+              errors.educationLevel
+                ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50'
                 : 'focus:ring-2 focus:ring-[#26a5de]/20 focus:border-[#26a5de] hover:border-[#26a5de]/60'
             }`}>
               <SelectValue placeholder="Sélectionnez votre niveau" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white max-h-[300px]">
               {EDUCATION_LEVELS.map((level) => (
-                <SelectItem key={level.value} value={level.value}>
+                <SelectItem key={level.value} value={level.value} className="bg-white hover:bg-gray-100 cursor-pointer">
                   {level.label}
                 </SelectItem>
               ))}
@@ -139,27 +139,27 @@ export function Step2EducationInfo({ defaultValues, onNext, onBack }: Step2Educa
             onValueChange={(value) => setValue('intendedCountry', value)}
             defaultValue={defaultValues?.intendedCountry}
           >
-            <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 ${
-              errors.intendedCountry 
-                ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50' 
+            <SelectTrigger className={`h-12 pl-10 text-base transition-all duration-200 bg-white ${
+              errors.intendedCountry
+                ? 'border-red-500 focus:ring-red-500/20 bg-red-50/50'
                 : 'focus:ring-2 focus:ring-[#26a5de]/20 focus:border-[#26a5de] hover:border-[#26a5de]/60'
             }`}>
               <SelectValue placeholder="Où souhaitez-vous étudier ?" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white max-h-[300px]">
               {/* Popular destinations first */}
-              <SelectItem value="Canada">🇨🇦 Canada</SelectItem>
-              <SelectItem value="France">🇫🇷 France</SelectItem>
-              <SelectItem value="États-Unis">🇺🇸 États-Unis</SelectItem>
-              <SelectItem value="Royaume-Uni">🇬🇧 Royaume-Uni</SelectItem>
-              <SelectItem value="Allemagne">🇩🇪 Allemagne</SelectItem>
-              <SelectItem value="Australie">🇦🇺 Australie</SelectItem>
-              <SelectItem value="__divider__" disabled>
+              <SelectItem value="Canada" className="bg-white hover:bg-gray-100 cursor-pointer">🇨🇦 Canada</SelectItem>
+              <SelectItem value="France" className="bg-white hover:bg-gray-100 cursor-pointer">🇫🇷 France</SelectItem>
+              <SelectItem value="États-Unis" className="bg-white hover:bg-gray-100 cursor-pointer">🇺🇸 États-Unis</SelectItem>
+              <SelectItem value="Royaume-Uni" className="bg-white hover:bg-gray-100 cursor-pointer">🇬🇧 Royaume-Uni</SelectItem>
+              <SelectItem value="Allemagne" className="bg-white hover:bg-gray-100 cursor-pointer">🇩🇪 Allemagne</SelectItem>
+              <SelectItem value="Australie" className="bg-white hover:bg-gray-100 cursor-pointer">🇦🇺 Australie</SelectItem>
+              <SelectItem value="__divider__" disabled className="bg-gray-100">
                 ──────────────
               </SelectItem>
               {/* All countries */}
             {COUNTRIES.map((country) => (
-              <SelectItem key={country} value={country}>
+              <SelectItem key={country} value={country} className="bg-white hover:bg-gray-100 cursor-pointer">
                 {country}
               </SelectItem>
             ))}

@@ -1,7 +1,8 @@
 'use client'
 
-import Link from 'next/link'
+import { useState } from 'react'
 import { Compass, FileText, Plane, Package, Check } from 'lucide-react'
+import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
 
 const services = [
   {
@@ -55,6 +56,8 @@ const services = [
 ]
 
 export function PremiumServicesSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
@@ -143,8 +146,8 @@ export function PremiumServicesSection() {
               </div>
 
               {/* CTA Button */}
-              <Link
-                href="/contact"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className={`block w-full py-3 rounded-xl font-semibold text-center transition-all duration-300 ${
                   service.popular
                     ? 'bg-white text-indigo-600 hover:bg-indigo-50'
@@ -152,7 +155,7 @@ export function PremiumServicesSection() {
                 }`}
               >
                 Choisir ce pack
-              </Link>
+              </button>
             </div>
           ))}
         </div>
@@ -162,6 +165,11 @@ export function PremiumServicesSection() {
           �� Tous nos packs incluent un suivi personnalisé et une garantie de satisfaction
         </p>
       </div>
+
+      <QuickRegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   )
 }

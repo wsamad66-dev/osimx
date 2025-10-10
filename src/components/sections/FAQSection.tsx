@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Accordion,
@@ -8,6 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { MessageCircle, Clock, Euro, Award, GraduationCap, FileCheck, Home, CreditCard, MapPin, Shield, HelpCircle } from 'lucide-react'
+import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
 
 // Categorized FAQs with icons for better UX
 const faqCategories = [
@@ -107,9 +109,7 @@ const faqCategories = [
 const allFaqs = faqCategories.flatMap(cat => cat.faqs)
 
 export function FAQSection() {
-  const scrollToContact = () => {
-    window.location.href = '/contact'
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <section id="faq" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
@@ -205,7 +205,7 @@ export function FAQSection() {
             </p>
 
             <Button
-              onClick={scrollToContact}
+              onClick={() => setIsModalOpen(true)}
               size="lg"
               className="bg-brand-orange hover:bg-brand-orange-dark text-white font-bold px-8 py-6 rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
             >
@@ -237,6 +237,11 @@ export function FAQSection() {
             }))
           })
         }}
+      />
+
+      <QuickRegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
       />
     </section>
   )

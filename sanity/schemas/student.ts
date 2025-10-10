@@ -232,14 +232,16 @@ export default defineType({
       status: 'status',
       registeredAt: 'registeredAt',
     },
-    prepare({ firstName, lastName, email, status, registeredAt }) {
-      const statusEmoji = {
+    prepare(selection: any) {
+      const { firstName, lastName, email, status, registeredAt } = selection
+      const statusMap: Record<string, string> = {
         pending: '📝',
         approved: '✅',
         'in-review': '🔄',
         rejected: '❌',
         'on-hold': '⏸️',
-      }[status] || '📝'
+      }
+      const statusEmoji = statusMap[status] || '📝'
 
       return {
         title: `${firstName} ${lastName}`,

@@ -2,15 +2,16 @@
 
 import { NextStudio } from 'next-sanity/studio'
 import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
+import { deskTool } from 'sanity/desk'
 import { visionTool } from '@sanity/vision'
 
 // Import schemas
-import hero from '../../../../sanity/schemas/hero'
-import student from '../../../../sanity/schemas/student'
-import studentDocument from '../../../../sanity/schemas/studentDocument'
+import hero from '../../../../../sanity/schemas/hero'
+import student from '../../../../../sanity/schemas/student'
+import studentDocument from '../../../../../sanity/schemas/studentDocument'
+import navigation from '../../../../../sanity/schemas/navigation'
 
-const schemaTypes = [hero, student, studentDocument]
+const schemaTypes = [hero, student, studentDocument, navigation]
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ''
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
@@ -28,7 +29,7 @@ const config = defineConfig({
   dataset,
   
   plugins: [
-    structureTool(),
+    deskTool(),
     visionTool(),
   ],
   

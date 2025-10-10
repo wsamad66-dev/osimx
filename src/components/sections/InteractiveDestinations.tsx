@@ -13,19 +13,18 @@ export function InteractiveDestinations() {
   const { ref, variants } = useScrollReveal({ threshold: 0.2 })
 
   return (
-    <section className="relative py-20 md:py-32 bg-gradient-to-br from-white via-blue-50/20 to-purple-50/20 overflow-hidden">
-      {/* Background Elements */}
+    <section className="relative py-20 md:py-32 overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          animate={{ x: [-100, 100], y: [-50, 50] }}
-          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
-          className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-transparent rounded-full blur-3xl"
+        <Image
+          src="/images/destinations-background.png"
+          alt="Background"
+          fill
+          className="object-cover opacity-15"
+          priority={false}
+          sizes="100vw"
         />
-        <motion.div
-          animate={{ x: [100, -100], y: [50, -50] }}
-          transition={{ duration: 25, repeat: Infinity, repeatType: "reverse" }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-transparent rounded-full blur-3xl"
-        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/92 to-white/85" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -48,24 +47,24 @@ export function InteractiveDestinations() {
             </span>
           </motion.div>
 
-          <motion.h2 
+          <motion.h2
             variants={fadeUpVariants}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6"
           >
-            Choisissez votre destination de{' '}
+            Votre avenir commence par le{' '}
             <span className="relative inline-block">
               <span className="relative z-10 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">
-                rêve
+                bon choix
               </span>
               <span className="absolute bottom-2 left-0 right-0 h-4 bg-orange-400/30 blur-sm -z-10" />
             </span>
           </motion.h2>
 
-          <motion.p 
+          <motion.p
             variants={fadeUpVariants}
             className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Explorez nos destinations phares et découvrez celle qui correspond le mieux à vos ambitions
+            Découvrez les meilleures destinations académiques au monde et transformez vos ambitions en réalité
           </motion.p>
         </motion.div>
 
@@ -136,7 +135,7 @@ export function InteractiveDestinations() {
               className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
             >
               {/* Image Header with Stats Overlay */}
-              <div className="relative h-80 sm:h-96 overflow-hidden">
+              <div className="relative h-64 sm:h-72 overflow-hidden">
                 <motion.div
                   initial={{ scale: 1.2 }}
                   animate={{ scale: 1 }}
