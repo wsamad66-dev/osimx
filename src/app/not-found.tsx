@@ -1,4 +1,5 @@
 'use client'
+<<<<<<< Updated upstream
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -86,6 +87,41 @@ export default function NotFound() {
           <span>Contact@etudiantetranger.com</span>
         </div>
       </footer>
+=======
+import Link from 'next/link'
+import { ArrowLeft, Home } from 'lucide-react'
+
+export default function NotFound() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4">
+      <div className="text-center">
+        <h1 className="font-display text-9xl font-bold text-royal-blue">404</h1>
+        <h2 className="mt-4 font-display text-3xl font-bold text-gray-900">
+          Page non trouvée
+        </h2>
+        <p className="mt-4 text-lg text-gray-600">
+          Désolé, la page que vous recherchez n'existe pas.
+        </p>
+
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-vivid-blue to-purple-600 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:shadow-xl"
+          >
+            <Home className="h-5 w-5" />
+            Retour à l'accueil
+          </Link>
+
+          <button
+            onClick={() => window.history.back()}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-gray-300 bg-white px-6 py-3 font-semibold text-gray-700 transition-all hover:border-vivid-blue hover:bg-blue-50"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            Page précédente
+          </button>
+        </div>
+      </div>
+>>>>>>> Stashed changes
     </div>
   )
 }
