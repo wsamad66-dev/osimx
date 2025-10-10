@@ -45,3 +45,8 @@ coverage/
 *.swp
 *.swo
 *~
+
+# Large files
+*.tar.gz
+*.glb
+public/models/**/*.glb
