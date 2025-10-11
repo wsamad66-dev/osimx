@@ -2,7 +2,7 @@
 
 import { NextStudio } from 'next-sanity/studio'
 import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
+import { deskTool } from 'sanity/desk'
 import { visionTool } from '@sanity/vision'
 
 // Import schemas
@@ -29,7 +29,7 @@ const config = defineConfig({
   dataset,
 
   plugins: [
-    structureTool(),
+    deskTool(),
     visionTool(),
   ],
   

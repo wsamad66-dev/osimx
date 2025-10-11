@@ -1,6 +1,5 @@
 'use client'
 
-import type { Metadata } from 'next'
 import { useState } from 'react'
 import { NewHeroSection } from '@/components/hero/NewHeroSection'
 import { TrustSection } from '@/components/sections/TrustSection'
@@ -13,7 +12,7 @@ import { FinalCTASection } from '@/components/sections/FinalCTASection'
 import { motion } from 'framer-motion'
 import { ArrowRight, BookOpen, Users, Award } from 'lucide-react'
 
-export default function HomePage() {
+export default function NewHomePage() {
   const [isQuizOpen, setIsQuizOpen] = useState(false)
 
   const stats = [
@@ -43,8 +42,8 @@ export default function HomePage() {
       <UrgencyBanners />
 
       {/* Hero Section */}
-      <NewHeroSection
-        onOpenQuiz={() => setIsQuizOpen(true)}
+      <NewHeroSection 
+        onOpenQuiz={() => setIsQuizOpen(true)} 
         onContactClick={() => window.location.href = '/contact'}
       />
 
