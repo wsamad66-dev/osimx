@@ -15,7 +15,9 @@ export interface HomepageCTA {
 }
 
 export interface HomepagePartner {
+  id: number
   name: string
-  logo: string
-  url?: string
+  url: string
+  logoUrl: string
+  logoAlt: string
 }
