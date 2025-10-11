@@ -49,27 +49,27 @@ export function InteractiveDestinations() {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 px-4 sm:px-0"
           >
             Votre avenir commence par le{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">
+              <span className="relative z-10 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 bg-clip-text text-transparent">
                 bon choix
               </span>
-              <span className="absolute bottom-2 left-0 right-0 h-4 bg-orange-400/30 blur-sm -z-10" />
+              <span className="absolute bottom-1 sm:bottom-2 left-0 right-0 h-3 sm:h-4 bg-orange-400/30 blur-sm -z-10" />
             </span>
           </motion.h2>
 
           <motion.p
             variants={fadeUpVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
           >
             Découvrez les meilleures destinations académiques au monde et transformez vos ambitions en réalité
           </motion.p>
         </motion.div>
 
         {/* Interactive Layout */}
-        <div className="grid lg:grid-cols-[350px_1fr] gap-8 items-start">
+        <div className="grid lg:grid-cols-[350px_1fr] gap-6 md:gap-8 items-start">
           {/* Left: Country Selector Cards */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -88,7 +88,7 @@ export function InteractiveDestinations() {
                 transition={{ delay: index * 0.1, duration: 0.4 }}
                 whileHover={{ x: 8, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full text-left p-5 rounded-2xl border-2 transition-all duration-300 group ${
+                className={`w-full text-left p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 group ${
                   selectedCountryId === country.id
                     ? 'bg-white border-blue-500 shadow-xl shadow-blue-500/20'
                     : 'bg-white/70 backdrop-blur-sm border-gray-200 hover:border-blue-300 hover:shadow-lg'
@@ -96,17 +96,17 @@ export function InteractiveDestinations() {
                 aria-label={`Sélectionner ${country.name}`}
                 aria-pressed={selectedCountryId === country.id}
               >
-                <div className="flex items-center gap-4">
-                  <div className="text-5xl group-hover:scale-110 transition-transform duration-300">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-300">
                     {country.flag}
                   </div>
-                  <div className="flex-1">
-                    <h3 className={`font-bold text-lg mb-1 ${
+                  <div className="flex-1 min-w-0">
+                    <h3 className={`font-bold text-base sm:text-lg mb-1 ${
                       selectedCountryId === country.id ? 'text-blue-700' : 'text-gray-900'
                     }`}>
                       {country.name}
                     </h3>
-                    <p className="text-sm text-gray-600 line-clamp-1">{country.tagline}</p>
+                    <p className="text-xs sm:text-sm text-gray-600 line-clamp-1">{country.tagline}</p>
                   </div>
                   {selectedCountryId === country.id ? (
                     <motion.div
@@ -154,12 +154,12 @@ export function InteractiveDestinations() {
                 </motion.div>
 
                 {/* Country name overlay */}
-                <div className="absolute top-6 left-6">
+                <div className="absolute top-4 sm:top-6 left-4 sm:left-6">
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-6xl sm:text-7xl mb-2"
+                    className="text-5xl sm:text-6xl md:text-7xl mb-2"
                   >
                     {selectedCountry.flag}
                   </motion.div>
@@ -167,14 +167,14 @@ export function InteractiveDestinations() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg"
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-lg"
                   >
                     Étudier {selectedCountry.name === 'Canada' || selectedCountry.name === 'Chine' ? 'au' : 'en'} {selectedCountry.name}
                   </motion.h3>
                 </div>
 
                 {/* Floating Stats Cards */}
-                <div className="absolute bottom-6 left-6 right-6 grid grid-cols-3 gap-3">
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 grid grid-cols-3 gap-2 sm:gap-3">
                   {[
                     { icon: Users, value: selectedCountry.students, label: 'Étudiants', delay: 0.2 },
                     { icon: Building2, value: selectedCountry.universities, label: 'Universités', delay: 0.3 },
@@ -185,11 +185,11 @@ export function InteractiveDestinations() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: stat.delay }}
-                      className="bg-white/95 backdrop-blur-sm rounded-xl p-3 text-center"
+                      className="bg-white/95 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-3 text-center"
                     >
-                      <stat.icon className="w-5 h-5 text-blue-600 mx-auto mb-1" />
-                      <div className="text-lg font-bold text-gray-900">{stat.value}</div>
-                      <div className="text-xs text-gray-600">{stat.label}</div>
+                      <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mx-auto mb-1" />
+                      <div className="text-base sm:text-lg font-bold text-gray-900">{stat.value}</div>
+                      <div className="text-[10px] sm:text-xs text-gray-600">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>
