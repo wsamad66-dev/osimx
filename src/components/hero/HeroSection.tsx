@@ -26,10 +26,10 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
   }
 
   return (
-    <section className="relative bg-gray-50 pt-32 pb-20 overflow-hidden">
+    <section className="relative bg-gray-50 pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden">
       {/* Content */}
-      <div className="container mx-auto px-6 lg:px-16">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-16">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left column: Text content */}
           <div className="max-w-2xl">
             {/* Urgency Badge */}
@@ -52,7 +52,7 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-6xl lg:text-7xl font-bold mb-8 leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 leading-tight"
             >
               <PortableTextRenderer
                 value={heroData.headline}
@@ -66,7 +66,7 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-xl mb-10 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl mb-8 sm:mb-10 leading-relaxed"
             >
               <PortableTextRenderer
                 value={heroData.subheadline}
@@ -80,11 +80,11 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="mb-16"
+              className="mb-10 sm:mb-12 md:mb-16"
             >
               <Button
                 onClick={handleRegister}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-10 py-7 text-lg rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-7 text-sm sm:text-base md:text-lg rounded-lg sm:rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 🚀 Commencer mon projet gratuitement
               </Button>
@@ -96,31 +96,31 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="flex items-center gap-4"
+              className="flex items-center gap-3 sm:gap-4"
             >
               {/* Avatars */}
               <div className="flex -space-x-2">
                 <img
                   src="https://i.pravatar.cc/150?img=1"
                   alt="User"
-                  className="w-12 h-12 rounded-full border-2 border-white"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
                 />
                 <img
                   src="https://i.pravatar.cc/150?img=2"
                   alt="User"
-                  className="w-12 h-12 rounded-full border-2 border-white"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
                 />
                 <img
                   src="https://i.pravatar.cc/150?img=3"
                   alt="User"
-                  className="w-12 h-12 rounded-full border-2 border-white"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
                 />
-                <div className="w-12 h-12 rounded-full bg-black border-2 border-white flex items-center justify-center">
-                  <span className="text-white text-xs font-semibold">10k+</span>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black border-2 border-white flex items-center justify-center">
+                  <span className="text-white text-[10px] sm:text-xs font-semibold">10k+</span>
                 </div>
               </div>
               {/* Text */}
-              <p className="text-gray-700 text-base">
+              <p className="text-gray-700 text-sm sm:text-base">
                 10,000+ étudiants déjà accompagnés
               </p>
             </motion.div>
