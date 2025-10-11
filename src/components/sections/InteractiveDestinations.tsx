@@ -132,10 +132,10 @@ export function InteractiveDestinations() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -30, scale: 0.98 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
+              className="bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl overflow-hidden border border-gray-200"
             >
               {/* Image Header with Stats Overlay */}
-              <div className="relative h-64 sm:h-72 overflow-hidden">
+              <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
                 <motion.div
                   initial={{ scale: 1.2 }}
                   animate={{ scale: 1 }}
@@ -196,17 +196,17 @@ export function InteractiveDestinations() {
               </div>
 
               {/* Content Section */}
-              <div className="p-6 sm:p-8">
+              <div className="p-4 sm:p-6 md:p-8">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="mb-6"
+                  className="mb-4 sm:mb-6"
                 >
-                  <h4 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+                  <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
                     {selectedCountry.tagline}
                   </h4>
-                  <p className="text-gray-700 leading-relaxed text-lg">
+                  <p className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg">
                     {selectedCountry.description}
                   </p>
                 </motion.div>
@@ -216,7 +216,7 @@ export function InteractiveDestinations() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="grid sm:grid-cols-2 gap-3 mb-8"
+                  className="grid sm:grid-cols-2 gap-2 sm:gap-3 mb-6 sm:mb-8"
                 >
                   {selectedCountry.highlights.map((highlight, i) => (
                     <motion.div
@@ -224,10 +224,10 @@ export function InteractiveDestinations() {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.5 + i * 0.05 }}
-                      className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors duration-200"
+                      className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors duration-200"
                     >
-                      <Check className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">{highlight}</span>
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-gray-700">{highlight}</span>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -240,11 +240,11 @@ export function InteractiveDestinations() {
                 >
                   <Link
                     href={selectedCountry.ctaLink}
-                    className="group inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    className="group inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                     aria-label={selectedCountry.ctaText}
                   >
                     <span>{selectedCountry.ctaText}</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
               </div>
