@@ -13,3 +13,9 @@ export interface HomepageCTA {
   }
   whatsappNumber?: string
 }
+
+export interface HomepagePartner {
+  name: string
+  logo: string
+  url?: string
+}
