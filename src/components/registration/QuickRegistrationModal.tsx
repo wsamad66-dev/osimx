@@ -106,13 +106,13 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg p-0 bg-gray-50 border-0 shadow-2xl overflow-hidden rounded-3xl">
+      <DialogContent className="max-w-lg p-0 bg-gray-50 border-0 shadow-2xl overflow-hidden rounded-2xl sm:rounded-3xl max-h-[90vh] overflow-y-auto">
         {/* Success State */}
         {isSuccess ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="p-10 text-center bg-white"
+            className="p-6 sm:p-10 text-center bg-white"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -140,29 +140,29 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         ) : (
           <>
             {/* Formulaire */}
-            <form onSubmit={handleSubmit(onSubmit)} className="p-10 space-y-6 bg-white">
+            <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 md:p-10 space-y-4 sm:space-y-6 bg-white">
               {/* Title */}
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              <div className="text-center mb-4 sm:mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
                   Commencez gratuitement
                 </h2>
-                <p className="text-lg text-gray-600">
+                <p className="text-base sm:text-lg text-gray-600">
                   Remplissez ces informations pour votre consultation gratuite
                 </p>
               </div>
 
               {/* Nom complet */}
               <div className="space-y-2">
-                <Label htmlFor="fullName" className="text-base font-medium text-gray-700">
+                <Label htmlFor="fullName" className="text-sm sm:text-base font-medium text-gray-700">
                   Nom complet <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <User className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <Input
                     id="fullName"
                     {...register('fullName')}
                     placeholder="Jean Dupont"
-                    className={`h-14 pl-12 text-base bg-white border-gray-200 rounded-xl ${
+                    className={`h-12 sm:h-14 pl-10 sm:pl-12 text-sm sm:text-base bg-white border-gray-200 rounded-xl ${
                       errors.fullName
                         ? 'border-red-500 focus:ring-red-500/20'
                         : 'focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500'
@@ -183,17 +183,17 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
 
               {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-base font-medium text-gray-700">
+                <Label htmlFor="email" className="text-sm sm:text-base font-medium text-gray-700">
                   Email <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
                     {...register('email')}
                     placeholder="jean.dupont@example.com"
-                    className={`h-14 pl-12 text-base bg-white border-gray-200 rounded-xl ${
+                    className={`h-12 sm:h-14 pl-10 sm:pl-12 text-sm sm:text-base bg-white border-gray-200 rounded-xl ${
                       errors.email
                         ? 'border-red-500 focus:ring-red-500/20'
                         : 'focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500'
@@ -214,17 +214,17 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
 
               {/* Téléphone */}
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-base font-medium text-gray-700">
+                <Label htmlFor="phone" className="text-sm sm:text-base font-medium text-gray-700">
                   WhatsApp / Téléphone <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Phone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <Input
                     id="phone"
                     type="tel"
                     {...register('phone')}
                     placeholder="+221 77 123 45 67"
-                    className={`h-14 pl-12 text-base bg-white border-gray-200 rounded-xl ${
+                    className={`h-12 sm:h-14 pl-10 sm:pl-12 text-sm sm:text-base bg-white border-gray-200 rounded-xl ${
                       errors.phone
                         ? 'border-red-500 focus:ring-red-500/20'
                         : 'focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500'
@@ -252,34 +252,37 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-14 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+                className="w-full h-12 sm:h-14 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin" />
                     Envoi en cours...
                   </>
                 ) : (
-                  'Obtenir ma consultation gratuite'
+                  <span className="block sm:hidden">Ma consultation gratuite</span>
+                )}
+                {!isSubmitting && (
+                  <span className="hidden sm:block">Obtenir ma consultation gratuite</span>
                 )}
               </Button>
 
               {/* Trust indicators */}
-              <div className="flex items-center justify-center gap-6 pt-4 text-sm text-gray-500">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 pt-3 sm:pt-4 text-xs sm:text-sm text-gray-500">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
                   <span>Réponse sous 2h</span>
                 </div>
-                <div className="w-1 h-1 rounded-full bg-gray-300" />
+                <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-300" />
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
                   <span>100% Gratuit</span>
                 </div>
               </div>
 
               {/* Social proof */}
               <div className="text-center pt-2 border-t border-gray-100">
-                <p className="text-sm text-gray-600 mt-4">
+                <p className="text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4">
                   <span className="font-semibold text-blue-600">3,500+</span> étudiants déjà accompagnés
                 </p>
               </div>
