@@ -76,8 +76,13 @@ export function InteractiveDestinations() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-3"
+            className="lg:space-y-3 overflow-x-auto lg:overflow-x-visible -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 lg:pb-0 snap-x snap-mandatory scrollbar-hide"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
           >
+            <div className="flex lg:flex-col gap-3 min-w-max lg:min-w-0">
             {countries.map((country, index) => (
               <motion.button
                 key={country.id}
@@ -88,7 +93,7 @@ export function InteractiveDestinations() {
                 transition={{ delay: index * 0.1, duration: 0.4 }}
                 whileHover={{ x: 8, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full text-left p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 group ${
+                className={`w-[280px] lg:w-full text-left p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all duration-300 group snap-center ${
                   selectedCountryId === country.id
                     ? 'bg-white border-blue-500 shadow-xl shadow-blue-500/20'
                     : 'bg-white/70 backdrop-blur-sm border-gray-200 hover:border-blue-300 hover:shadow-lg'
@@ -122,6 +127,7 @@ export function InteractiveDestinations() {
                 </div>
               </motion.button>
             ))}
+            </div>
           </motion.div>
 
           {/* Right: Dynamic Content Panel */}
