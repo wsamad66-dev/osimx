@@ -37,9 +37,9 @@ const destinations = [
 ]
 
 const legalLinks = [
-  { label: 'Mentions légales', href: '/legal/mentions' },
-  { label: 'Politique de confidentialité', href: '/legal/privacy' },
-  { label: 'Conditions d\'utilisation', href: '/legal/terms' },
+  { label: 'Mentions légales', href: '/mentions-legales' },
+  { label: 'Politique de confidentialité', href: '/politique-confidentialite' },
+  { label: 'Conditions d\'utilisation', href: '/conditions-utilisation' },
 ]
 
 const socialLinks = [
