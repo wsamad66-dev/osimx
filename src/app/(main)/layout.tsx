@@ -1,30 +1,29 @@
-'use client'
+import { client, isSanityConfigured } from '@/lib/sanity/client'
+import { NAVIGATION_QUERY } from '@/lib/sanity-queries'
+import type { NavigationContent } from '@/lib/sanity-queries'
+import { ConditionalLayout } from '@/components/layout/ConditionalLayout'
 
-import { usePathname } from 'next/navigation'
-import { EnhancedNavigationServer } from '@/components/layout/EnhancedNavigationServer'
-import { EnhancedFooter } from '@/components/layout/EnhancedFooter'
-
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname()
+  // Fetch navigation data from Sanity
+  let navigationData: NavigationContent | null = null
 
-  // Pages légales sans header ni footer
-  const isLegalPage = pathname?.startsWith('/mentions-legales') ||
-                      pathname?.startsWith('/politique-confidentialite') ||
-                      pathname?.startsWith('/conditions-utilisation')
-
-  if (isLegalPage) {
-    return <>{children}</>
+  if (isSanityConfigured && client) {
+    try {
+      navigationData = await client.fetch<NavigationContent>(NAVIGATION_QUERY, {
+        next: { revalidate: 60 },
+      })
+    } catch (error) {
+      console.error('Error fetching navigation from Sanity:', error)
+    }
   }
 
   return (
-    <>
-      <EnhancedNavigationServer />
+    <ConditionalLayout navigationData={navigationData}>
       {children}
-      <EnhancedFooter />
-    </>
+    </ConditionalLayout>
   )
 }
