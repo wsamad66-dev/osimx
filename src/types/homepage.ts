@@ -21,3 +21,15 @@ export interface HomepagePartner {
   logoUrl: string
   logoAlt: string
 }
+
+export interface HomepageTestimonial {
+  id: number
+  studentName: string
+  quote: string
+  rating: number
+  country: string
+  destination: string
+  program: string
+  year: number
+  avatarUrl: string
+}
