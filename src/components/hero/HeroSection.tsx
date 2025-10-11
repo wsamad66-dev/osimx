@@ -8,6 +8,7 @@ import { BenefitBadge } from './BenefitBadge'
 import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
 import { PortableTextRenderer } from './PortableTextRenderer'
 import type { HeroContent } from '@/lib/sanity-queries'
+import { STATS } from '@/config/stats'
 
 interface HeroSectionProps {
   heroData: HeroContent
@@ -116,12 +117,12 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
                 />
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black border-2 border-white flex items-center justify-center">
-                  <span className="text-white text-[10px] sm:text-xs font-semibold">10k+</span>
+                  <span className="text-white text-[10px] sm:text-xs font-semibold">{heroData.studentsCount || STATS.studentsHelped}</span>
                 </div>
               </div>
               {/* Text */}
               <p className="text-gray-700 text-sm sm:text-base">
-                10,000+ étudiants déjà accompagnés
+                {heroData.studentsCount || STATS.studentsHelped} {heroData.studentsCountText || STATS.studentsHelpedText}
               </p>
             </motion.div>
           </div>

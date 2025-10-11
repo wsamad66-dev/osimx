@@ -10,6 +10,7 @@ import { Loader2, X, CheckCircle2, Sparkles, User, Mail, Phone } from 'lucide-re
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { STATS } from '@/config/stats'
 
 const quickRegistrationSchema = z.object({
   fullName: z.string().min(2, "Nom trop court"),
@@ -283,7 +284,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
               {/* Social proof */}
               <div className="text-center pt-2 border-t border-gray-100">
                 <p className="text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4">
-                  <span className="font-semibold text-blue-600">3,500+</span> étudiants déjà accompagnés
+                  <span className="font-semibold text-blue-600">{STATS.studentsHelped}</span> {STATS.studentsHelpedText}
                 </p>
               </div>
             </form>

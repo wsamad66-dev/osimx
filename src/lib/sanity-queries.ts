@@ -53,6 +53,8 @@ export interface HeroContent {
   headline: any[] // Portable Text
   subheadline: any[] // Portable Text
   urgencyBadge?: string
+  studentsCount?: string
+  studentsCountText?: string
   primaryCtaText: string
   secondaryCtaText?: string
   benefits: HeroBenefit[]
@@ -115,6 +117,8 @@ export const HERO_QUERY = `
     headline,
     subheadline,
     urgencyBadge,
+    studentsCount,
+    studentsCountText,
     primaryCtaText,
     secondaryCtaText,
     benefits[] {

@@ -100,6 +100,22 @@ export default defineType({
       initialValue: 'Promotion : 1ère consultation offerte (12 places)',
     }),
     defineField({
+      name: 'studentsCount',
+      title: 'Nombre d\'étudiants accompagnés',
+      type: 'string',
+      description: 'Nombre d\'étudiants (ex: "10,000+" ou "3,500+")',
+      initialValue: '10,000+',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'studentsCountText',
+      title: 'Texte du compteur d\'étudiants',
+      type: 'string',
+      description: 'Texte affiché après le nombre (ex: "étudiants déjà accompagnés")',
+      initialValue: 'étudiants déjà accompagnés',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'heroImage',
       title: 'Hero Background Image',
       type: 'image',
