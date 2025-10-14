@@ -6,7 +6,9 @@ import { Calendar, ArrowRight } from 'lucide-react'
 interface RelatedPost {
   _id: string
   title: string
-  slug: string
+  slug: {
+    current: string
+  }
   mainImage: {
     asset: {
       url: string
@@ -67,7 +69,7 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link href={`/blog/${post.slug}`} className="group block h-full">
+              <Link href={`/blog/${post.slug.current}`} className="group block h-full">
                 <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden bg-slate-100">
