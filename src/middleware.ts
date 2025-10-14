@@ -11,35 +11,41 @@ const isPublicRoute = createRouteMatcher([
   '/unauthorized',
 ])
 
-export default clerkMiddleware(async (auth, req) => {
-  // Always allow public routes
-  if (isPublicRoute(req)) {
-    return NextResponse.next()
-  }
+export default clerkMiddleware(
+  async (auth, req) => {
+    // Always allow public routes
+    if (isPublicRoute(req)) {
+      return NextResponse.next()
+    }
 
-  // Protect admin routes
-  if (isAdminRoute(req)) {
-    try {
-      const { userId } = await auth()
+    // Protect admin routes
+    if (isAdminRoute(req)) {
+      try {
+        const { userId } = await auth()
 
-      // Redirect to sign-in if not authenticated
-      if (!userId) {
+        // Redirect to sign-in if not authenticated
+        if (!userId) {
+          const signInUrl = new URL('/sign-in', req.url)
+          signInUrl.searchParams.set('redirect_url', req.url)
+          return NextResponse.redirect(signInUrl)
+        }
+
+        // Allow all authenticated users to access admin
+        // TODO: Add role checking after configuring JWT template in Clerk
+      } catch (error) {
+        // If auth fails, redirect to sign-in
         const signInUrl = new URL('/sign-in', req.url)
-        signInUrl.searchParams.set('redirect_url', req.url)
         return NextResponse.redirect(signInUrl)
       }
-
-      // Allow all authenticated users to access admin
-      // TODO: Add role checking after configuring JWT template in Clerk
-    } catch (error) {
-      // If auth fails, redirect to sign-in
-      const signInUrl = new URL('/sign-in', req.url)
-      return NextResponse.redirect(signInUrl)
     }
-  }
 
-  return NextResponse.next()
-})
+    return NextResponse.next()
+  },
+  {
+    // Make Clerk optional - won't fail if keys are invalid
+    publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+  }
+)
 
 export const config = {
   matcher: [
