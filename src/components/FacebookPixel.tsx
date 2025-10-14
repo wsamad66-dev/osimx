@@ -44,10 +44,15 @@ export default function FacebookPixel({ pixelId }: FacebookPixelProps) {
     if (typeof window === 'undefined' || (window as any).fbq) return
 
     // Initialize Facebook Pixel
+    // eslint-disable-next-line prefer-rest-params, prefer-spread, @typescript-eslint/no-unused-expressions
     ;(function(f: any, b: Document, e: string, v: string, n?: any, t?: any, s?: any) {
       if (f.fbq) return
-      n = f.fbq = function() {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      n = f.fbq = function(...args: any[]) {
+        if (n.callMethod) {
+          n.callMethod(...args)
+        } else {
+          n.queue.push(args)
+        }
       }
       if (!f._fbq) f._fbq = n
       n.push = n
