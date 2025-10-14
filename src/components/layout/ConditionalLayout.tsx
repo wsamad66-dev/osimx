@@ -24,7 +24,7 @@ export function ConditionalLayout({ children, navigationData }: ConditionalLayou
 
   return (
     <>
-      <EnhancedNavigation navigationData={navigationData} />
+      <EnhancedNavigation navigationData={navigationData || undefined} />
       {children}
       <EnhancedFooter />
     </>
