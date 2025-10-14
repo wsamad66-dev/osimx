@@ -13,9 +13,11 @@ export default async function MainLayout({
 
   if (isSanityConfigured && client) {
     try {
-      navigationData = await client.fetch<NavigationContent>(NAVIGATION_QUERY, {
-        next: { revalidate: 60 },
-      })
+      navigationData = await client.fetch<NavigationContent>(
+        NAVIGATION_QUERY,
+        {},
+        { next: { revalidate: 60 } }
+      )
     } catch (error) {
       console.error('Error fetching navigation from Sanity:', error)
     }
