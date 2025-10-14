@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Loader2, X, CheckCircle2, Sparkles, User, Mail, Phone } from 'lucide-react'
+import { Loader2, X, CheckCircle2, Sparkles, User, Mail, Phone, Calendar, Globe } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -16,6 +16,7 @@ const quickRegistrationSchema = z.object({
   fullName: z.string().min(2, "Nom trop court"),
   email: z.string().email("Email invalide"),
   phone: z.string().regex(/^\+?[0-9]{8,15}$/, "Numéro invalide (ex: +221771234567)"),
+  country: z.string().optional(),
 })
 
 type QuickRegistrationData = z.infer<typeof quickRegistrationSchema>
@@ -25,9 +26,26 @@ interface QuickRegistrationModalProps {
   onClose: () => void
 }
 
+  // Countries list
+  const countries = [
+    { value: 'FR', label: 'France', flag: '🇫🇷' },
+    { value: 'CA', label: 'Canada', flag: '🇨🇦' },
+    { value: 'US', label: 'États-Unis', flag: '🇺🇸' },
+    { value: 'GB', label: 'Royaume-Uni', flag: '🇬🇧' },
+    { value: 'DE', label: 'Allemagne', flag: '�🇪' },
+    { value: 'ES', label: 'Espagne', flag: '��' },
+    { value: 'IT', label: 'Italie', flag: '🇮🇹' },
+    { value: 'BE', label: 'Belgique', flag: '�🇪' },
+    { value: 'CH', label: 'Suisse', flag: '��' },
+    { value: 'MA', label: 'Maroc', flag: '��' },
+    { value: 'SN', label: 'Sénégal', flag: '�🇳' },
+    { value: 'CI', label: "Côte d'Ivoire", flag: '🇨🇮' },
+  ]
+
 export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [showZcalModal, setShowZcalModal] = useState(false)
 
   const {
     register,
@@ -43,6 +61,31 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
     setIsSubmitting(true)
 
     try {
+      // Save lead to Sanity via /api/save-lead
+      const leadResponse = await fetch('/api/save-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          country: data.country || '',
+        }),
+      })
+
+      if (!leadResponse.ok) {
+        throw new Error('Erreur lors de la sauvegarde des données')
+      }
+
+      // Track event in GA4
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'appointment_form_submitted', {
+          event_category: 'engagement',
+          event_label: data.country || 'no_country',
+        })
+      }
+
+      // Also register student (original functionality)
       const response = await fetch('/api/register-student', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -52,20 +95,20 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
             lastName: data.fullName.split(' ').slice(1).join(' ') || data.fullName.split(' ')[0],
             email: data.email,
             phone: data.phone,
-            dateOfBirth: new Date().toISOString().split('T')[0], // Placeholder
+            dateOfBirth: new Date().toISOString().split('T')[0],
             nationality: 'À compléter',
-            countryOfResidence: 'À compléter',
+            countryOfResidence: data.country || 'À compléter',
           },
           step2: {
             currentEducationLevel: 'bachelor',
             desiredDegree: 'master',
             fieldOfStudy: 'À compléter',
-            preferredCountry: 'À compléter',
+            preferredCountry: data.country || 'À compléter',
             preferredUniversity: 'À compléter',
             intendedStartDate: new Date().toISOString().split('T')[0],
           },
           step3: {
-            documents: [], // Quick registration without documents
+            documents: [],
           },
           step4: {
             password: 'Temporary123!',
@@ -80,12 +123,8 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         throw new Error(result.error || "Erreur lors de l'inscription")
       }
 
-      setIsSuccess(true)
-
-      // Fermer automatiquement après 3 secondes
-      setTimeout(() => {
-        handleClose()
-      }, 3000)
+      // Show zcal modal instead of success message
+      setShowZcalModal(true)
     } catch (error) {
       console.error('Registration error:', error)
       alert(
@@ -249,6 +288,42 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                 )}
               </div>
 
+              {/* Country */}
+              <div className="space-y-2">
+                <Label htmlFor="country" className="text-sm sm:text-base font-medium text-gray-700">
+                  Pays d&apos;origine
+                </Label>
+                <div className="relative">
+                  <Globe className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400 pointer-events-none z-10" />
+                  <select
+                    id="country"
+                    {...register('country')}
+                    className={`w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-3 text-sm sm:text-base bg-white border-gray-200 rounded-xl appearance-none cursor-pointer ${
+                      errors.country
+                        ? 'border-red-500 focus:ring-red-500/20'
+                        : 'focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500'
+                    }`}
+                    disabled={isSubmitting}
+                  >
+                    <option value="">Sélectionnez votre pays</option>
+                    {countries.map((country) => (
+                      <option key={country.value} value={country.label}>
+                        {country.flag} {country.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {errors.country && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-sm text-red-600"
+                  >
+                    {errors.country.message}
+                  </motion.p>
+                )}
+              </div>
+
               {/* Submit Button */}
               <Button
                 type="submit"
@@ -291,6 +366,82 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
           </>
         )}
       </DialogContent>
+
+      {/* zcal Booking Modal */}
+      <AnimatePresence>
+        {showZcalModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100] p-4"
+            onClick={() => {
+              setShowZcalModal(false)
+              handleClose()
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 20 }}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <Calendar className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+                      Choisissez votre créneau
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-600">
+                      Consultation gratuite de 30 minutes
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowZcalModal(false)
+                    handleClose()
+                  }}
+                  className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+                  aria-label="Fermer"
+                >
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
+              </div>
+
+              {/* zcal iframe */}
+              <div className="relative w-full h-[600px] overflow-hidden">
+                <iframe
+                  src="https://zcal.co/letudiantetranger/consultation"
+                  className="w-full h-full border-0"
+                  title="Réservation de consultation"
+                  onLoad={() => {
+                    // Track when zcal loads
+                    if (typeof window !== 'undefined' && (window as any).gtag) {
+                      (window as any).gtag('event', 'appointment_calendar_loaded', {
+                        event_category: 'engagement',
+                      })
+                    }
+                  }}
+                />
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 border-t border-gray-200 bg-gray-50">
+                <p className="text-xs text-center text-gray-600">
+                  💡 Sélectionnez un créneau qui vous convient dans le calendrier ci-dessus
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Dialog>
   )
 }

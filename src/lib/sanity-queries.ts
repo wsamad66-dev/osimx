@@ -137,3 +137,280 @@ export const HERO_QUERY = `
     isActive
   }
 `
+
+// ========================================
+// BLOG TYPES & QUERIES
+// ========================================
+
+export interface BlogAuthor {
+  _id: string
+  name: string
+  slug: {
+    current: string
+  }
+  image?: {
+    asset: {
+      _id: string
+      url: string
+    }
+  }
+  bio?: any[] // Portable Text
+  role?: string
+  socialLinks?: {
+    linkedin?: string
+    twitter?: string
+    email?: string
+  }
+}
+
+export interface BlogPost {
+  _id: string
+  _createdAt: string
+  title: string
+  slug: {
+    current: string
+  }
+  mainImage: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt: string
+    caption?: string
+  }
+  excerpt: string
+  content: any[] // Portable Text
+  author: BlogAuthor
+  category: string
+  tags?: string[]
+  publishedAt: string
+  estimatedReadingTime?: number
+  featured?: boolean
+  relatedPosts?: BlogPost[]
+  seoTitle?: string
+  seoDescription?: string
+  seoKeywords?: string[]
+}
+
+export interface BlogPostPreview {
+  _id: string
+  title: string
+  slug: {
+    current: string
+  }
+  mainImage: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt: string
+  }
+  excerpt: string
+  author: {
+    name: string
+    image?: {
+      asset: {
+        url: string
+      }
+    }
+  }
+  category: string
+  publishedAt: string
+  estimatedReadingTime?: number
+  featured?: boolean
+}
+
+// Query pour récupérer tous les articles (avec pagination)
+export const BLOG_POSTS_QUERY = `
+  *[_type == "post"] | order(publishedAt desc, featured desc) [$start...$end] {
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    excerpt,
+    "author": author-> {
+      name,
+      image {
+        asset-> {
+          url
+        }
+      }
+    },
+    category,
+    publishedAt,
+    estimatedReadingTime,
+    featured
+  }
+`
+
+// Query pour compter le total d'articles
+export const BLOG_POSTS_COUNT_QUERY = `
+  count(*[_type == "post"])
+`
+
+// Query pour récupérer les articles par catégorie
+export const BLOG_POSTS_BY_CATEGORY_QUERY = `
+  *[_type == "post" && category == $category] | order(publishedAt desc) [$start...$end] {
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    excerpt,
+    "author": author-> {
+      name,
+      image {
+        asset-> {
+          url
+        }
+      }
+    },
+    category,
+    publishedAt,
+    estimatedReadingTime,
+    featured
+  }
+`
+
+// Query pour récupérer un article complet par slug
+export const BLOG_POST_BY_SLUG_QUERY = `
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    _createdAt,
+    title,
+    slug,
+    mainImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt,
+      caption
+    },
+    excerpt,
+    content,
+    "author": author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      bio,
+      role,
+      socialLinks
+    },
+    category,
+    tags,
+    publishedAt,
+    estimatedReadingTime,
+    featured,
+    "relatedPosts": relatedPosts[]-> {
+      _id,
+      title,
+      "slug": slug.current,
+      mainImage {
+        asset-> {
+          url
+        },
+        alt
+      },
+      excerpt,
+      category,
+      publishedAt
+    },
+    seoTitle,
+    seoDescription,
+    seoKeywords
+  }
+`
+
+// Query pour récupérer les articles mis en avant (featured)
+export const BLOG_FEATURED_POSTS_QUERY = `
+  *[_type == "post" && featured == true] | order(publishedAt desc) [0...3] {
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    excerpt,
+    "author": author-> {
+      name
+    },
+    category,
+    publishedAt
+  }
+`
+
+// Query pour récupérer les articles récents
+export const BLOG_RECENT_POSTS_QUERY = `
+  *[_type == "post"] | order(publishedAt desc) [0...$limit] {
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage {
+      asset-> {
+        url
+      },
+      alt
+    },
+    excerpt,
+    category,
+    publishedAt
+  }
+`
+
+// Query pour recherche d'articles
+export const BLOG_SEARCH_QUERY = `
+  *[_type == "post" && (
+    title match $searchTerm + "*" ||
+    excerpt match $searchTerm + "*" ||
+    $searchTerm in tags[]
+  )] | order(publishedAt desc) [0...20] {
+    _id,
+    title,
+    "slug": slug.current,
+    mainImage {
+      asset-> {
+        url
+      },
+      alt
+    },
+    excerpt,
+    "author": author-> {
+      name
+    },
+    category,
+    publishedAt,
+    tags
+  }
+`
+
+// Query pour récupérer toutes les catégories utilisées
+export const BLOG_CATEGORIES_QUERY = `
+  array::unique(*[_type == "post"].category)
+`
+
+// Query pour récupérer tous les slugs (pour generateStaticParams)
+export const BLOG_SLUGS_QUERY = `
+  *[_type == "post"].slug.current
+`

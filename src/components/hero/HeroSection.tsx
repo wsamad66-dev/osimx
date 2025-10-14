@@ -42,7 +42,6 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 border border-blue-200 mb-6"
               >
-                <span className="text-lg">⏰</span>
                 <span className="text-sm font-semibold text-blue-700">{heroData.urgencyBadge}</span>
               </motion.div>
             )}
@@ -87,7 +86,7 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
                 onClick={handleRegister}
                 className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-7 text-sm sm:text-base md:text-lg rounded-lg sm:rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                🚀 Commencer mon projet gratuitement
+                Commencer mon projet gratuitement
               </Button>
             </motion.div>
 
@@ -97,33 +96,56 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="flex items-center gap-3 sm:gap-4"
+              className="inline-flex items-center gap-3 sm:gap-4 bg-white rounded-full px-4 sm:px-6 py-3 sm:py-4 shadow-lg border border-gray-100"
             >
-              {/* Avatars */}
-              <div className="flex -space-x-2">
-                <img
-                  src="https://i.pravatar.cc/150?img=1"
-                  alt="User"
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
-                />
-                <img
-                  src="https://i.pravatar.cc/150?img=2"
-                  alt="User"
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
-                />
-                <img
-                  src="https://i.pravatar.cc/150?img=3"
-                  alt="User"
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white"
-                />
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black border-2 border-white flex items-center justify-center">
-                  <span className="text-white text-[10px] sm:text-xs font-semibold">{heroData.studentsCount || STATS.studentsHelped}</span>
+              {/* Student Avatars */}
+              <div className="flex -space-x-3">
+                <div className="relative">
+                  <img
+                    src="https://i.pravatar.cc/150?img=47"
+                    alt="Étudiant"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-3 border-white shadow-md object-cover"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="https://i.pravatar.cc/150?img=12"
+                    alt="Étudiant"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-3 border-white shadow-md object-cover"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="https://i.pravatar.cc/150?img=45"
+                    alt="Étudiant"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-3 border-white shadow-md object-cover"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="https://i.pravatar.cc/150?img=33"
+                    alt="Étudiant"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-3 border-white shadow-md object-cover"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-3 border-white shadow-md flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold text-sm relative">
+                  10K+
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
                 </div>
               </div>
               {/* Text */}
-              <p className="text-gray-700 text-sm sm:text-base">
-                {heroData.studentsCount || STATS.studentsHelped} {heroData.studentsCountText || STATS.studentsHelpedText}
-              </p>
+              <div className="flex flex-col">
+                <p className="text-gray-900 font-bold text-base sm:text-lg">
+                  10,000+ étudiants
+                </p>
+                <p className="text-gray-600 text-xs sm:text-sm">
+                  déjà accompagnés
+                </p>
+              </div>
             </motion.div>
           </div>
 

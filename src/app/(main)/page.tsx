@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import { HeroSectionServer } from '@/components/hero/HeroSectionServer'
 import { AnimatedStatsSection } from '@/components/sections/AnimatedStatsSection'
 import { InteractiveDestinations } from '@/components/sections/InteractiveDestinations'
+import { PartnersBanner } from '@/components/home/PartnersBanner'
 import TestimonialsGrid from '@/components/testimonials/TestimonialsGrid'
-import { FinalCTASection } from '@/components/sections/FinalCTASection'
+import { AdvancedFAQ } from '@/components/sections/AdvancedFAQ'
 import { FloatingCTA } from '@/components/widgets/FloatingCTA'
 
 export const metadata: Metadata = {
@@ -32,8 +33,11 @@ export default function HomePage() {
       <HeroSectionServer />
       <AnimatedStatsSection />
       <InteractiveDestinations />
+      <PartnersBanner />
       <TestimonialsGrid />
-      <FinalCTASection />
+      <div id="faq">
+        <AdvancedFAQ />
+      </div>
       <FloatingCTA />
     </>
   )
