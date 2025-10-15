@@ -1,45 +1,12 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-// Define protected admin routes
-const isAdminRoute = createRouteMatcher(['/admin(.*)'])
-
-// Define public routes
-const isPublicRoute = createRouteMatcher([
-  '/sign-in(.*)',
-  '/sign-up(.*)',
-  '/unauthorized',
-])
-
-export default clerkMiddleware(async (auth, req) => {
-  // Always allow public routes
-  if (isPublicRoute(req)) {
-    return NextResponse.next()
-  }
-
-  // Protect admin routes
-  if (isAdminRoute(req)) {
-    try {
-      const { userId } = await auth()
-
-      // Redirect to sign-in if not authenticated
-      if (!userId) {
-        const signInUrl = new URL('/sign-in', req.url)
-        signInUrl.searchParams.set('redirect_url', req.url)
-        return NextResponse.redirect(signInUrl)
-      }
-
-      // Allow all authenticated users to access admin
-      // TODO: Add role checking after configuring JWT template in Clerk
-    } catch (error) {
-      // If auth fails, redirect to sign-in
-      const signInUrl = new URL('/sign-in', req.url)
-      return NextResponse.redirect(signInUrl)
-    }
-  }
-
+export default function middleware(req: NextRequest) {
+  // Temporarily disable authentication for production deployment
+  // TODO: Enable Clerk when production keys are available or when upgrading to paid plan
+  
   return NextResponse.next()
-})
+}
 
 export const config = {
   matcher: [
