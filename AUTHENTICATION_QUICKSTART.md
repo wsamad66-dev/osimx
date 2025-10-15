@@ -26,8 +26,10 @@
 ```
 URI de redirection autorisées :
   http://localhost:3000/api/auth/callback/google
-  https://osimx-7af7l9gqf-ouassim-samads-projects.vercel.app/api/auth/callback/google
+  https://osimx.vercel.app/api/auth/callback/google
 ```
+
+✅ **URL FIXE** : `osimx.vercel.app` ne changera plus, configuration permanente !
 
 #### Étape 3 : Copier les clés
 Vous obtiendrez :
