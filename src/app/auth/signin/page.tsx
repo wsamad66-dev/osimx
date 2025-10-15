@@ -1,21 +1,21 @@
-'use client'
+"use client"
 
-import { signIn } from 'next-auth/react'
-import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { signIn } from "next-auth/react"
+import { useSearchParams } from "next/navigation"
+import { useState, Suspense } from "react"
 
-export default function SignIn() {
+function SignInForm() {
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/admin'
-  const [isLoading, setIsLoading] = useState(false)
+  const callbackUrl = searchParams.get("callbackUrl") || "/admin"
+  const [isLoading, setIsLoading] = useState<string | null>(null)
 
   const handleSignIn = async (provider: 'google' | 'github') => {
-    setIsLoading(true)
+    setIsLoading(provider)
     try {
       await signIn(provider, { callbackUrl })
     } catch (error) {
       console.error('Erreur de connexion:', error)
-      setIsLoading(false)
+      setIsLoading(null)
     }
   }
 
@@ -34,7 +34,7 @@ export default function SignIn() {
         <div className="space-y-4">
           <button
             onClick={() => handleSignIn('google')}
-            disabled={isLoading}
+            disabled={!!isLoading}
             className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@ export default function SignIn() {
 
           <button
             onClick={() => handleSignIn('github')}
-            disabled={isLoading}
+            disabled={!!isLoading}
             className="w-full flex items-center justify-center gap-3 px-6 py-3 border border-gray-800 rounded-lg shadow-sm bg-gray-900 hover:bg-gray-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -86,5 +86,20 @@ export default function SignIn() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function SignIn() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+          <p className="mt-4 text-gray-600">Chargement...</p>
+        </div>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   )
 }
