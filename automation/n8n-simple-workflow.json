@@ -1,0 +1,204 @@
+{
+  "name": "OSIMX - Auto Blog Publisher",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "name": "Schedule Weekly",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.SITE_URL}}/api/blog/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{$env.BLOG_API_SECRET}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "topic",
+              "value": "={{$node['Set Topics'].json.topic}}"
+            },
+            {
+              "name": "keywords",
+              "value": "={{$node['Set Topics'].json.keywords}}"
+            },
+            {
+              "name": "category",
+              "value": "={{$node['Set Topics'].json.category}}"
+            },
+            {
+              "name": "language",
+              "value": "fr"
+            },
+            {
+              "name": "length",
+              "value": "medium"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Generate AI Content",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [670, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.SITE_URL}}/api/blog/create",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{$env.BLOG_API_SECRET}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "title",
+              "value": "={{$node['Generate AI Content'].json.data.title}}"
+            },
+            {
+              "name": "excerpt",
+              "value": "={{$node['Generate AI Content'].json.data.excerpt}}"
+            },
+            {
+              "name": "content",
+              "value": "={{$node['Generate AI Content'].json.data.content}}"
+            },
+            {
+              "name": "categories",
+              "value": "={{$node['Generate AI Content'].json.data.categories}}"
+            },
+            {
+              "name": "tags",
+              "value": "={{$node['Generate AI Content'].json.data.tags}}"
+            },
+            {
+              "name": "featured",
+              "value": "={{$node['Generate AI Content'].json.data.featured}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Publish Article",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [890, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "topic",
+              "value": "Guide complet pour obtenir un visa étudiant au Canada"
+            },
+            {
+              "name": "category",
+              "value": "visa"
+            }
+          ],
+          "array": [
+            {
+              "name": "keywords",
+              "value": ["visa", "canada", "étudiant", "permis"]
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set Topics",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "notifications@osimx.com",
+        "toEmail": "admin@osimx.com",
+        "subject": "✅ Nouvel article publié",
+        "text": "=Article publié avec succès!\n\nTitre: {{$node['Publish Article'].json.data.title}}\nURL Studio: {{$node['Publish Article'].json.data.studioUrl}}\n\nPublié le: {{$node['Publish Article'].json.data.publishedAt}}",
+        "options": {}
+      },
+      "name": "Send Notification",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1110, 300]
+    }
+  ],
+  "connections": {
+    "Schedule Weekly": {
+      "main": [
+        [
+          {
+            "node": "Set Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Topics": {
+      "main": [
+        [
+          {
+            "node": "Generate AI Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate AI Content": {
+      "main": [
+        [
+          {
+            "node": "Publish Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Article": {
+      "main": [
+        [
+          {
+            "node": "Send Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

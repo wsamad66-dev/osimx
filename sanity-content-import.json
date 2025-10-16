@@ -1,0 +1,169 @@
+[
+  {
+    "_type": "expertise",
+    "title": "Une expertise prouvée",
+    "subtitle": "Des années d'expérience au service de votre réussite",
+    "stats": [
+      {
+        "number": "500+",
+        "label": "Étudiants accompagnés",
+        "icon": "👨‍🎓"
+      },
+      {
+        "number": "15+",
+        "label": "Années d'expérience",
+        "icon": "⭐"
+      },
+      {
+        "number": "98%",
+        "label": "Taux de satisfaction",
+        "icon": "💯"
+      },
+      {
+        "number": "50+",
+        "label": "Destinations",
+        "icon": "🌍"
+      }
+    ]
+  },
+  {
+    "_type": "services",
+    "title": "Nos services",
+    "subtitle": "Un accompagnement complet pour votre projet d'études à l'étranger",
+    "servicesList": [
+      {
+        "title": "Orientation académique",
+        "description": "Nous vous aidons à choisir la meilleure formation selon votre profil et vos objectifs de carrière.",
+        "icon": "🎓",
+        "features": [
+          "Analyse de votre profil académique",
+          "Sélection des meilleures universités",
+          "Conseils personnalisés",
+          "Accompagnement dans le choix de la formation"
+        ]
+      },
+      {
+        "title": "Assistance visa",
+        "description": "Un accompagnement complet pour obtenir votre visa étudiant en toute sérénité.",
+        "icon": "✈️",
+        "features": [
+          "Préparation complète du dossier",
+          "Simulation d'entretien",
+          "Suivi jusqu'à l'obtention",
+          "Conseils pour la demande de visa"
+        ]
+      },
+      {
+        "title": "Logement étudiant",
+        "description": "Trouvez le logement idéal pour votre séjour à l'étranger.",
+        "icon": "🏠",
+        "features": [
+          "Recherche de logement adapté",
+          "Réservation sécurisée",
+          "Visite virtuelle",
+          "Assistance à l'installation"
+        ]
+      },
+      {
+        "title": "Inscription universitaire",
+        "description": "Nous gérons toutes vos démarches d'inscription de A à Z.",
+        "icon": "📝",
+        "features": [
+          "Constitution du dossier",
+          "Traduction de documents",
+          "Suivi des candidatures",
+          "Accompagnement administratif"
+        ]
+      }
+    ]
+  },
+  {
+    "_type": "testimonials",
+    "title": "Témoignages",
+    "subtitle": "Ce que disent nos étudiants",
+    "testimonialsList": [
+      {
+        "name": "Sarah Alami",
+        "role": "Étudiante en Marketing Digital",
+        "content": "Grâce à OSIMX, j'ai pu réaliser mon rêve d'étudier au Canada. L'équipe m'a accompagnée à chaque étape, de la sélection de l'université jusqu'à l'obtention de mon visa. Je recommande vivement leurs services !",
+        "rating": 5,
+        "country": "Canada"
+      },
+      {
+        "name": "Mehdi Bennani",
+        "role": "Étudiant en Informatique",
+        "content": "Un accompagnement professionnel et personnalisé. L'équipe d'OSIMX a été très réactive et m'a aidé à trouver la formation parfaite en France. Merci pour votre soutien !",
+        "rating": 5,
+        "country": "France"
+      },
+      {
+        "name": "Fatima Zahra",
+        "role": "Étudiante en Commerce International",
+        "content": "Service exceptionnel ! OSIMX m'a non seulement aidée avec mon inscription, mais aussi avec la recherche de logement et l'obtention de mon visa pour les États-Unis. Je suis très satisfaite.",
+        "rating": 5,
+        "country": "USA"
+      }
+    ]
+  },
+  {
+    "_type": "faq",
+    "title": "Questions fréquentes",
+    "subtitle": "Tout ce que vous devez savoir sur nos services",
+    "questions": [
+      {
+        "question": "Quels sont les délais pour obtenir un visa étudiant ?",
+        "answer": "Les délais varient selon le pays de destination. En général, comptez entre 2 et 6 mois pour l'ensemble de la procédure. Nous vous accompagnons à chaque étape pour optimiser ces délais.",
+        "category": "visa"
+      },
+      {
+        "question": "Combien coûtent vos services ?",
+        "answer": "Nos tarifs dépendent du type d'accompagnement souhaité. Nous proposons des formules personnalisées adaptées à votre budget et vos besoins. Contactez-nous pour un devis gratuit.",
+        "category": "general"
+      },
+      {
+        "question": "Puis-je m'inscrire en cours d'année ?",
+        "answer": "Oui, c'est possible pour certaines formations et destinations. Nous vous aidons à identifier les meilleures opportunités selon vos dates de disponibilité.",
+        "category": "inscriptions"
+      },
+      {
+        "question": "Aidez-vous à trouver un logement ?",
+        "answer": "Absolument ! Nous disposons d'un réseau de partenaires dans de nombreuses villes et pouvons vous aider à trouver un logement adapté à vos besoins et votre budget.",
+        "category": "logement"
+      },
+      {
+        "question": "Proposez-vous des solutions de financement ?",
+        "answer": "Oui, nous vous orientons vers des bourses d'études, des prêts étudiants et d'autres solutions de financement adaptées à votre situation.",
+        "category": "financement"
+      },
+      {
+        "question": "Quels documents sont nécessaires pour l'inscription ?",
+        "answer": "Les documents requis varient selon la destination et la formation. Généralement : diplômes, relevés de notes, lettre de motivation, CV, certificat de langue, et passeport. Nous vous fournissons une liste personnalisée.",
+        "category": "inscriptions"
+      },
+      {
+        "question": "Accompagnez-vous dans la préparation des tests de langue ?",
+        "answer": "Oui, nous pouvons vous orienter vers des centres de préparation aux tests comme IELTS, TOEFL, DELF, etc., et vous donner des conseils pour optimiser vos résultats.",
+        "category": "general"
+      },
+      {
+        "question": "Que faire si ma demande de visa est refusée ?",
+        "answer": "Nous analysons les raisons du refus et vous accompagnons pour préparer une nouvelle demande avec un dossier renforcé. Notre taux de réussite est de 98% après accompagnement.",
+        "category": "visa"
+      }
+    ]
+  },
+  {
+    "_type": "cta",
+    "title": "Prêt à commencer votre aventure ?",
+    "subtitle": "Rejoignez des centaines d'étudiants qui ont réalisé leur rêve avec OSIMX",
+    "buttonText": "Inscription gratuite",
+    "buttonLink": "/student-registration",
+    "backgroundColor": "blue",
+    "features": [
+      "Consultation gratuite",
+      "Accompagnement personnalisé",
+      "Support 7j/7",
+      "Taux de réussite 98%"
+    ]
+  }
+]

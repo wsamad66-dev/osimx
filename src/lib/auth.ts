@@ -15,29 +15,51 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.error("❌ Credentials manquantes")
           throw new Error("Email et mot de passe requis")
         }
 
         // Email et mot de passe admin depuis les variables d'environnement
-        const adminEmail = process.env.ADMIN_EMAIL
-        const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH
+        const adminEmail = process.env.ADMIN_EMAIL || 'admin@osimx.com'
+        // Hash codé en dur temporairement pour debug
+        const adminPasswordHash = '$2b$10$DfLPFah/A6orsDvkFeX4aOt6I9Op9eXN3F1gFQQWFMjg7AX.vpWwq'
+
+        console.log("🔍 Debug auth:", {
+          hasAdminEmail: !!adminEmail,
+          hasAdminHash: !!adminPasswordHash,
+          providedEmail: credentials.email,
+          emailMatch: credentials.email === adminEmail
+        })
 
         if (!adminEmail || !adminPasswordHash) {
+          console.error("❌ Configuration admin manquante")
           throw new Error("Configuration admin manquante")
         }
 
         // Vérifier l'email
         if (credentials.email !== adminEmail) {
+          console.error("❌ Email incorrect:", credentials.email, "!=", adminEmail)
           throw new Error("Email ou mot de passe incorrect")
         }
 
         // Vérifier le mot de passe
+        console.log("🔍 Comparing:", {
+          passwordLength: credentials.password.length,
+          hashLength: adminPasswordHash.length,
+          hashStart: adminPasswordHash.substring(0, 10),
+          passwordStart: credentials.password.substring(0, 5) + "..."
+        })
+        
         const isValid = await bcrypt.compare(credentials.password, adminPasswordHash)
         
+        console.log("🔍 Password check:", { isValid })
+        
         if (!isValid) {
+          console.error("❌ Mot de passe incorrect")
           throw new Error("Email ou mot de passe incorrect")
         }
 
+        console.log("✅ Authentification réussie")
         // Authentification réussie
         return {
           id: "admin",
@@ -57,15 +79,22 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      // Vous pouvez ajouter une liste blanche d'emails autorisés ici
+    async signIn({ user, account }) {
+      console.log("🔍 signIn callback:", { email: user.email, provider: account?.provider })
+      
+      // Pour Credentials provider, toujours autoriser (déjà vérifié dans authorize)
+      if (account?.provider === "credentials") {
+        return true
+      }
+      
+      // Pour OAuth (Google/GitHub), vérifier la liste blanche
       const allowedEmails = process.env.ALLOWED_ADMIN_EMAILS?.split(',') || []
       
       if (allowedEmails.length > 0 && user.email) {
         return allowedEmails.includes(user.email)
       }
       
-      return true // Autoriser tous les utilisateurs pour l'instant
+      return true // Autoriser tous les utilisateurs OAuth pour l'instant
     },
     async session({ session, token }) {
       // Ajouter l'ID utilisateur à la session

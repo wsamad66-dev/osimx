@@ -5,6 +5,13 @@ import navigation from './navigation'
 import lead from './lead'
 import partner from './partner'
 
+// Homepage sections
+import expertise from './expertise'
+import services from './services'
+import testimonials from './testimonials'
+import faq from './faq'
+import cta from './cta'
+
 // Blog schemas
 import blogPost from './blogPost'
 import blogAuthor from './blogAuthor'
@@ -22,6 +29,12 @@ export const schemaTypes = [
   navigation,
   lead,
   partner,
+  // Homepage sections
+  expertise,
+  services,
+  testimonials,
+  faq,
+  cta,
   // Blog
   blogPost,
   blogAuthor,

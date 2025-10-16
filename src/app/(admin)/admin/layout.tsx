@@ -1,29 +1,30 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
-import { currentUser } from '@clerk/nextjs/server'
-import { getUserRole } from '@/lib/clerk/roles'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import AdminTopbar from '@/components/admin/AdminTopbar'
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const user = await currentUser()
-  const role = await getUserRole()
+  const session = await getServerSession(authOptions)
 
   // Double-check authentication (middleware should handle this)
-  if (!user) {
-    redirect('/sign-in')
+  if (!session?.user) {
+    redirect('/auth/signin')
   }
 
-  // Use a default role if not configured in Clerk yet
-  const displayRole = role || 'admin'
+  // Use admin role by default
+  const displayRole = 'admin'
 
   // Serialize user data for Client Component
   const userData = {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    emailAddresses: user.emailAddresses.map(email => ({
-      emailAddress: email.emailAddress
-    }))
+    firstName: session.user.name?.split(' ')[0] || 'Admin',
+    lastName: session.user.name?.split(' ')[1] || 'OSIMX',
+    emailAddresses: [
+      {
+        emailAddress: session.user.email || 'admin@osimx.com'
+      }
+    ]
   }
 
   return (
