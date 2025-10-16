@@ -148,6 +148,11 @@ export const portableTextComponents: PortableTextComponents = {
 
   block: {
     // Titres
+    h1: ({ children }) => (
+      <h1 className="text-4xl font-bold text-slate-900 font-serif mt-16 mb-8">
+        {children}
+      </h1>
+    ),
     h2: ({ children }) => (
       <h2 className="text-3xl font-bold text-slate-900 font-serif mt-12 mb-6">
         {children}
@@ -258,6 +263,16 @@ interface PortableTextRendererProps {
 
 export function PortableTextRenderer({ content, className = '' }: PortableTextRendererProps) {
   if (!content) return null
+
+  // Debug: Check what we're receiving
+  console.log('PortableTextRenderer received:')
+  console.log('- Type:', typeof content)
+  console.log('- Is Array:', Array.isArray(content))
+  if (Array.isArray(content) && content.length > 0) {
+    console.log('- First item type:', typeof content[0])
+    console.log('- First item keys:', Object.keys(content[0]))
+    console.log('- First item:', JSON.stringify(content[0]).substring(0, 200))
+  }
 
   // Ensure content is an array
   const contentArray = Array.isArray(content) ? content : [content]

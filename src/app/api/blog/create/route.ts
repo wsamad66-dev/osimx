@@ -21,6 +21,120 @@ function generateSlug(title: string): string {
     .replace(/(^-|-$)/g, '')
 }
 
+function convertToPortableText(content: string) {
+  // Convertit un texte Markdown simple en Portable Text
+  const blocks = []
+  const lines = content.split('\n')
+  
+  let currentBlock: any = null
+  
+  for (const line of lines) {
+    const trimmedLine = line.trim()
+    
+    // Ligne vide - finalise le bloc courant
+    if (!trimmedLine) {
+      if (currentBlock) {
+        blocks.push(currentBlock)
+        currentBlock = null
+      }
+      continue
+    }
+    
+    // Titres H1
+    if (trimmedLine.startsWith('# ')) {
+      if (currentBlock) blocks.push(currentBlock)
+      blocks.push({
+        _type: 'block',
+        _key: Math.random().toString(36).substr(2, 9),
+        style: 'h2',
+        children: [{ _type: 'span', text: trimmedLine.substring(2) }],
+        markDefs: [],
+      })
+      currentBlock = null
+      continue
+    }
+    
+    // Titres H2
+    if (trimmedLine.startsWith('## ')) {
+      if (currentBlock) blocks.push(currentBlock)
+      blocks.push({
+        _type: 'block',
+        _key: Math.random().toString(36).substr(2, 9),
+        style: 'h3',
+        children: [{ _type: 'span', text: trimmedLine.substring(3) }],
+        markDefs: [],
+      })
+      currentBlock = null
+      continue
+    }
+    
+    // Titres H3
+    if (trimmedLine.startsWith('### ')) {
+      if (currentBlock) blocks.push(currentBlock)
+      blocks.push({
+        _type: 'block',
+        _key: Math.random().toString(36).substr(2, 9),
+        style: 'h4',
+        children: [{ _type: 'span', text: trimmedLine.substring(4) }],
+        markDefs: [],
+      })
+      currentBlock = null
+      continue
+    }
+    
+    // Liste à puces
+    if (trimmedLine.startsWith('- ') || trimmedLine.startsWith('* ')) {
+      if (currentBlock) blocks.push(currentBlock)
+      blocks.push({
+        _type: 'block',
+        _key: Math.random().toString(36).substr(2, 9),
+        style: 'normal',
+        listItem: 'bullet',
+        children: [{ _type: 'span', text: trimmedLine.substring(2) }],
+        markDefs: [],
+      })
+      currentBlock = null
+      continue
+    }
+    
+    // Liste numérotée
+    if (/^\d+\.\s/.test(trimmedLine)) {
+      if (currentBlock) blocks.push(currentBlock)
+      blocks.push({
+        _type: 'block',
+        _key: Math.random().toString(36).substr(2, 9),
+        style: 'normal',
+        listItem: 'number',
+        children: [{ _type: 'span', text: trimmedLine.replace(/^\d+\.\s/, '') }],
+        markDefs: [],
+      })
+      currentBlock = null
+      continue
+    }
+    
+    // Paragraphe normal
+    if (!currentBlock) {
+      currentBlock = {
+        _type: 'block',
+        _key: Math.random().toString(36).substr(2, 9),
+        style: 'normal',
+        children: [{ _type: 'span', text: trimmedLine }],
+        markDefs: [],
+      }
+    } else {
+      // Ajouter à la ligne existante
+      currentBlock.children[0].text += ' ' + trimmedLine
+    }
+  }
+  
+  // Ajouter le dernier bloc
+  if (currentBlock) {
+    blocks.push(currentBlock)
+  }
+  
+  return blocks
+}
+
 async function getOrCreateAuthor(authorData?: { name: string; email: string; bio?: string }) {
   if (!authorData) {
     // Utiliser l'auteur par défaut
@@ -93,6 +207,16 @@ export async function POST(request: NextRequest) {
     // Générer le slug
     const slug = data.slug || generateSlug(data.title)
 
+    // Convertir le contenu string en Portable Text si nécessaire
+    let portableTextContent
+    if (typeof data.content === 'string') {
+      // Convertir Markdown/texte simple en Portable Text
+      portableTextContent = convertToPortableText(data.content)
+    } else {
+      // Déjà au format Portable Text
+      portableTextContent = data.content
+    }
+
     // Créer l'article
     const post = await client.create({
       _type: 'blogPost',
@@ -100,8 +224,8 @@ export async function POST(request: NextRequest) {
       slug: { current: slug },
       author: { _ref: authorId },
       excerpt: data.excerpt,
-      content: data.content,
-      categories: data.categories || ['etudes'],
+      content: portableTextContent,
+      category: data.categories?.[0] || data.category || 'conseils',
       tags: data.tags || [],
       featured: data.featured || false,
       publishedAt: data.publishedAt || new Date().toISOString(),

@@ -23,7 +23,7 @@ X-API-Key: votre-cle-api-secrete
 {
   "title": "Titre de l'article",
   "excerpt": "Résumé court",
-  "content": "# Contenu complet en Markdown",
+  "content": "# Contenu complet en Markdown\n\nL'API convertit automatiquement le Markdown en Portable Text.\n\n## Section 1\n\nContenu...",
   "categories": ["etudes", "visa"],
   "tags": ["canada", "admission"],
   "featured": false,
@@ -35,6 +35,8 @@ X-API-Key: votre-cle-api-secrete
   }
 }
 ```
+
+**Note:** Le champ `content` accepte du Markdown simple. L'API le convertit automatiquement en Portable Text pour Sanity.
 
 **Réponse Success (201):**
 ```json
