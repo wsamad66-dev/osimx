@@ -412,5 +412,7 @@ export const BLOG_CATEGORIES_QUERY = `
 
 // Query pour récupérer tous les slugs (pour generateStaticParams)
 export const BLOG_SLUGS_QUERY = `
-  *[_type == "blogPost"].slug.current
+  *[_type == "blogPost" && defined(slug.current)] {
+    "slug": slug.current
+  }
 `
