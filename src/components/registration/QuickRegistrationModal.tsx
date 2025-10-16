@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { VisuallyHidden } from '@/components/ui/visually-hidden'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -74,7 +75,8 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
       })
 
       if (!leadResponse.ok) {
-        throw new Error('Erreur lors de la sauvegarde des données')
+        console.warn('Lead save warning:', await leadResponse.text())
+        // Continue anyway - lead saving is not critical
       }
 
       // Track event in GA4
@@ -85,45 +87,50 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         })
       }
 
-      // Also register student (original functionality)
-      const response = await fetch('/api/register-student', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          step1: {
-            firstName: data.fullName.split(' ')[0],
-            lastName: data.fullName.split(' ').slice(1).join(' ') || data.fullName.split(' ')[0],
-            email: data.email,
-            phone: data.phone,
-            dateOfBirth: new Date().toISOString().split('T')[0],
-            nationality: 'À compléter',
-            countryOfResidence: data.country || 'À compléter',
-          },
-          step2: {
-            currentEducationLevel: 'bachelor',
-            desiredDegree: 'master',
-            fieldOfStudy: 'À compléter',
-            preferredCountry: data.country || 'À compléter',
-            preferredUniversity: 'À compléter',
-            intendedStartDate: new Date().toISOString().split('T')[0],
-          },
-          step3: {
-            documents: [],
-          },
-          step4: {
-            password: 'Temporary123!',
-            confirmPassword: 'Temporary123!',
-          },
-        }),
-      })
+      // Try to register student (but don't fail if account exists)
+      try {
+        const response = await fetch('/api/register-student', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            step1: {
+              firstName: data.fullName.split(' ')[0],
+              lastName: data.fullName.split(' ').slice(1).join(' ') || data.fullName.split(' ')[0],
+              email: data.email,
+              phone: data.phone,
+              dateOfBirth: new Date().toISOString().split('T')[0],
+              nationality: 'À compléter',
+              countryOfResidence: data.country || 'À compléter',
+            },
+            step2: {
+              currentEducationLevel: 'bachelor',
+              desiredDegree: 'master',
+              fieldOfStudy: 'À compléter',
+              preferredCountry: data.country || 'À compléter',
+              preferredUniversity: 'À compléter',
+              intendedStartDate: new Date().toISOString().split('T')[0],
+            },
+            step3: {
+              documents: [],
+            },
+            step4: {
+              password: 'Temporary123!',
+              confirmPassword: 'Temporary123!',
+            },
+          }),
+        })
 
-      const result = await response.json()
+        const result = await response.json()
 
-      if (!response.ok) {
-        throw new Error(result.error || "Erreur lors de l'inscription")
+        // If account already exists, that's fine - continue to booking
+        if (!response.ok && result.error && !result.error.includes('existe déjà')) {
+          console.warn('Student registration warning:', result.error)
+        }
+      } catch (studentError) {
+        console.warn('Student registration error (continuing anyway):', studentError)
       }
 
-      // Show zcal modal instead of success message
+      // Always show zcal modal for booking
       setShowZcalModal(true)
     } catch (error) {
       console.error('Registration error:', error)
@@ -147,6 +154,12 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-lg p-0 bg-gray-50 border-0 shadow-2xl overflow-hidden rounded-2xl sm:rounded-3xl max-h-[90vh] overflow-y-auto">
+        <VisuallyHidden>
+          <DialogTitle>
+            {isSuccess ? 'Inscription réussie' : 'Formulaire de consultation gratuite'}
+          </DialogTitle>
+        </VisuallyHidden>
+        
         {/* Success State */}
         {isSuccess ? (
           <motion.div
