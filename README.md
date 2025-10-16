@@ -262,10 +262,53 @@ npx prisma generate      # Generate Prisma Client
 npx prisma migrate dev   # Run migrations
 npx prisma studio        # Open Prisma Studio UI
 
+# Email Testing
+npx tsx scripts/test-email-templates.ts  # Generate email previews
+
 # Cleaning
 rm -rf .next             # Clean Next.js cache
 rm -rf node_modules && npm install  # Clean reinstall
 ```
+
+---
+
+## 📧 Système d'Emails Automatiques
+
+### Fonctionnalités
+À chaque inscription d'un étudiant:
+- ✅ **Email client** - Message de bienvenue personnalisé
+- ✅ **Email équipe** - Notification avec coordonnées du prospect
+
+### Configuration
+Le système fonctionne en **mode simulation** par défaut (logs console).
+
+Pour activer les **vrais envois**:
+1. Créez un compte sur [Resend](https://resend.com) (gratuit: 100 emails/jour)
+2. Obtenez votre clé API
+3. Ajoutez dans `.env.local`:
+   ```bash
+   RESEND_API_KEY=re_votre_cle_ici
+   ```
+4. Suivez le guide complet: **[docs/EMAIL_SETUP.md](docs/EMAIL_SETUP.md)**
+
+### Tester les Templates
+```bash
+# Générer des aperçus HTML
+npx tsx scripts/test-email-templates.ts
+
+# Ouvrir les aperçus dans le navigateur
+open test-emails/client-welcome.html
+open test-emails/team-notification.html
+```
+
+### Personnalisation
+- **Templates**: `src/lib/email-templates.ts`
+- **API Endpoint**: `src/app/api/send-email/route.ts`
+- **Documentation**: `docs/EMAIL_SETUP.md`
+
+---
+
+## 🛠️ Commandes Utiles (suite)
 
 ---
 

@@ -120,6 +120,40 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         // Continue anyway - lead saving is not critical
       }
 
+      // Send client welcome email
+      try {
+        await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: data.email,
+            name: data.fullName,
+            phone: data.phone,
+            country: data.country || 'Non spécifié',
+            type: 'client-welcome',
+          }),
+        })
+      } catch (emailError) {
+        console.warn('Client email failed (non-critical):', emailError)
+      }
+
+      // Send team notification email
+      try {
+        await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: 'contact@letudiantetranger.com', // Email de votre équipe
+            name: data.fullName,
+            phone: data.phone,
+            country: data.country || 'Non spécifié',
+            type: 'team-notification',
+          }),
+        })
+      } catch (emailError) {
+        console.warn('Team email failed (non-critical):', emailError)
+      }
+
       // Track event in GA4
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'appointment_form_submitted', {
