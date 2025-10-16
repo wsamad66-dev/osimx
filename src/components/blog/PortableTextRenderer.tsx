@@ -28,9 +28,9 @@ interface QuoteBlock {
 
 interface CalloutBlock {
   _type: 'callout'
-  type: 'info' | 'tip' | 'warning' | 'student'
-  title: string
-  content: string
+  type: 'info' | 'tip' | 'warning' | 'student' | 'success'
+  title?: string
+  content: any[] | string // Peut être un array de blocs Portable Text ou une string
 }
 
 interface LinkMark {
@@ -121,9 +121,16 @@ export const portableTextComponents: PortableTextComponents = {
           iconColor: 'text-purple-600',
           titleColor: 'text-purple-900',
         },
+        success: {
+          bg: 'bg-green-50',
+          border: 'border-green-200',
+          icon: Info,
+          iconColor: 'text-green-600',
+          titleColor: 'text-green-900',
+        },
       }
 
-      const style = calloutStyles[value.type] || calloutStyles.info
+      const style = calloutStyles[value.type as keyof typeof calloutStyles] || calloutStyles.info
       const Icon = style.icon
 
       return (
@@ -133,12 +140,19 @@ export const portableTextComponents: PortableTextComponents = {
               <Icon className="w-6 h-6" />
             </div>
             <div className="flex-1">
-              <h4 className={`font-bold mb-2 ${style.titleColor}`}>
-                {value.title}
-              </h4>
-              <p className="text-slate-700 leading-relaxed">
-                {value.content}
-              </p>
+              {value.title && (
+                <h4 className={`font-bold mb-2 ${style.titleColor}`}>
+                  {value.title}
+                </h4>
+              )}
+              <div className="text-slate-700 leading-relaxed">
+                {/* Le content est un array de blocs Portable Text, on doit le rendre récursivement */}
+                {Array.isArray(value.content) ? (
+                  <PortableText value={value.content} components={portableTextComponents} />
+                ) : (
+                  <p>{value.content}</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -263,16 +277,6 @@ interface PortableTextRendererProps {
 
 export function PortableTextRenderer({ content, className = '' }: PortableTextRendererProps) {
   if (!content) return null
-
-  // Debug: Check what we're receiving
-  console.log('PortableTextRenderer received:')
-  console.log('- Type:', typeof content)
-  console.log('- Is Array:', Array.isArray(content))
-  if (Array.isArray(content) && content.length > 0) {
-    console.log('- First item type:', typeof content[0])
-    console.log('- First item keys:', Object.keys(content[0]))
-    console.log('- First item:', JSON.stringify(content[0]).substring(0, 200))
-  }
 
   // Ensure content is an array
   const contentArray = Array.isArray(content) ? content : [content]
