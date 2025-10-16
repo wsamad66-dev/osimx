@@ -947,7 +947,7 @@ async function getOrCreateAuthor() {
   // Créer l'auteur
   const author = {
     _type: 'blogAuthor',
-    name: 'Équipe OSIMX',
+    name: 'Équipe L'Étudiant Étranger',
     slug: {
       _type: 'slug',
       current: 'equipe-osimx',

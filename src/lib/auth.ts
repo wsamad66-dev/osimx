@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: "admin",
           email: adminEmail,
-          name: "Admin OSIMX",
+          name: "Admin L'Étudiant Étranger",
           role: "admin"
         }
       }

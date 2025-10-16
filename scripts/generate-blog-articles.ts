@@ -558,7 +558,7 @@ async function createAuthor() {
   const author = {
     _type: 'blogAuthor',
     _id: `author-osimx-${uuidv4()}`,
-    name: 'Équipe OSIMX',
+    name: 'Équipe L'Étudiant Étranger',
     slug: {
       _type: 'slug',
       current: 'equipe-osimx',

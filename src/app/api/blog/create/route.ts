@@ -147,7 +147,7 @@ async function getOrCreateAuthor(authorData?: { name: string; email: string; bio
     
     const newAuthor = await client.create({
       _type: 'blogAuthor',
-      name: 'OSIMX Team',
+      name: 'Équipe L'Étudiant Étranger',
       email: 'content@osimx.com',
       bio: 'L\'équipe OSIMX - Experts en accompagnement d\'étudiants internationaux',
     })
