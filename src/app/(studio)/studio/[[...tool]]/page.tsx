@@ -2,7 +2,7 @@
 
 import { NextStudio } from 'next-sanity/studio'
 import { defineConfig } from 'sanity'
-import { structure as structureTool } from 'sanity/structure'
+import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 
 // Import schemas
