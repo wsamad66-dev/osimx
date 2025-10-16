@@ -505,7 +505,7 @@ export default function DestinationPageClient({ destination }: DestinationPageCl
             
             <div className="h-[calc(90vh-100px)]">
               <iframe
-                src="https://zcal.co/letudiantetranger/consultation"
+                src="https://zcal.co/i/CW2aTnAb"
                 className="w-full h-full"
                 frameBorder="0"
               />

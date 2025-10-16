@@ -334,7 +334,7 @@ export function AppointmentForm({ className = '', variant = 'section', onSuccess
               {/* Zcal Iframe */}
               <div className="h-[calc(100%-120px)] overflow-auto">
                 <iframe
-                  src="https://zcal.co/letudiantetranger/consultation"
+                  src="https://zcal.co/i/CW2aTnAb"
                   width="100%"
                   height="100%"
                   frameBorder="0"
