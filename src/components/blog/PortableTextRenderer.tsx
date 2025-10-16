@@ -259,9 +259,12 @@ interface PortableTextRendererProps {
 export function PortableTextRenderer({ content, className = '' }: PortableTextRendererProps) {
   if (!content) return null
 
+  // Ensure content is an array
+  const contentArray = Array.isArray(content) ? content : [content]
+
   return (
     <div className={`prose prose-lg max-w-none ${className}`}>
-      <PortableText value={content} components={portableTextComponents} />
+      <PortableText value={contentArray} components={portableTextComponents} />
     </div>
   )
 }
