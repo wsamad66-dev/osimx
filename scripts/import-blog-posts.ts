@@ -51,7 +51,7 @@ async function getOrCreateAuthor(authorData: BlogPostData['author']) {
     
     const newAuthor = await client.create({
       _type: 'blogAuthor',
-      name: 'Équipe L'Étudiant Étranger',
+      name: "Équipe de L'Étudiant Étranger",
       email: 'admin@osimx.com',
       bio: 'L\'équipe OSIMX - Experts en accompagnement d\'étudiants internationaux',
     })

@@ -352,7 +352,7 @@ async function seedBlogPosts() {
     const author = await client.createOrReplace({
       _id: 'author-osimx-team',
       _type: 'blogAuthor',
-      name: 'Équipe L'Étudiant Étranger',
+      name: "Équipe de L'Étudiant Étranger",
       email: 'content@osimx.com',
       bio: 'L\'équipe OSIMX - Experts en accompagnement d\'étudiants internationaux depuis plus de 10 ans. Nous partageons nos conseils et notre expertise pour vous aider à réussir votre projet d\'études à l\'étranger.',
     })
