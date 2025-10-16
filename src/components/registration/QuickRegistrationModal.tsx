@@ -27,21 +27,62 @@ interface QuickRegistrationModalProps {
   onClose: () => void
 }
 
-  // Countries list
+  // Countries list organized by region
   const countries = [
-    { value: 'FR', label: 'France', flag: '🇫🇷' },
-    { value: 'CA', label: 'Canada', flag: '🇨🇦' },
-    { value: 'US', label: 'États-Unis', flag: '🇺🇸' },
-    { value: 'GB', label: 'Royaume-Uni', flag: '🇬🇧' },
-    { value: 'DE', label: 'Allemagne', flag: '�🇪' },
-    { value: 'ES', label: 'Espagne', flag: '��' },
-    { value: 'IT', label: 'Italie', flag: '🇮🇹' },
-    { value: 'BE', label: 'Belgique', flag: '�🇪' },
-    { value: 'CH', label: 'Suisse', flag: '��' },
-    { value: 'MA', label: 'Maroc', flag: '��' },
-    { value: 'SN', label: 'Sénégal', flag: '�🇳' },
-    { value: 'CI', label: "Côte d'Ivoire", flag: '🇨🇮' },
+    // Afrique
+    { value: 'DZ', label: 'Algérie', flag: '🇩🇿', region: 'Afrique' },
+    { value: 'BJ', label: 'Bénin', flag: '🇧🇯', region: 'Afrique' },
+    { value: 'BF', label: 'Burkina Faso', flag: '🇧🇫', region: 'Afrique' },
+    { value: 'CM', label: 'Cameroun', flag: '🇨🇲', region: 'Afrique' },
+    { value: 'CI', label: "Côte d'Ivoire", flag: '🇨🇮', region: 'Afrique' },
+    { value: 'EG', label: 'Égypte', flag: '🇪🇬', region: 'Afrique' },
+    { value: 'GA', label: 'Gabon', flag: '🇬🇦', region: 'Afrique' },
+    { value: 'GH', label: 'Ghana', flag: '🇬🇭', region: 'Afrique' },
+    { value: 'GN', label: 'Guinée', flag: '🇬🇳', region: 'Afrique' },
+    { value: 'KE', label: 'Kenya', flag: '🇰🇪', region: 'Afrique' },
+    { value: 'MA', label: 'Maroc', flag: '🇲🇦', region: 'Afrique' },
+    { value: 'MU', label: 'Maurice', flag: '🇲🇺', region: 'Afrique' },
+    { value: 'NG', label: 'Nigéria', flag: '🇳🇬', region: 'Afrique' },
+    { value: 'CD', label: 'RD Congo', flag: '🇨🇩', region: 'Afrique' },
+    { value: 'SN', label: 'Sénégal', flag: '🇸🇳', region: 'Afrique' },
+    { value: 'TG', label: 'Togo', flag: '🇹🇬', region: 'Afrique' },
+    { value: 'TN', label: 'Tunisie', flag: '🇹🇳', region: 'Afrique' },
+    
+    // Europe
+    { value: 'BE', label: 'Belgique', flag: '🇧🇪', region: 'Europe' },
+    { value: 'FR', label: 'France', flag: '🇫🇷', region: 'Europe' },
+    { value: 'DE', label: 'Allemagne', flag: '🇩🇪', region: 'Europe' },
+    { value: 'IT', label: 'Italie', flag: '🇮🇹', region: 'Europe' },
+    { value: 'ES', label: 'Espagne', flag: '🇪🇸', region: 'Europe' },
+    { value: 'PT', label: 'Portugal', flag: '🇵🇹', region: 'Europe' },
+    { value: 'GB', label: 'Royaume-Uni', flag: '🇬🇧', region: 'Europe' },
+    { value: 'CH', label: 'Suisse', flag: '🇨🇭', region: 'Europe' },
+    
+    // Amérique du Nord
+    { value: 'CA', label: 'Canada', flag: '🇨🇦', region: 'Amérique' },
+    { value: 'US', label: 'États-Unis', flag: '🇺🇸', region: 'Amérique' },
+    { value: 'MX', label: 'Mexique', flag: '🇲🇽', region: 'Amérique' },
+    
+    // Asie & Moyen-Orient
+    { value: 'CN', label: 'Chine', flag: '🇨🇳', region: 'Asie' },
+    { value: 'IN', label: 'Inde', flag: '🇮🇳', region: 'Asie' },
+    { value: 'ID', label: 'Indonésie', flag: '🇮🇩', region: 'Asie' },
+    { value: 'JP', label: 'Japon', flag: '🇯🇵', region: 'Asie' },
+    { value: 'LB', label: 'Liban', flag: '🇱🇧', region: 'Asie' },
+    { value: 'MY', label: 'Malaisie', flag: '🇲🇾', region: 'Asie' },
+    { value: 'AE', label: 'Émirats Arabes Unis', flag: '🇦🇪', region: 'Asie' },
+    { value: 'SA', label: 'Arabie Saoudite', flag: '🇸🇦', region: 'Asie' },
+    { value: 'VN', label: 'Vietnam', flag: '🇻🇳', region: 'Asie' },
   ]
+
+  // Group countries by region for better UX
+  const countryGroups = countries.reduce((acc, country) => {
+    if (!acc[country.region]) {
+      acc[country.region] = []
+    }
+    acc[country.region].push(country)
+    return acc
+  }, {} as Record<string, typeof countries>)
 
 export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -311,20 +352,30 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                   <select
                     id="country"
                     {...register('country')}
-                    className={`w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-3 text-sm sm:text-base bg-white border-gray-200 rounded-xl appearance-none cursor-pointer ${
+                    className={`w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-10 text-sm sm:text-base bg-white border-gray-200 rounded-xl appearance-none cursor-pointer transition-all ${
                       errors.country
                         ? 'border-red-500 focus:ring-red-500/20'
                         : 'focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500'
                     }`}
                     disabled={isSubmitting}
                   >
-                    <option value="">Sélectionnez votre pays</option>
-                    {countries.map((country) => (
-                      <option key={country.value} value={country.label}>
-                        {country.flag} {country.label}
-                      </option>
+                    <option value="" disabled>🌍 Sélectionnez votre pays</option>
+                    {Object.entries(countryGroups).map(([region, regionCountries]) => (
+                      <optgroup key={region} label={`━━━ ${region} ━━━`}>
+                        {regionCountries.map((country) => (
+                          <option key={country.value} value={country.label}>
+                            {country.flag} {country.label}
+                          </option>
+                        ))}
+                      </optgroup>
                     ))}
                   </select>
+                  {/* Custom dropdown arrow */}
+                  <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
                 {errors.country && (
                   <motion.p
@@ -334,6 +385,11 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                   >
                     {errors.country.message}
                   </motion.p>
+                )}
+                {!errors.country && (
+                  <p className="text-xs text-gray-500">
+                    💡 Votre pays de résidence actuel
+                  </p>
                 )}
               </div>
 
