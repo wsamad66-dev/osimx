@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getClientWelcomeEmail, getTeamNotificationEmail } from '@/lib/email-templates'
-// import { Resend } from 'resend'
-
-// const resend = new Resend(process.env.RESEND_API_KEY)
+import nodemailer from 'nodemailer'
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,7 +19,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Pour le moment, on log juste l'email (développement)
     console.log('📧 Email à envoyer:', { 
       to, 
       subject: emailData.subject, 
@@ -31,44 +28,34 @@ export async function POST(request: NextRequest) {
       country 
     })
 
-    // Décommenter quand Resend est configuré:
-    /*
-    const { data, error } = await resend.emails.send({
-      from: 'L\'Étudiant Étranger <noreply@letudiantetranger.com>',
-      to: [to],
+    // Configuration Gmail avec Nodemailer
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD, // Mot de passe d'application Gmail
+      },
+    })
+
+    // Envoyer l'email
+    const info = await transporter.sendMail({
+      from: `"L'Étudiant Étranger" <${process.env.GMAIL_USER}>`,
+      to: to,
       subject: emailData.subject,
       html: emailData.html,
     })
 
-    if (error) {
-      console.error('Erreur Resend:', error)
-      return NextResponse.json(
-        { error: 'Échec de l\'envoi de l\'email' },
-        { status: 500 }
-      )
-    }
-
-    console.log('✅ Email envoyé:', data)
-    return NextResponse.json({ success: true, data })
-    */
-
-    // Response temporaire pour développement
+    console.log('✅ Email envoyé:', info.messageId)
+    
     return NextResponse.json({
       success: true,
-      message: 'Email simulation réussie',
-      preview: {
-        to,
-        subject: emailData.subject,
-        type,
-        name,
-        country,
-        note: 'L\'email sera envoyé en production avec Resend',
-      },
+      message: 'Email envoyé avec succès',
+      messageId: info.messageId,
     })
   } catch (error) {
-    console.error('Erreur send-email:', error)
+    console.error('❌ Erreur envoi email:', error)
     return NextResponse.json(
-      { error: 'Erreur lors du traitement de la demande' },
+      { error: 'Échec de l\'envoi de l\'email', details: String(error) },
       { status: 500 }
     )
   }

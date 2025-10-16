@@ -279,17 +279,22 @@ rm -rf node_modules && npm install  # Clean reinstall
 - ✅ **Email client** - Message de bienvenue personnalisé
 - ✅ **Email équipe** - Notification avec coordonnées du prospect
 
-### Configuration
-Le système fonctionne en **mode simulation** par défaut (logs console).
+### Configuration Gmail (Gratuit - 5 minutes)
 
-Pour activer les **vrais envois**:
-1. Créez un compte sur [Resend](https://resend.com) (gratuit: 100 emails/jour)
-2. Obtenez votre clé API
+Le système utilise **votre compte Gmail** (gratuit, 500 emails/jour).
+
+**Étapes rapides**:
+1. Activez la validation en 2 étapes: https://myaccount.google.com/security
+2. Créez un mot de passe d'application (section "Mots de passe d'application")
 3. Ajoutez dans `.env.local`:
    ```bash
-   RESEND_API_KEY=re_votre_cle_ici
+   GMAIL_USER=votre-email@gmail.com
+   GMAIL_APP_PASSWORD=votre-mot-de-passe-16-caracteres
+   TEAM_EMAIL=contact@letudiantetranger.com
    ```
-4. Suivez le guide complet: **[docs/EMAIL_SETUP.md](docs/EMAIL_SETUP.md)**
+4. Relancez le serveur: `npm run dev`
+
+**Guide complet**: **[docs/GMAIL_SETUP.md](docs/GMAIL_SETUP.md)**
 
 ### Tester les Templates
 ```bash
@@ -304,7 +309,7 @@ open test-emails/team-notification.html
 ### Personnalisation
 - **Templates**: `src/lib/email-templates.ts`
 - **API Endpoint**: `src/app/api/send-email/route.ts`
-- **Documentation**: `docs/EMAIL_SETUP.md`
+- **Documentation**: `docs/GMAIL_SETUP.md`
 
 ---
 
