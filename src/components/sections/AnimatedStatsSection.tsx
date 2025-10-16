@@ -67,8 +67,11 @@ function StatCard({
           </div>
         </div>
 
-        {/* Value */}
-        <div className="text-5xl font-extrabold text-gray-900 group-hover:text-white transition-colors duration-300 mb-2">
+        {/* Value - Attach ref here for animation trigger */}
+        <div 
+          ref={counter.ref}
+          className="text-5xl font-extrabold text-gray-900 group-hover:text-white transition-colors duration-300 mb-2"
+        >
           {displayValue}
         </div>
 
