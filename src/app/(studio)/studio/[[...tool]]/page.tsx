@@ -70,7 +70,8 @@ const config = defineConfig({
 
   plugins: [
     structureTool({
-      structure: (S) =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      structure: (S: any) =>
         S.list()
           .title('Content')
           .items([
