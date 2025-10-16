@@ -222,7 +222,7 @@ export interface BlogPostPreview {
 
 // Query pour récupérer tous les articles (avec pagination)
 export const BLOG_POSTS_QUERY = `
-  *[_type == "post"] | order(publishedAt desc, featured desc) [$start...$end] {
+  *[_type == "blogPost"] | order(publishedAt desc, featured desc) [$start...$end] {
     _id,
     title,
     "slug": slug.current,
@@ -251,12 +251,12 @@ export const BLOG_POSTS_QUERY = `
 
 // Query pour compter le total d'articles
 export const BLOG_POSTS_COUNT_QUERY = `
-  count(*[_type == "post"])
+  count(*[_type == "blogPost"])
 `
 
 // Query pour récupérer les articles par catégorie
 export const BLOG_POSTS_BY_CATEGORY_QUERY = `
-  *[_type == "post" && category == $category] | order(publishedAt desc) [$start...$end] {
+  *[_type == "blogPost" && category == $category] | order(publishedAt desc) [$start...$end] {
     _id,
     title,
     "slug": slug.current,
@@ -285,7 +285,7 @@ export const BLOG_POSTS_BY_CATEGORY_QUERY = `
 
 // Query pour récupérer un article complet par slug
 export const BLOG_POST_BY_SLUG_QUERY = `
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "blogPost" && slug.current == $slug][0] {
     _id,
     _createdAt,
     title,
@@ -341,7 +341,7 @@ export const BLOG_POST_BY_SLUG_QUERY = `
 
 // Query pour récupérer les articles mis en avant (featured)
 export const BLOG_FEATURED_POSTS_QUERY = `
-  *[_type == "post" && featured == true] | order(publishedAt desc) [0...3] {
+  *[_type == "blogPost" && featured == true] | order(publishedAt desc) [0...3] {
     _id,
     title,
     "slug": slug.current,
@@ -363,7 +363,7 @@ export const BLOG_FEATURED_POSTS_QUERY = `
 
 // Query pour récupérer les articles récents
 export const BLOG_RECENT_POSTS_QUERY = `
-  *[_type == "post"] | order(publishedAt desc) [0...$limit] {
+  *[_type == "blogPost"] | order(publishedAt desc) [0...$limit] {
     _id,
     title,
     "slug": slug.current,
@@ -381,7 +381,7 @@ export const BLOG_RECENT_POSTS_QUERY = `
 
 // Query pour recherche d'articles
 export const BLOG_SEARCH_QUERY = `
-  *[_type == "post" && (
+  *[_type == "blogPost" && (
     title match $searchTerm + "*" ||
     excerpt match $searchTerm + "*" ||
     $searchTerm in tags[]
@@ -407,10 +407,10 @@ export const BLOG_SEARCH_QUERY = `
 
 // Query pour récupérer toutes les catégories utilisées
 export const BLOG_CATEGORIES_QUERY = `
-  array::unique(*[_type == "post"].category)
+  array::unique(*[_type == "blogPost"].category)
 `
 
 // Query pour récupérer tous les slugs (pour generateStaticParams)
 export const BLOG_SLUGS_QUERY = `
-  *[_type == "post"].slug.current
+  *[_type == "blogPost"].slug.current
 `
