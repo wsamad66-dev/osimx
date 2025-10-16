@@ -109,14 +109,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* Header Content */}
         <div className="relative container mx-auto px-4">
           <div className={`max-w-4xl mx-auto ${post.mainImage ? '-mt-32' : 'pt-32'}`}>
-            {/* Back Button */}
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/90 backdrop-blur-sm text-slate-700 hover:bg-white hover:shadow-lg transition-all mb-6"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Retour au blog</span>
-            </Link>
+            {/* Back Buttons */}
+            <div className="flex items-center gap-3 mb-6">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/90 backdrop-blur-sm text-slate-700 hover:bg-white hover:shadow-lg transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Accueil</span>
+              </Link>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/90 backdrop-blur-sm text-slate-700 hover:bg-white hover:shadow-lg transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Blog</span>
+              </Link>
+            </div>
 
             {/* Category Badge */}
             <div className="flex items-center gap-3 mb-6">

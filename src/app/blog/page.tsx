@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { client } from '@/lib/sanity.client'
 import { 
@@ -13,7 +14,7 @@ import { BlogCard } from '@/components/blog/BlogCard'
 import { BlogSearch } from '@/components/blog/BlogSearch'
 import { CategoryFilter } from '@/components/blog/CategoryFilter'
 import { Pagination } from '@/components/blog/Pagination'
-import { BookOpen, Sparkles } from 'lucide-react'
+import { BookOpen, Sparkles, ArrowLeft } from 'lucide-react'
 
 const POSTS_PER_PAGE = 6
 
@@ -75,6 +76,15 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
+            {/* Back to Home Button */}
+            <Link 
+              href="/"
+              className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors mb-6 group"
+            >
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+              <span className="text-sm font-medium">Retour à l'accueil</span>
+            </Link>
+
             {/* Icon */}
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm mb-6">
               <BookOpen className="w-10 h-10" />
