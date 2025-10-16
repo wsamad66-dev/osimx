@@ -418,7 +418,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
               {/* zcal iframe */}
               <div className="relative w-full h-[600px] overflow-hidden">
                 <iframe
-                  src="https://zcal.co/letudiantetranger/consultation"
+                  src="https://zcal.co/i/CW2aTnAb"
                   className="w-full h-full border-0"
                   title="Réservation de consultation"
                   onLoad={() => {
