@@ -145,6 +145,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
           body: JSON.stringify({
             to: process.env.NEXT_PUBLIC_TEAM_EMAIL || 'teametudantetranger@gmail.com',
             name: data.fullName,
+            email: data.email, // ✅ Adresse email du client
             phone: data.phone,
             country: data.country || 'Non spécifié',
             type: 'client-welcome', // Même email que le client
@@ -162,6 +163,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
           body: JSON.stringify({
             to: process.env.NEXT_PUBLIC_TEAM_EMAIL || 'teametudantetranger@gmail.com',
             name: data.fullName,
+            email: data.email, // ✅ Adresse email du client
             phone: data.phone,
             country: data.country || 'Non spécifié',
             type: 'team-notification',
