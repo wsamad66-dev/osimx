@@ -137,6 +137,23 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         console.warn('Client email failed (non-critical):', emailError)
       }
 
+      // Send copy of client welcome email to team
+      try {
+        await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: process.env.NEXT_PUBLIC_TEAM_EMAIL || 'teametudantetranger@gmail.com',
+            name: data.fullName,
+            phone: data.phone,
+            country: data.country || 'Non spécifié',
+            type: 'client-welcome', // Même email que le client
+          }),
+        })
+      } catch (emailError) {
+        console.warn('Team copy email failed (non-critical):', emailError)
+      }
+
       // Send team notification email
       try {
         await fetch('/api/send-email', {
