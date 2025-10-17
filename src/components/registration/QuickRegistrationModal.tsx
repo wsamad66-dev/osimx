@@ -143,7 +143,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            to: 'contact@letudiantetranger.com', // Email de votre équipe
+            to: process.env.NEXT_PUBLIC_TEAM_EMAIL || 'teametudantetranger@gmail.com',
             name: data.fullName,
             phone: data.phone,
             country: data.country || 'Non spécifié',
