@@ -224,8 +224,16 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         console.warn('Student registration error (continuing anyway):', studentError)
       }
 
-      // Always show zcal modal for booking
-      setShowZcalModal(true)
+      // ✅ Fermer le formulaire immédiatement
+      setIsSuccess(false)
+      reset()
+      onClose()
+
+      // ✅ Ouvrir le calendrier Zcal juste après
+      setTimeout(() => {
+        setShowZcalModal(true)
+      }, 300) // Petit délai pour une transition fluide
+      
     } catch (error) {
       console.error('Registration error:', error)
       alert(
@@ -246,48 +254,18 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg p-0 bg-gray-50 border-0 shadow-2xl overflow-hidden rounded-2xl sm:rounded-3xl max-h-[90vh] overflow-y-auto">
-        <VisuallyHidden>
-          <DialogTitle>
-            {isSuccess ? 'Inscription réussie' : 'Formulaire de consultation gratuite'}
-          </DialogTitle>
-        </VisuallyHidden>
-        
-        {/* Success State */}
-        {isSuccess ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="p-6 sm:p-10 text-center bg-white"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center"
-            >
-              <CheckCircle2 className="w-12 h-12 text-green-600" />
-            </motion.div>
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Inscription réussie ! 🎉
-            </h3>
-            <p className="text-lg text-gray-600 mb-2">
-              Nous avons bien reçu votre demande.
-            </p>
-            <p className="text-base text-gray-500">
-              Notre équipe vous contactera sous <span className="font-semibold text-blue-600">2 heures</span> pour finaliser votre dossier.
-            </p>
-            <div className="mt-6 p-4 bg-blue-50 rounded-xl">
-              <p className="text-sm text-gray-700">
-                📧 Email de confirmation envoyé
-              </p>
-            </div>
-          </motion.div>
-        ) : (
-          <>
-            {/* Formulaire */}
-            <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 md:p-10 space-y-4 sm:space-y-6 bg-white">
+    <>
+      {/* Formulaire d'inscription */}
+      <Dialog open={isOpen} onOpenChange={handleClose}>
+        <DialogContent className="max-w-lg p-0 bg-gray-50 border-0 shadow-2xl overflow-hidden rounded-2xl sm:rounded-3xl max-h-[90vh] overflow-y-auto">
+          <VisuallyHidden>
+            <DialogTitle>
+              Formulaire de consultation gratuite
+            </DialogTitle>
+          </VisuallyHidden>
+          
+          {/* Formulaire */}
+          <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 md:p-10 space-y-4 sm:space-y-6 bg-white">
               {/* Title */}
               <div className="text-center mb-4 sm:mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
@@ -485,11 +463,10 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                 </p>
               </div>
             </form>
-          </>
-        )}
-      </DialogContent>
+        </DialogContent>
+      </Dialog>
 
-      {/* zcal Booking Modal - Fixed z-index and improved interaction */}
+      {/* zcal Booking Modal - Indépendant du formulaire */}
       <AnimatePresence>
         {showZcalModal && (
           <motion.div
@@ -502,7 +479,6 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
               // Only close if clicking the backdrop (not the modal content)
               if (e.target === e.currentTarget) {
                 setShowZcalModal(false)
-                handleClose()
               }
             }}
           >
@@ -532,7 +508,6 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                 <button
                   onClick={() => {
                     setShowZcalModal(false)
-                    handleClose()
                   }}
                   className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors flex-shrink-0"
                   aria-label="Fermer"
@@ -583,6 +558,6 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
           </motion.div>
         )}
       </AnimatePresence>
-    </Dialog>
+    </>
   )
 }
