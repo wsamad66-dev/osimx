@@ -470,25 +470,29 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
         )}
       </DialogContent>
 
-      {/* zcal Booking Modal */}
+      {/* zcal Booking Modal - Fixed z-index and improved interaction */}
       <AnimatePresence>
         {showZcalModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100] p-4"
-            onClick={() => {
-              setShowZcalModal(false)
-              handleClose()
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            style={{ zIndex: 9999 }}
+            onClick={(e) => {
+              // Only close if clicking the backdrop (not the modal content)
+              if (e.target === e.currentTarget) {
+                setShowZcalModal(false)
+                handleClose()
+              }
             }}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', damping: 20 }}
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden"
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -499,7 +503,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                   </div>
                   <div>
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-                      Choisissez votre créneau
+                      📅 Choisissez votre créneau
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-600">
                       Consultation gratuite de 30 minutes
@@ -511,20 +515,25 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                     setShowZcalModal(false)
                     handleClose()
                   }}
-                  className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors flex-shrink-0"
                   aria-label="Fermer"
+                  type="button"
                 >
                   <X className="w-5 h-5 text-gray-500" />
                 </button>
               </div>
 
-              {/* zcal iframe */}
-              <div className="relative w-full h-[600px] overflow-hidden">
+              {/* zcal iframe with improved settings */}
+              <div className="relative w-full h-[600px] overflow-hidden bg-white">
                 <iframe
                   src="https://zcal.co/i/CW2aTnAb"
                   className="w-full h-full border-0"
                   title="Réservation de consultation"
+                  allow="payment; camera; microphone"
+                  sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"
+                  loading="eager"
                   onLoad={() => {
+                    console.log('✅ Calendrier Zcal chargé')
                     // Track when zcal loads
                     if (typeof window !== 'undefined' && (window as any).gtag) {
                       (window as any).gtag('event', 'appointment_calendar_loaded', {
@@ -532,14 +541,24 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                       })
                     }
                   }}
+                  onError={() => {
+                    console.error('❌ Erreur chargement Zcal')
+                  }}
                 />
               </div>
 
-              {/* Modal Footer */}
+              {/* Modal Footer with better instructions */}
               <div className="p-4 border-t border-gray-200 bg-gray-50">
-                <p className="text-xs text-center text-gray-600">
-                  💡 Sélectionnez un créneau qui vous convient dans le calendrier ci-dessus
-                </p>
+                <div className="flex items-start gap-2">
+                  <div className="text-blue-500 flex-shrink-0 mt-0.5">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-gray-700">
+                    <strong>Cliquez sur une date</strong> dans le calendrier pour voir les créneaux disponibles, puis sélectionnez l'heure qui vous convient.
+                  </p>
+                </div>
               </div>
             </motion.div>
           </motion.div>
