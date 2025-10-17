@@ -1,0 +1,247 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║  ✅ EMAIL ÉQUIPE MIS À JOUR                                              ║
+║                                                                           ║
+║  Nouveau: teametudantetranger@gmail.com                                   ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  📧 CHANGEMENT D'EMAIL                                                   │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    Ancien email équipe:
+    ❌ contact@letudiantetranger.com
+
+    Nouveau email équipe:
+    ✅ teametudantetranger@gmail.com
+
+    Raison:
+    → Email Gmail configuré pour recevoir les notifications
+    → Centralisation des emails de l'équipe
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  🔧 MODIFICATIONS EFFECTUÉES                                             │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    1. Fichier: .env.local
+    ┌─────────────────────────────────────────────────────────────┐
+    │ # Ajouté pour accès côté client                             │
+    │ NEXT_PUBLIC_TEAM_EMAIL=teametudantetranger@gmail.com        │
+    │                                                              │
+    │ # Variable serveur                                           │
+    │ TEAM_EMAIL=teametudantetranger@gmail.com                    │
+    └─────────────────────────────────────────────────────────────┘
+
+    2. Fichier: src/components/registration/QuickRegistrationModal.tsx
+    ┌─────────────────────────────────────────────────────────────┐
+    │ to: process.env.NEXT_PUBLIC_TEAM_EMAIL ||                   │
+    │     'teametudantetranger@gmail.com'                         │
+    └─────────────────────────────────────────────────────────────┘
+    → Utilise la variable d'environnement
+    → Fallback sur l'email direct
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  📊 FLUX D'EMAILS APRÈS INSCRIPTION                                      │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    Étudiant remplit le formulaire
+              ↓
+    ┌─────────────────────────────────────────────────────────┐
+    │ 📧 EMAIL 1: Client (Étudiant)                           │
+    │                                                          │
+    │ À: email-etudiant@example.com                           │
+    │ De: etudaintetrangerapi@gmail.com                       │
+    │ Sujet: 🎉 Bienvenue à L'Étudiant Étranger !            │
+    │                                                          │
+    │ Contenu:                                                 │
+    │ - Message de bienvenue personnalisé                      │
+    │ - Récapitulatif des informations                        │
+    │ - Prochaines étapes                                      │
+    │ - Coordonnées de contact                                 │
+    └─────────────────────────────────────────────────────────┘
+              ↓
+    ┌─────────────────────────────────────────────────────────┐
+    │ 📧 EMAIL 2: Équipe (Notification)                       │
+    │                                                          │
+    │ À: teametudantetranger@gmail.com ✅ NOUVEAU             │
+    │ De: etudaintetrangerapi@gmail.com                       │
+    │ Sujet: 🔔 Nouvelle inscription: [Nom Étudiant]         │
+    │                                                          │
+    │ Contenu:                                                 │
+    │ - Nom, email, téléphone, pays                           │
+    │ - Alerte "Contacter sous 2 heures"                     │
+    │ - Boutons: WhatsApp, Email, Appel                       │
+    │ - Timestamp de l'inscription                            │
+    └─────────────────────────────────────────────────────────┘
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  🧪 TEST À EFFECTUER                                                     │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    ÉTAPE 1: Vérifier que le serveur a redémarré
+    ├─ Le serveur doit être relancé pour charger les nouvelles variables
+    ├─ Vérifier que vous voyez "Ready" dans le terminal
+    └─ URL: http://localhost:3000
+
+    ÉTAPE 2: Tester une inscription
+    ├─ Aller sur http://localhost:3000
+    ├─ Cliquer "Prendre rendez-vous" ou "Demander un devis"
+    ├─ Remplir le formulaire:
+    │  ├─ Nom: Test Équipe
+    │  ├─ Email: votre-email-test@gmail.com
+    │  ├─ Téléphone: +221 77 123 45 67
+    │  └─ Pays: Sénégal
+    └─ Cliquer "Obtenir ma consultation gratuite"
+
+    ÉTAPE 3: Vérifier la console serveur
+    ├─ Vous devriez voir:
+    │  📧 Email à envoyer: {
+    │    to: 'votre-email-test@gmail.com',
+    │    type: 'client-welcome',
+    │    ...
+    │  }
+    │  
+    │  📧 Email à envoyer: {
+    │    to: 'teametudantetranger@gmail.com', ← NOUVEAU
+    │    type: 'team-notification',
+    │    ...
+    │  }
+    │  
+    │  ✅ Email envoyé: <message-id>
+    │  ✅ Email envoyé: <message-id>
+    └─
+
+    ÉTAPE 4: Vérifier les emails
+    ├─ Ouvrir: teametudantetranger@gmail.com ✅
+    ├─ Vérifier la réception de l'email:
+    │  └─ Sujet: "🔔 Nouvelle inscription: Test Équipe"
+    ├─
+    └─ Si l'email n'est pas dans la boîte principale:
+       └─ Vérifier le dossier SPAM
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  ⚙️ DÉPLOIEMENT VERCEL (Production)                                     │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    Quand vous déployez sur Vercel, n'oubliez pas:
+
+    1. Aller sur https://vercel.com/dashboard
+    
+    2. Sélectionner votre projet
+    
+    3. Settings → Environment Variables
+    
+    4. Ajouter la variable:
+       ┌──────────────────────────────────────────────────┐
+       │ Name:  NEXT_PUBLIC_TEAM_EMAIL                    │
+       │ Value: teametudantetranger@gmail.com             │
+       │ Environments: ✅ Production                       │
+       │               ✅ Preview                          │
+       │               ✅ Development                      │
+       └──────────────────────────────────────────────────┘
+    
+    5. Redéployer le projet
+       → Settings → Deployments → Redeploy
+       → Ou push un nouveau commit
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  📝 RÉSUMÉ DES EMAILS CONFIGURÉS                                         │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    📧 GMAIL_USER (Envoi)
+    └─ etudaintetrangerapi@gmail.com
+       ├─ Mot de passe d'application configuré
+       ├─ Envoie TOUS les emails
+       └─ 500 emails/jour (Gmail gratuit)
+
+    📧 TEAM_EMAIL (Réception équipe)
+    └─ teametudantetranger@gmail.com ✅ NOUVEAU
+       ├─ Reçoit les notifications de nouvelles inscriptions
+       ├─ Email de notification avec coordonnées prospect
+       └─ Boutons d'action: WhatsApp, Email, Appel
+
+    📧 CLIENT EMAIL (Réception client)
+    └─ [Email de l'étudiant]
+       ├─ Reçoit le message de bienvenue
+       ├─ Récapitulatif des informations
+       └─ Prochaines étapes
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  🔄 POUR CHANGER L'EMAIL ÉQUIPE À NOUVEAU                                │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    C'est très simple maintenant:
+
+    1. Modifier .env.local:
+       ┌──────────────────────────────────────────────────┐
+       │ NEXT_PUBLIC_TEAM_EMAIL=nouveau-email@gmail.com   │
+       │ TEAM_EMAIL=nouveau-email@gmail.com               │
+       └──────────────────────────────────────────────────┘
+
+    2. Relancer le serveur:
+       npm run dev
+
+    3. C'est tout ! 🎉
+       Le code utilise automatiquement la variable.
+
+
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│  ✅ CHECKLIST                                                            │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+    Configuration:
+    ✅ NEXT_PUBLIC_TEAM_EMAIL ajouté dans .env.local
+    ✅ TEAM_EMAIL mis à jour dans .env.local
+    ✅ Code QuickRegistrationModal.tsx mis à jour
+    ✅ Documentation créée (TEAM_EMAIL_UPDATE.md)
+    ✅ Commit poussé sur GitHub (f430758)
+    ✅ Serveur redémarré
+
+    Tests à faire:
+    ⬜ Vérifier serveur démarré (http://localhost:3000)
+    ⬜ Soumettre une inscription test
+    ⬜ Vérifier console serveur (logs)
+    ⬜ Vérifier email reçu sur teametudantetranger@gmail.com
+    ⬜ Vérifier contenu email (nom, téléphone, pays)
+    ⬜ Tester boutons WhatsApp/Email/Appel
+
+    Production (plus tard):
+    ⬜ Ajouter NEXT_PUBLIC_TEAM_EMAIL dans Vercel
+    ⬜ Redéployer sur Vercel
+    ⬜ Tester en production
+
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║  🎉 EMAIL ÉQUIPE CONFIGURÉ AVEC SUCCÈS                                   ║
+║                                                                           ║
+║  teametudantetranger@gmail.com                                            ║
+║                                                                           ║
+║  Vous recevrez maintenant toutes les notifications d'inscription          ║
+║  sur cette adresse !                                                      ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
