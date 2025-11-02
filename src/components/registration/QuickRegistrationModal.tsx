@@ -27,62 +27,62 @@ interface QuickRegistrationModalProps {
   onClose: () => void
 }
 
-  // Countries list organized by region
-  const countries = [
-    // Afrique
-    { value: 'DZ', label: 'Algérie', flag: '🇩🇿', region: 'Afrique' },
-    { value: 'BJ', label: 'Bénin', flag: '🇧🇯', region: 'Afrique' },
-    { value: 'BF', label: 'Burkina Faso', flag: '🇧🇫', region: 'Afrique' },
-    { value: 'CM', label: 'Cameroun', flag: '🇨🇲', region: 'Afrique' },
-    { value: 'CI', label: "Côte d'Ivoire", flag: '🇨🇮', region: 'Afrique' },
-    { value: 'EG', label: 'Égypte', flag: '🇪🇬', region: 'Afrique' },
-    { value: 'GA', label: 'Gabon', flag: '🇬🇦', region: 'Afrique' },
-    { value: 'GH', label: 'Ghana', flag: '🇬🇭', region: 'Afrique' },
-    { value: 'GN', label: 'Guinée', flag: '🇬🇳', region: 'Afrique' },
-    { value: 'KE', label: 'Kenya', flag: '🇰🇪', region: 'Afrique' },
-    { value: 'MA', label: 'Maroc', flag: '🇲🇦', region: 'Afrique' },
-    { value: 'MU', label: 'Maurice', flag: '🇲🇺', region: 'Afrique' },
-    { value: 'NG', label: 'Nigéria', flag: '🇳🇬', region: 'Afrique' },
-    { value: 'CD', label: 'RD Congo', flag: '🇨🇩', region: 'Afrique' },
-    { value: 'SN', label: 'Sénégal', flag: '🇸🇳', region: 'Afrique' },
-    { value: 'TG', label: 'Togo', flag: '🇹🇬', region: 'Afrique' },
-    { value: 'TN', label: 'Tunisie', flag: '🇹🇳', region: 'Afrique' },
-    
-    // Europe
-    { value: 'BE', label: 'Belgique', flag: '🇧🇪', region: 'Europe' },
-    { value: 'FR', label: 'France', flag: '🇫🇷', region: 'Europe' },
-    { value: 'DE', label: 'Allemagne', flag: '🇩🇪', region: 'Europe' },
-    { value: 'IT', label: 'Italie', flag: '🇮🇹', region: 'Europe' },
-    { value: 'ES', label: 'Espagne', flag: '🇪🇸', region: 'Europe' },
-    { value: 'PT', label: 'Portugal', flag: '🇵🇹', region: 'Europe' },
-    { value: 'GB', label: 'Royaume-Uni', flag: '🇬🇧', region: 'Europe' },
-    { value: 'CH', label: 'Suisse', flag: '🇨🇭', region: 'Europe' },
-    
-    // Amérique du Nord
-    { value: 'CA', label: 'Canada', flag: '🇨🇦', region: 'Amérique' },
-    { value: 'US', label: 'États-Unis', flag: '🇺🇸', region: 'Amérique' },
-    { value: 'MX', label: 'Mexique', flag: '🇲🇽', region: 'Amérique' },
-    
-    // Asie & Moyen-Orient
-    { value: 'CN', label: 'Chine', flag: '🇨🇳', region: 'Asie' },
-    { value: 'IN', label: 'Inde', flag: '🇮🇳', region: 'Asie' },
-    { value: 'ID', label: 'Indonésie', flag: '🇮🇩', region: 'Asie' },
-    { value: 'JP', label: 'Japon', flag: '🇯🇵', region: 'Asie' },
-    { value: 'LB', label: 'Liban', flag: '🇱🇧', region: 'Asie' },
-    { value: 'MY', label: 'Malaisie', flag: '🇲🇾', region: 'Asie' },
-    { value: 'AE', label: 'Émirats Arabes Unis', flag: '🇦🇪', region: 'Asie' },
-    { value: 'SA', label: 'Arabie Saoudite', flag: '🇸🇦', region: 'Asie' },
-    { value: 'VN', label: 'Vietnam', flag: '🇻🇳', region: 'Asie' },
-  ]
+// Countries list organized by region - MOVED OUTSIDE COMPONENT TO BE CONSTANT
+const COUNTRIES = [
+  // Afrique
+  { value: 'DZ', label: 'Algérie', flag: '🇩🇿', region: 'Afrique' },
+  { value: 'BJ', label: 'Bénin', flag: '🇧🇯', region: 'Afrique' },
+  { value: 'BF', label: 'Burkina Faso', flag: '🇧🇫', region: 'Afrique' },
+  { value: 'CM', label: 'Cameroun', flag: '🇨🇲', region: 'Afrique' },
+  { value: 'CI', label: "Côte d'Ivoire", flag: '🇨🇮', region: 'Afrique' },
+  { value: 'EG', label: 'Égypte', flag: '🇪🇬', region: 'Afrique' },
+  { value: 'GA', label: 'Gabon', flag: '🇬🇦', region: 'Afrique' },
+  { value: 'GH', label: 'Ghana', flag: '🇬🇭', region: 'Afrique' },
+  { value: 'GN', label: 'Guinée', flag: '🇬🇳', region: 'Afrique' },
+  { value: 'KE', label: 'Kenya', flag: '🇰🇪', region: 'Afrique' },
+  { value: 'MA', label: 'Maroc', flag: '🇲🇦', region: 'Afrique' },
+  { value: 'MU', label: 'Maurice', flag: '🇲🇺', region: 'Afrique' },
+  { value: 'NG', label: 'Nigéria', flag: '🇳🇬', region: 'Afrique' },
+  { value: 'CD', label: 'RD Congo', flag: '🇨🇩', region: 'Afrique' },
+  { value: 'SN', label: 'Sénégal', flag: '🇸🇳', region: 'Afrique' },
+  { value: 'TG', label: 'Togo', flag: '🇹🇬', region: 'Afrique' },
+  { value: 'TN', label: 'Tunisie', flag: '🇹🇳', region: 'Afrique' },
+  
+  // Europe
+  { value: 'BE', label: 'Belgique', flag: '🇧🇪', region: 'Europe' },
+  { value: 'FR', label: 'France', flag: '🇫🇷', region: 'Europe' },
+  { value: 'DE', label: 'Allemagne', flag: '🇩🇪', region: 'Europe' },
+  { value: 'IT', label: 'Italie', flag: '🇮🇹', region: 'Europe' },
+  { value: 'ES', label: 'Espagne', flag: '🇪🇸', region: 'Europe' },
+  { value: 'PT', label: 'Portugal', flag: '🇵🇹', region: 'Europe' },
+  { value: 'GB', label: 'Royaume-Uni', flag: '🇬🇧', region: 'Europe' },
+  { value: 'CH', label: 'Suisse', flag: '🇨🇭', region: 'Europe' },
+  
+  // Amérique du Nord
+  { value: 'CA', label: 'Canada', flag: '🇨🇦', region: 'Amérique' },
+  { value: 'US', label: 'États-Unis', flag: '🇺🇸', region: 'Amérique' },
+  { value: 'MX', label: 'Mexique', flag: '🇲🇽', region: 'Amérique' },
+  
+  // Asie & Moyen-Orient
+  { value: 'CN', label: 'Chine', flag: '🇨🇳', region: 'Asie' },
+  { value: 'IN', label: 'Inde', flag: '🇮🇳', region: 'Asie' },
+  { value: 'ID', label: 'Indonésie', flag: '🇮🇩', region: 'Asie' },
+  { value: 'JP', label: 'Japon', flag: '🇯🇵', region: 'Asie' },
+  { value: 'LB', label: 'Liban', flag: '🇱🇧', region: 'Asie' },
+  { value: 'MY', label: 'Malaisie', flag: '🇲🇾', region: 'Asie' },
+  { value: 'AE', label: 'Émirats Arabes Unis', flag: '🇦🇪', region: 'Asie' },
+  { value: 'SA', label: 'Arabie Saoudite', flag: '🇸🇦', region: 'Asie' },
+  { value: 'VN', label: 'Vietnam', flag: '🇻🇳', region: 'Asie' },
+]
 
-  // Group countries by region for better UX
-  const countryGroups = countries.reduce((acc, country) => {
-    if (!acc[country.region]) {
-      acc[country.region] = []
-    }
-    acc[country.region].push(country)
-    return acc
-  }, {} as Record<string, typeof countries>)
+// Group countries by region for better UX - PRE-COMPUTED
+const COUNTRY_GROUPS = COUNTRIES.reduce((acc, country) => {
+  if (!acc[country.region]) {
+    acc[country.region] = []
+  }
+  acc[country.region].push(country)
+  return acc
+}, {} as Record<string, typeof COUNTRIES>)
 
 export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -391,7 +391,7 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                     disabled={isSubmitting}
                   >
                     <option value="" disabled>🌍 Sélectionnez votre pays</option>
-                    {Object.entries(countryGroups).map(([region, regionCountries]) => (
+                    {Object.entries(COUNTRY_GROUPS).map(([region, regionCountries]) => (
                       <optgroup key={region} label={`━━━ ${region} ━━━`}>
                         {regionCountries.map((country) => (
                           <option key={country.value} value={country.label}>
