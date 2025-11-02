@@ -4,14 +4,17 @@ import nodemailer from 'nodemailer'
 
 export async function POST(request: NextRequest) {
   try {
-    const { to, name, phone, country, type } = await request.json()
+    const { to, name, email, phone, country, type } = await request.json()
+
+    // Utiliser l'email du client (si fourni) sinon fallback sur 'to'
+    const clientEmail = email || to
 
     // Générer le bon template selon le type
     let emailData
     if (type === 'client-welcome') {
-      emailData = getClientWelcomeEmail({ name, email: to, phone, country })
+      emailData = getClientWelcomeEmail({ name, email: clientEmail, phone, country })
     } else if (type === 'team-notification') {
-      emailData = getTeamNotificationEmail({ name, email: to, phone, country })
+      emailData = getTeamNotificationEmail({ name, email: clientEmail, phone, country })
     } else {
       return NextResponse.json(
         { error: 'Type d\'email invalide' },
@@ -21,6 +24,7 @@ export async function POST(request: NextRequest) {
 
     console.log('📧 Email à envoyer:', { 
       to, 
+      clientEmail,
       subject: emailData.subject, 
       type,
       name,
