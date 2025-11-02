@@ -274,7 +274,7 @@ export function AnimatedStatsSection() {
             aria-label="Rejoindre nos étudiants"
           >
             <Star className="w-6 h-6" />
-            <span>Rejoignez nos 3500+ étudiants satisfaits</span>
+            <span>Rejoignez nos 500+ étudiants satisfaits</span>
             <motion.div
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}

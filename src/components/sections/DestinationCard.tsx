@@ -18,7 +18,7 @@ export const destinationsData: DestinationData[] = [
     flag: '🇨🇦',
     name: 'Canada',
     tagline: 'Immigration facilitée',
-    students: '3500+',
+    students: '500+',
     universities: '50+',
     successRate: '97%',
     highlights: [
@@ -31,7 +31,7 @@ export const destinationsData: DestinationData[] = [
     flag: '🇫🇷',
     name: 'France',
     tagline: 'Excellence académique',
-    students: '2800+',
+    students: '500+',
     universities: '45+',
     successRate: '95%',
     highlights: [

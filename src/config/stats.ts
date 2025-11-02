@@ -10,32 +10,32 @@ export const STATS = {
 
 export const DESTINATION_STATS = {
   canada: {
-    students: '3500+',
+    students: '500+',
     universities: '50+',
     successRate: '97%',
   },
   france: {
-    students: '2800+',
+    students: '500+',
     universities: '45+',
     successRate: '95%',
   },
   germany: {
-    students: '1200+',
+    students: '500+',
     universities: '35+',
     successRate: '92%',
   },
   usa: {
-    students: '800+',
+    students: '500+',
     universities: '60+',
     successRate: '89%',
   },
   uk: {
-    students: '650+',
+    students: '500+',
     universities: '30+',
     successRate: '91%',
   },
   italy: {
-    students: '450+',
+    students: '500+',
     universities: '25+',
     successRate: '88%',
   },

@@ -86,7 +86,7 @@ export const defaultCountries: CountryData[] = [
     tagline: 'Qualité de vie exceptionnelle',
     description: 'Le Canada offre une éducation de classe mondiale et des opportunités d\'immigration facilitées. Idéal pour construire votre avenir.',
     image: '/images/destinations/canada.png',
-    students: '3500+',
+    students: '500+',
     universities: '50+',
     successRate: '97%',
     highlights: [
@@ -106,7 +106,7 @@ export const defaultCountries: CountryData[] = [
     tagline: 'Carrefour européen',
     description: 'Position centrale en Europe, coût de vie abordable, et système éducatif bilingue de qualité. Parfait pour l\'Europe.',
     image: '/images/destinations/belgique.png',
-    students: '1500+',
+    students: '500+',
     universities: '35+',
     successRate: '93%',
     highlights: [
