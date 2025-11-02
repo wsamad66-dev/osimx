@@ -76,13 +76,12 @@ const COUNTRIES = [
 ]
 
 // Group countries by region for better UX - PRE-COMPUTED
-const COUNTRY_GROUPS = COUNTRIES.reduce((acc, country) => {
-  if (!acc[country.region]) {
-    acc[country.region] = []
-  }
-  acc[country.region].push(country)
-  return acc
-}, {} as Record<string, typeof COUNTRIES>)
+const COUNTRY_GROUPS: Record<string, Array<{ value: string; label: string; flag: string; region: string }>> = {
+  'Afrique': COUNTRIES.filter(c => c.region === 'Afrique'),
+  'Europe': COUNTRIES.filter(c => c.region === 'Europe'),
+  'Amérique': COUNTRIES.filter(c => c.region === 'Amérique'),
+  'Asie': COUNTRIES.filter(c => c.region === 'Asie'),
+}
 
 export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
