@@ -15,7 +15,7 @@ interface UseAnimatedCounterOptions {
 export function useAnimatedCounter(options: UseAnimatedCounterOptions) {
   const { end, delay = 0, enableOnView = true } = options
   
-  const ref = useRef<HTMLSpanElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
   const [hasStarted, setHasStarted] = useState(false)
   
