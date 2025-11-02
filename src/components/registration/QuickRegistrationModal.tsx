@@ -75,14 +75,6 @@ const COUNTRIES = [
   { value: 'VN', label: 'Vietnam', flag: '🇻🇳', region: 'Asie' },
 ]
 
-// Group countries by region for better UX - PRE-COMPUTED
-const COUNTRY_GROUPS: Record<string, Array<{ value: string; label: string; flag: string; region: string }>> = {
-  'Afrique': COUNTRIES.filter(c => c.region === 'Afrique'),
-  'Europe': COUNTRIES.filter(c => c.region === 'Europe'),
-  'Amérique': COUNTRIES.filter(c => c.region === 'Amérique'),
-  'Asie': COUNTRIES.filter(c => c.region === 'Asie'),
-}
-
 export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -390,15 +382,38 @@ export function QuickRegistrationModal({ isOpen, onClose }: QuickRegistrationMod
                     disabled={isSubmitting}
                   >
                     <option value="" disabled>🌍 Sélectionnez votre pays</option>
-                    {Object.entries(COUNTRY_GROUPS).map(([region, regionCountries]) => (
-                      <optgroup key={region} label={`━━━ ${region} ━━━`}>
-                        {regionCountries.map((country) => (
-                          <option key={country.value} value={country.label}>
-                            {country.flag} {country.label}
-                          </option>
-                        ))}
-                      </optgroup>
-                    ))}
+                    
+                    <optgroup label="━━━ Afrique ━━━">
+                      {COUNTRIES.filter(c => c.region === 'Afrique').map((country) => (
+                        <option key={country.value} value={country.label}>
+                          {country.flag} {country.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                    
+                    <optgroup label="━━━ Europe ━━━">
+                      {COUNTRIES.filter(c => c.region === 'Europe').map((country) => (
+                        <option key={country.value} value={country.label}>
+                          {country.flag} {country.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                    
+                    <optgroup label="━━━ Amérique ━━━">
+                      {COUNTRIES.filter(c => c.region === 'Amérique').map((country) => (
+                        <option key={country.value} value={country.label}>
+                          {country.flag} {country.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                    
+                    <optgroup label="━━━ Asie ━━━">
+                      {COUNTRIES.filter(c => c.region === 'Asie').map((country) => (
+                        <option key={country.value} value={country.label}>
+                          {country.flag} {country.label}
+                        </option>
+                      ))}
+                    </optgroup>
                   </select>
                   {/* Custom dropdown arrow */}
                   <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 pointer-events-none">
