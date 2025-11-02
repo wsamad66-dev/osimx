@@ -1,6 +1,4 @@
-import { PartnersBanner, CompactPartnersBanner               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
-                <div className="text-gray-600">Étudiants</div>rom '@/components/home/PartnersBanner'
+import { PartnersBanner, CompactPartnersBanner } from '@/components/home/PartnersBanner'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -48,7 +46,7 @@ export default function PartnersTestPage() {
                 <div className="text-gray-600">Pays Couverts</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">10,000+</div>
+                <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
                 <div className="text-gray-600">Étudiants Placés</div>
               </div>
             </div>
