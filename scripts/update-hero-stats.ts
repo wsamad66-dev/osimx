@@ -29,7 +29,7 @@ async function updateHeroStats() {
     const result = await client
       .patch(hero._id)
       .set({
-        studentsCount: '10,000+',
+        studentsCount: '500+',
         studentsCountText: 'étudiants déjà accompagnés',
       })
       .commit()

@@ -140,7 +140,7 @@ export function HeroSection({ heroData, onRegisterClick }: HeroSectionProps) {
               {/* Text */}
               <div className="flex flex-col">
                 <p className="text-gray-900 font-bold text-base sm:text-lg">
-                  10,000+ étudiants
+                  500+ étudiants
                 </p>
                 <p className="text-gray-600 text-xs sm:text-sm">
                   déjà accompagnés

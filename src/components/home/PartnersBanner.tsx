@@ -157,7 +157,7 @@ export function PartnersBanner({
         >
           <p className="text-sm text-gray-500">
             🌍 Partenariats dans <span className="font-semibold">15 pays</span> • 
-            🎓 <span className="font-semibold">10,000+</span> étudiants placés
+            🎓 <span className="font-semibold">500+</span> étudiants placés
           </p>
         </motion.div>
       </div>

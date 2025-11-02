@@ -149,7 +149,7 @@ const faqData: FAQItem[] = [
   {
     id: '15',
     question: 'Y a-t-il une communauté d\'étudiants?',
-    answer: 'Absolument! Nous avons une communauté active de 10,000+ étudiants partout dans le monde. Groupes WhatsApp par pays, événements mensuels, système de parrainage. Vous intégrerez un réseau solidaire dès votre inscription.',
+    answer: 'Absolument! Nous avons une communauté active de 500+ étudiants partout dans le monde. Groupes WhatsApp par pays, événements mensuels, système de parrainage. Vous intégrerez un réseau solidaire dès votre inscription.',
     category: 'vie',
     tags: ['communauté', 'réseau', 'étudiants'],
     helpful: 189

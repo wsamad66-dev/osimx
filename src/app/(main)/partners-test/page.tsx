@@ -1,4 +1,6 @@
-import { PartnersBanner, CompactPartnersBanner } from '@/components/home/PartnersBanner'
+import { PartnersBanner, CompactPartnersBanner               <div className="text-center">
+                <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
+                <div className="text-gray-600">Étudiants</div>rom '@/components/home/PartnersBanner'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -94,7 +96,7 @@ export default function PartnersTestPage() {
       <div className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Prêt à rejoindre nos 10,000+ étudiants ?
+            Prêt à rejoindre nos 500+ étudiants ?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Bénéficiez de notre réseau de partenaires pour réaliser votre projet d'études à l'étranger

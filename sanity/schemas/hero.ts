@@ -103,8 +103,8 @@ export default defineType({
       name: 'studentsCount',
       title: 'Nombre d\'étudiants accompagnés',
       type: 'string',
-      description: 'Nombre d\'étudiants (ex: "10,000+" ou "3,500+")',
-      initialValue: '10,000+',
+      description: 'Nombre d\'étudiants (ex: "500+" ou "1,000+")',
+      initialValue: '500+',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

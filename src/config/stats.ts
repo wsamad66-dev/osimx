@@ -1,6 +1,6 @@
 export const STATS = {
   successRate: '95%',
-  studentsHelped: '10,000+',
+  studentsHelped: '500+',
   studentsHelpedText: 'étudiants déjà accompagnés',
   partnerCountries: '25+',
   responseTime: '48h',
