@@ -1,8 +1,7 @@
 'use client'
 
 import { NextStudio } from 'next-sanity/studio'
-import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
+import { defineConfig, structureTool } from 'sanity'
 import { visionTool } from '@sanity/vision'
 
 // Import schemas
