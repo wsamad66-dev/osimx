@@ -24,9 +24,9 @@ export default defineType({
         order: 2,
         hasDropdown: true,
         dropdownItems: [
-          { _type: 'object', label: 'Admission', link: '/services/admission' },
-          { _type: 'object', label: 'Visa', link: '/services/visa' },
-          { _type: 'object', label: 'Logement', link: '/services/logement' },
+          { _type: 'object', label: 'Admission', link: '/services' },
+          { _type: 'object', label: 'Visa', link: '/services' },
+          { _type: 'object', label: 'Logement', link: '/services' },
         ],
       },
       {

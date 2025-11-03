@@ -1,0 +1,247 @@
+{
+  "info": {
+    "name": "OSIMX Blog API",
+    "description": "API pour créer et gérer des articles de blog automatiquement",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "api_secret",
+      "value": "your-secret-key-change-me",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Generate AI Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_secret}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"topic\": \"Guide complet pour obtenir un visa étudiant au Canada\",\n  \"keywords\": [\"visa\", \"canada\", \"étudiant\", \"permis\"],\n  \"category\": \"visa\",\n  \"language\": \"fr\",\n  \"tone\": \"professional\",\n  \"length\": \"medium\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/blog/generate",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "generate"]
+        },
+        "description": "Génère du contenu d'article avec l'IA OpenAI"
+      },
+      "response": []
+    },
+    {
+      "name": "2. Create Blog Post",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_secret}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Guide Complet : Visa Étudiant Canada 2025\",\n  \"excerpt\": \"Découvrez toutes les étapes pour obtenir votre visa étudiant canadien rapidement et sans erreur.\",\n  \"content\": \"# Visa Étudiant Canada\\n\\n## Introduction\\n\\nLe Canada accueille plus de 600,000 étudiants internationaux chaque année...\\n\\n## Étapes Principales\\n\\n1. **Obtenir une lettre d'acceptation**\\n2. **Préparer les documents**\\n3. **Faire la demande en ligne**\\n4. **Passer les examens médicaux**\\n5. **Attendre la décision**\\n\\n## Documents Requis\\n\\n- Passeport valide\\n- Lettre d'acceptation\\n- Preuve de fonds (10,000 CAD)\\n- Photos d'identité\\n\\n## Délais\\n\\nLe traitement prend généralement 4-8 semaines.\\n\\n## Notre Accompagnement\\n\\nOSIMX vous aide à préparer un dossier parfait. Contactez-nous pour un accompagnement personnalisé !\",\n  \"categories\": [\"visa\", \"etudes\"],\n  \"tags\": [\"canada\", \"visa\", \"permis-etudes\", \"etudiant-international\"],\n  \"featured\": true,\n  \"author\": {\n    \"name\": \"Sophie Martin\",\n    \"email\": \"sophie@osimx.com\",\n    \"bio\": \"Experte en mobilité étudiante vers le Canada\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/blog/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "create"]
+        },
+        "description": "Crée un nouvel article de blog dans Sanity"
+      },
+      "response": []
+    },
+    {
+      "name": "3. Get All Blog Posts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/blog/create?limit=10&offset=0",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "create"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Nombre d'articles à récupérer"
+            },
+            {
+              "key": "offset",
+              "value": "0",
+              "description": "Décalage pour la pagination"
+            }
+          ]
+        },
+        "description": "Récupère la liste des articles publiés"
+      },
+      "response": []
+    },
+    {
+      "name": "4. Get Posts by Category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/blog/create?category=visa&limit=5",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "create"],
+          "query": [
+            {
+              "key": "category",
+              "value": "visa",
+              "description": "Filtrer par catégorie"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "description": "Récupère les articles d'une catégorie spécifique"
+      },
+      "response": []
+    },
+    {
+      "name": "5. Create Simple Post (No Author)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_secret}}",
+            "type": "text",
+            "description": "Alternative à Authorization header"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"5 Conseils pour Réussir votre Intégration à l'Étranger\",\n  \"excerpt\": \"Découvrez nos meilleurs conseils pour vous adapter rapidement à votre nouveau pays d'études.\",\n  \"content\": \"# 5 Conseils Essentiels\\n\\n## 1. Apprenez la langue\\n\\nLa maîtrise de la langue locale est cruciale...\\n\\n## 2. Rejoignez des clubs étudiants\\n\\nParticiper aux activités étudiantes vous aide à...\\n\\n## 3. Explorez votre nouvelle ville\\n\\nPrenez le temps de découvrir...\\n\\n## 4. Restez en contact avec la famille\\n\\nGarder le lien avec vos proches...\\n\\n## 5. Soyez patient\\n\\nL'adaptation prend du temps...\",\n  \"categories\": [\"conseils\"],\n  \"tags\": [\"integration\", \"adaptation\", \"vie-etudiante\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/blog/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "create"]
+        },
+        "description": "Crée un article simple sans auteur spécifique (utilise l'auteur par défaut)"
+      },
+      "response": []
+    },
+    {
+      "name": "6. Generate Short Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_secret}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"topic\": \"Les meilleures bourses pour étudier en France\",\n  \"keywords\": [\"bourses\", \"france\", \"financement\"],\n  \"category\": \"financement\",\n  \"language\": \"fr\",\n  \"tone\": \"professional\",\n  \"length\": \"short\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/blog/generate",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "generate"]
+        },
+        "description": "Génère un article court (800-1000 mots)"
+      },
+      "response": []
+    },
+    {
+      "name": "7. Generate Long Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_secret}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"topic\": \"Guide complet : Étudier aux États-Unis de A à Z\",\n  \"keywords\": [\"usa\", \"etats-unis\", \"universite\", \"admission\", \"visa\"],\n  \"category\": \"etudes\",\n  \"language\": \"fr\",\n  \"tone\": \"academic\",\n  \"length\": \"long\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/blog/generate",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "generate"]
+        },
+        "description": "Génère un article long et détaillé (2000-2500 mots)"
+      },
+      "response": []
+    },
+    {
+      "name": "8. Generate + Create (Full Pipeline)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{api_secret}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"topic\": \"Logement étudiant en Angleterre : Guide pratique\",\n  \"keywords\": [\"logement\", \"angleterre\", \"uk\", \"residence\"],\n  \"category\": \"logement\",\n  \"language\": \"fr\",\n  \"length\": \"medium\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/blog/generate",
+          "host": ["{{base_url}}"],
+          "path": ["api", "blog", "generate"]
+        },
+        "description": "Première étape : générer le contenu. Ensuite copier la réponse dans 'Create Blog Post'"
+      },
+      "response": []
+    }
+  ]
+}

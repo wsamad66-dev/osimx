@@ -90,7 +90,7 @@ export default function DestinationsPage() {
               Découvrez votre <span className="text-orange-400">destination idéale</span>
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-8">
-              15 pays partenaires • 500+ universités • 10,000+ étudiants accompagnés
+              15 pays partenaires • 500+ universités • 500+ étudiants accompagnés
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">

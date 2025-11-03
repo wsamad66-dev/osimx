@@ -262,10 +262,58 @@ npx prisma generate      # Generate Prisma Client
 npx prisma migrate dev   # Run migrations
 npx prisma studio        # Open Prisma Studio UI
 
+# Email Testing
+npx tsx scripts/test-email-templates.ts  # Generate email previews
+
 # Cleaning
 rm -rf .next             # Clean Next.js cache
 rm -rf node_modules && npm install  # Clean reinstall
 ```
+
+---
+
+## 📧 Système d'Emails Automatiques
+
+### Fonctionnalités
+À chaque inscription d'un étudiant:
+- ✅ **Email client** - Message de bienvenue personnalisé
+- ✅ **Email équipe** - Notification avec coordonnées du prospect
+
+### Configuration Gmail (Gratuit - 5 minutes)
+
+Le système utilise **votre compte Gmail** (gratuit, 500 emails/jour).
+
+**Étapes rapides**:
+1. Activez la validation en 2 étapes: https://myaccount.google.com/security
+2. Créez un mot de passe d'application (section "Mots de passe d'application")
+3. Ajoutez dans `.env.local`:
+   ```bash
+   GMAIL_USER=votre-email@gmail.com
+   GMAIL_APP_PASSWORD=votre-mot-de-passe-16-caracteres
+   TEAM_EMAIL=contact@letudiantetranger.com
+   ```
+4. Relancez le serveur: `npm run dev`
+
+**Guide complet**: **[docs/GMAIL_SETUP.md](docs/GMAIL_SETUP.md)**
+
+### Tester les Templates
+```bash
+# Générer des aperçus HTML
+npx tsx scripts/test-email-templates.ts
+
+# Ouvrir les aperçus dans le navigateur
+open test-emails/client-welcome.html
+open test-emails/team-notification.html
+```
+
+### Personnalisation
+- **Templates**: `src/lib/email-templates.ts`
+- **API Endpoint**: `src/app/api/send-email/route.ts`
+- **Documentation**: `docs/GMAIL_SETUP.md`
+
+---
+
+## 🛠️ Commandes Utiles (suite)
 
 ---
 

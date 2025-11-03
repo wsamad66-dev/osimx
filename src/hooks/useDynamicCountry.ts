@@ -86,7 +86,7 @@ export const defaultCountries: CountryData[] = [
     tagline: 'Qualité de vie exceptionnelle',
     description: 'Le Canada offre une éducation de classe mondiale et des opportunités d\'immigration facilitées. Idéal pour construire votre avenir.',
     image: '/images/destinations/canada.png',
-    students: '3500+',
+    students: '500+',
     universities: '50+',
     successRate: '97%',
     highlights: [
@@ -106,7 +106,7 @@ export const defaultCountries: CountryData[] = [
     tagline: 'Carrefour européen',
     description: 'Position centrale en Europe, coût de vie abordable, et système éducatif bilingue de qualité. Parfait pour l\'Europe.',
     image: '/images/destinations/belgique.png',
-    students: '1500+',
+    students: '500+',
     universities: '35+',
     successRate: '93%',
     highlights: [
@@ -118,6 +118,46 @@ export const defaultCountries: CountryData[] = [
     ctaText: 'Explorer la Belgique',
     ctaLink: '/destinations/belgique',
     color: 'from-yellow-600 to-amber-700'
+  },
+  {
+    id: 'allemagne',
+    name: 'Allemagne',
+    flag: '🇩🇪',
+    tagline: 'Éducation gratuite et innovation',
+    description: 'L\'Allemagne offre une éducation universitaire gratuite, une excellence en ingénierie, et d\'excellentes opportunités de carrière.',
+    image: '/images/destinations/allemagne.png',
+    students: '2000+',
+    universities: '40+',
+    successRate: '94%',
+    highlights: [
+      'Universités publiques gratuites',
+      'Leader mondial en ingénierie',
+      'Marché du travail dynamique',
+      'Bourses DAAD disponibles'
+    ],
+    ctaText: 'Explorer l\'Allemagne',
+    ctaLink: '/destinations/allemagne',
+    color: 'from-gray-700 to-gray-900'
+  },
+  {
+    id: 'espagne',
+    name: 'Espagne',
+    flag: '🇪🇸',
+    tagline: 'Culture, soleil et qualité de vie',
+    description: 'L\'Espagne combine excellence académique, coût de vie abordable, climat méditerranéen et culture vibrante.',
+    image: '/images/destinations/espagne.png',
+    students: '1200+',
+    universities: '30+',
+    successRate: '91%',
+    highlights: [
+      'Coût de vie très abordable',
+      'Climat méditerranéen agréable',
+      'Langue internationale (500M+)',
+      'Vie étudiante dynamique'
+    ],
+    ctaText: 'Explorer l\'Espagne',
+    ctaLink: '/destinations/espagne',
+    color: 'from-red-600 to-yellow-600'
   },
   {
     id: 'italie',

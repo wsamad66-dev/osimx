@@ -1,0 +1,25 @@
+[
+  {
+    "title": "Étudier en Italie : Guide Complet",
+    "excerpt": "Découvrez comment réaliser votre rêve d'études en Italie, de l'admission au visa.",
+    "content": "# Étudier en Italie\n\nL'Italie offre une éducation de qualité avec un coût de vie abordable...\n\n## Universités Italiennes\n\n1. Università di Bologna\n2. Politecnico di Milano\n3. Sapienza Università di Roma\n\n## Budget\n\n- Frais de scolarité : 1,000 - 4,000€/an\n- Logement : 300 - 600€/mois\n- Vie quotidienne : 700 - 1,000€/mois",
+    "categories": ["etudes"],
+    "tags": ["italie", "europe", "admission"],
+    "featured": false,
+    "author": {
+      "name": "Sophie Martin",
+      "email": "sophie@osimx.com",
+      "bio": "Experte en mobilité étudiante vers l'Europe"
+    }
+  },
+  {
+    "title": "Visa Schengen pour Études",
+    "slug": "visa-schengen-etudes",
+    "excerpt": "Tout savoir sur le visa Schengen pour vos études en Europe.",
+    "content": "# Visa Schengen\n\nLe visa Schengen permet d'étudier dans 27 pays européens...",
+    "categories": ["visa", "etudes"],
+    "tags": ["schengen", "europe", "visa"],
+    "featured": true,
+    "publishedAt": "2025-10-16T10:00:00.000Z"
+  }
+]

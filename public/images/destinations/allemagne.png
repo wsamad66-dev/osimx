@@ -1,0 +1,93 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient - German colors theme -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#374151;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4b5563;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="lightGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+  
+  <!-- Light overlay -->
+  <circle cx="600" cy="400" r="600" fill="url(#lightGrad)"/>
+  
+  <!-- German flag stripes (decorative) -->
+  <rect x="0" y="0" width="1200" height="8" fill="#000000"/>
+  <rect x="0" y="8" width="1200" height="8" fill="#DD0000"/>
+  <rect x="0" y="16" width="1200" height="8" fill="#FFCE00"/>
+  
+  <!-- Brandenburg Gate simplified -->
+  <g opacity="0.3">
+    <!-- Columns -->
+    <rect x="350" y="250" width="50" height="280" fill="#9ca3af" rx="5"/>
+    <rect x="450" y="250" width="50" height="280" fill="#9ca3af" rx="5"/>
+    <rect x="550" y="250" width="50" height="280" fill="#9ca3af" rx="5"/>
+    <rect x="650" y="250" width="50" height="280" fill="#9ca3af" rx="5"/>
+    <rect x="750" y="250" width="50" height="280" fill="#9ca3af" rx="5"/>
+    <!-- Top -->
+    <rect x="330" y="220" width="470" height="40" fill="#9ca3af" rx="5"/>
+    <rect x="380" y="180" width="370" height="50" fill="#9ca3af" rx="8"/>
+  </g>
+  
+  <!-- German flag -->
+  <g transform="translate(80, 80)">
+    <rect width="180" height="50" fill="#000000" rx="4"/>
+    <rect y="50" width="180" height="50" fill="#DD0000" rx="4"/>
+    <rect y="100" width="180" height="50" fill="#FFCE00" rx="4"/>
+    <!-- Border -->
+    <rect width="180" height="150" fill="none" stroke="white" stroke-width="3" rx="4" opacity="0.5"/>
+  </g>
+  
+  <!-- Education icons -->
+  <g transform="translate(900, 80)">
+    <circle cx="60" cy="60" r="55" fill="url(#yellowGrad)" opacity="0.95"/>
+    <text x="60" y="85" font-size="60" text-anchor="middle">🎓</text>
+  </g>
+  
+  <g transform="translate(900, 200)">
+    <circle cx="60" cy="60" r="55" fill="#3b82f6" opacity="0.95"/>
+    <text x="60" y="85" font-size="60" text-anchor="middle">🏛️</text>
+  </g>
+  
+  <!-- Main text -->
+  <text x="600" y="650" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="white" text-anchor="middle">
+    ALLEMAGNE
+  </text>
+  <text x="600" y="710" font-family="Arial, sans-serif" font-size="32" fill="#d1d5db" text-anchor="middle">
+    Éducation Gratuite • Innovation • Excellence
+  </text>
+  
+  <!-- Stats decorative -->
+  <g transform="translate(100, 600)">
+    <rect width="140" height="80" fill="#374151" rx="8" opacity="0.8"/>
+    <text x="70" y="40" font-family="Arial" font-size="28" font-weight="bold" fill="#fbbf24" text-anchor="middle">2000+</text>
+    <text x="70" y="65" font-family="Arial" font-size="14" fill="#d1d5db" text-anchor="middle">Étudiants</text>
+  </g>
+  
+  <g transform="translate(260, 600)">
+    <rect width="140" height="80" fill="#374151" rx="8" opacity="0.8"/>
+    <text x="70" y="40" font-family="Arial" font-size="28" font-weight="bold" fill="#fbbf24" text-anchor="middle">40+</text>
+    <text x="70" y="65" font-family="Arial" font-size="14" fill="#d1d5db" text-anchor="middle">Universités</text>
+  </g>
+  
+  <!-- Decorative dots pattern -->
+  <g opacity="0.15">
+    <circle cx="150" cy="400" r="8" fill="white"/>
+    <circle cx="180" cy="420" r="6" fill="white"/>
+    <circle cx="210" cy="390" r="7" fill="white"/>
+    <circle cx="1050" cy="500" r="8" fill="white"/>
+    <circle cx="1020" cy="480" r="6" fill="white"/>
+    <circle cx="1080" cy="520" r="7" fill="white"/>
+  </g>
+</svg>

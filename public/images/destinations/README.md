@@ -44,6 +44,26 @@ Place the following images in this directory:
   - Unsplash: https://unsplash.com/s/photos/china-aerial
   - Pexels: https://www.pexels.com/search/shanghai%20aerial/
 
+### 6. **allemagne.png** ⚠️ REQUIRED
+- **Subject**: Aerial view of Berlin (Brandenburg Gate) or Munich
+- **Recommended**: Berlin cityscape, modern architecture, university campus
+- **Size**: 1200x800px minimum (ratio 3:2)
+- **Style**: Modern, professional, technological
+- **Free sources**:
+  - Unsplash: https://unsplash.com/s/photos/berlin-germany
+  - Pexels: https://www.pexels.com/search/germany-berlin/
+- **Keywords**: "Germany Brandenburg Gate", "Berlin aerial", "Munich city"
+
+### 7. **espagne.png** ⚠️ REQUIRED
+- **Subject**: Barcelona (Sagrada Familia) or Madrid (Plaza Mayor)
+- **Recommended**: Iconic Spanish architecture, vibrant colors
+- **Size**: 1200x800px minimum (ratio 3:2)
+- **Style**: Warm, cultural, Mediterranean
+- **Free sources**:
+  - Unsplash: https://unsplash.com/s/photos/barcelona-spain
+  - Pexels: https://www.pexels.com/search/spain-barcelona/
+- **Keywords**: "Barcelona Sagrada Familia", "Madrid Spain", "Spanish architecture"
+
 ---
 
 ## 🎨 Image Guidelines
@@ -85,6 +105,14 @@ Use tools like:
 
 **China (Shanghai)**
 - https://unsplash.com/photos/aerial-photo-of-city-during-daytime-gkfvdCEbUbQ
+
+**Germany (Berlin)** ⭐ NEW
+- https://unsplash.com/s/photos/berlin-brandenburg-gate
+- https://unsplash.com/s/photos/germany-university
+
+**Spain (Barcelona)** ⭐ NEW
+- https://unsplash.com/s/photos/sagrada-familia
+- https://unsplash.com/s/photos/barcelona-city
 
 ---
 

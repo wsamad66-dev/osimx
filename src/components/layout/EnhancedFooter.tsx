@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { CONTACT } from '@/config/contact'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
+import { CompactPartnersBanner } from '@/components/home/PartnersBanner'
 
 const quickLinks = [
   { label: 'Accueil', href: '/' },
@@ -25,7 +26,7 @@ const quickLinks = [
   { label: 'Services', href: '/services' },
   { label: 'Ressources', href: '/resources' },
   { label: 'Témoignages', href: '/testimonials' },
-  { label: 'FAQ', href: '/faq' },
+  { label: 'FAQ', href: '/#faq' }, // Lien vers la section FAQ
 ]
 
 const destinations = [
@@ -37,9 +38,9 @@ const destinations = [
 ]
 
 const legalLinks = [
-  { label: 'Mentions légales', href: '/legal/mentions' },
-  { label: 'Politique de confidentialité', href: '/legal/privacy' },
-  { label: 'Conditions d\'utilisation', href: '/legal/terms' },
+  { label: 'Mentions légales', href: '/mentions-legales' },
+  { label: 'Politique de confidentialité', href: '/politique-confidentialite' },
+  { label: 'Conditions d\'utilisation', href: '/conditions-utilisation' },
 ]
 
 const socialLinks = [
@@ -86,9 +87,13 @@ export function EnhancedFooter() {
   }
 
   return (
-    <footer ref={ref as React.RefObject<HTMLElement>} className="relative bg-gradient-to-b from-gray-900 via-[#1a2347] to-black border-t border-white/5 overflow-hidden">
-      {/* Animated Gradient Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <>
+      {/* Compact Partners Banner - Above Footer */}
+      <CompactPartnersBanner speed={60} />
+      
+      <footer ref={ref as React.RefObject<HTMLElement>} className="relative bg-gradient-to-b from-gray-900 via-[#1a2347] to-black border-t border-white/5 overflow-hidden">
+        {/* Animated Gradient Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-full blur-3xl"
           animate={{
@@ -444,5 +449,6 @@ export function EnhancedFooter() {
         )}
       </AnimatePresence>
     </footer>
+    </>
   )
 }

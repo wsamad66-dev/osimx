@@ -30,9 +30,9 @@ const navigationData = {
       order: 2,
       hasDropdown: true,
       dropdownItems: [
-        { _key: 'admission', label: 'Admission', link: '/services/admission' },
-        { _key: 'visa', label: 'Visa', link: '/services/visa' },
-        { _key: 'logement', label: 'Logement', link: '/services/logement' },
+        { _key: 'admission', label: 'Admission', link: '/services' },
+        { _key: 'visa', label: 'Visa', link: '/services' },
+        { _key: 'logement', label: 'Logement', link: '/services' },
       ],
     },
     {

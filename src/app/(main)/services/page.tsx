@@ -1,14 +1,11 @@
-import type { Metadata } from 'next'
-import { CheckCircle, GraduationCap, FileText, Home, Plane, DollarSign, Users, Clock } from 'lucide-react'
-import Link from 'next/link'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Nos Services | L\'Étudiant Étranger - Accompagnement Complet',
-  description: 'De l\'admission à votre arrivée : accompagnement admission, visa, logement, bourses. Un service tout-en-un pour étudier à l\'étranger en toute sérénité.',
-  keywords: 'accompagnement études étranger, admission université, visa étudiant, logement étudiant, bourses études',
-}
+import { useState } from 'react'
+import { CheckCircle, GraduationCap, FileText, Home, Plane, DollarSign, Users, Clock } from 'lucide-react'
+import { QuickRegistrationModal } from '@/components/registration/QuickRegistrationModal'
 
 export default function ServicesPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const services = [
     {
       icon: GraduationCap,
@@ -21,7 +18,6 @@ export default function ServicesPage() {
         'Préparation entretiens',
         'Suivi des candidatures',
       ],
-      price: 'À partir de 500€',
       duration: '2-3 mois',
       successRate: '92%',
     },
@@ -34,9 +30,7 @@ export default function ServicesPage() {
         'Constitution dossier visa',
         'Préparation entretien ambassade',
         'Suivi de votre demande',
-        'Garantie remboursement si refus',
       ],
-      price: 'À partir de 300€',
       duration: '1-2 mois',
       successRate: '85%',
     },
@@ -51,7 +45,6 @@ export default function ServicesPage() {
         'Aide à la signature du bail',
         'Réseau de logements vérifiés',
       ],
-      price: 'À partir de 200€',
       duration: '2-4 semaines',
       successRate: '98%',
     },
@@ -66,7 +59,6 @@ export default function ServicesPage() {
         'Suivi des deadlines',
         'Conseils stratégiques',
       ],
-      price: 'À partir de 150€',
       duration: '1-2 mois',
       successRate: '45%',
     },
@@ -81,7 +73,6 @@ export default function ServicesPage() {
         'Assurances étudiants',
         'Guide d\'installation',
       ],
-      price: 'À partir de 100€',
       duration: '1 mois',
       successRate: '100%',
     },
@@ -96,7 +87,6 @@ export default function ServicesPage() {
         'Support illimité',
         'Économisez 30%',
       ],
-      price: 'À partir de 1,200€',
       duration: '4-6 mois',
       successRate: '95%',
       featured: true,
@@ -133,9 +123,9 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-primary-600 text-white overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-blue-600 text-white overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/20 rounded-full blur-3xl" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl" />
         </div>
 
@@ -183,11 +173,11 @@ export default function ServicesPage() {
                 )}
 
                 <div className="flex items-center gap-4 mb-6">
-                  <div className={`p-4 rounded-2xl ${service.featured ? 'bg-orange-100' : 'bg-primary-100'}`}>
-                    <service.icon className={`w-8 h-8 ${service.featured ? 'text-orange-600' : 'text-primary-600'}`} />
+                  <div className={`p-4 rounded-2xl ${service.featured ? 'bg-orange-100' : 'bg-blue-100'}`}>
+                    <service.icon className={`w-8 h-8 ${service.featured ? 'text-orange-600' : 'text-blue-600'}`} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-navy-900">{service.title}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900">{service.title}</h3>
                   </div>
                 </div>
 
@@ -207,25 +197,22 @@ export default function ServicesPage() {
                     <span className="text-gray-600 text-sm">Taux de réussite</span>
                     <span className="text-green-600 font-bold">{service.successRate}</span>
                   </div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex justify-between items-center">
                     <span className="text-gray-600 text-sm">Durée moyenne</span>
                     <span className="text-gray-800 font-semibold">{service.duration}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm">Tarif</span>
-                    <span className="text-navy-900 font-bold text-lg">{service.price}</span>
-                  </div>
                 </div>
 
-                <Link href="/contact">
-                  <button className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
                     service.featured
                       ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl'
-                      : 'bg-primary-600 text-white hover:bg-primary-700'
-                  }`}>
-                    Commencer maintenant
-                  </button>
-                </Link>
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  Commencer maintenant
+                </button>
               </div>
             ))}
           </div>
@@ -236,8 +223,8 @@ export default function ServicesPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-4">
-              Comment ça <span className="text-primary-600">fonctionne</span> ?
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Comment ça <span className="text-blue-600">fonctionne</span> ?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Un processus simple et transparent en 4 étapes
@@ -247,15 +234,15 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {processSteps.map((item, index) => (
               <div key={index} className="relative text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-orange-500 text-white rounded-2xl mb-6 text-3xl font-bold shadow-lg">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-orange-500 text-white rounded-2xl mb-6 text-3xl font-bold shadow-lg">
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-navy-900 mb-3">{item.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
                 <p className="text-gray-600 mb-2">{item.description}</p>
-                <p className="text-sm text-primary-600 font-semibold">{item.duration}</p>
+                <p className="text-sm text-blue-600 font-semibold">{item.duration}</p>
                 
                 {index < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary-300 to-orange-300" />
+                  <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-blue-300 to-orange-300" />
                 )}
               </div>
             ))}
@@ -264,7 +251,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary-600 to-navy-800 text-white">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-gray-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Prêt à commencer votre aventure ?
@@ -272,13 +259,20 @@ export default function ServicesPage() {
           <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
             Réservez votre consultation gratuite de 30 minutes avec un expert
           </p>
-          <Link href="/contact">
-            <button className="px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transition-all">
-              Réserver ma consultation gratuite
-            </button>
-          </Link>
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="px-12 py-5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-bold text-xl shadow-xl hover:shadow-2xl transition-all"
+          >
+            Réserver ma consultation gratuite
+          </button>
         </div>
       </section>
+
+      {/* Modal d'inscription */}
+      <QuickRegistrationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   )
 }

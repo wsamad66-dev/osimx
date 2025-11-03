@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@sanity/client'
-import bcrypt from 'bcryptjs'
-import crypto from 'crypto'
 
 // Initialize Sanity client with write permissions
 const client = createClient({
@@ -14,30 +12,35 @@ const client = createClient({
 
 /**
  * POST /api/register-student
- * Create a new student in Sanity with complete registration data
+ * Create a new student in Sanity with simplified data
  * 
  * Expected body structure:
  * {
- *   step1: { firstName, lastName, email, phone, dateOfBirth, nationality, countryOfResidence },
- *   step2: { currentEducationLevel, desiredDegree, fieldOfStudy, preferredCountry, preferredUniversity, intendedStartDate },
- *   step3: { documents: [{ name, type, size, assetId, url }] },
- *   step4: { password, confirmPassword }
+ *   step1: { firstName, lastName, email, phone, countryOfResidence },
  * }
  */
 export async function POST(request: NextRequest) {
   try {
     // Parse request body
     const body = await request.json()
-    const { step1, step2, step3, step4 } = body
+    const { step1 } = body
 
     console.log('📥 Registration request received for:', step1?.email)
 
     // ===================================
     // 1. VALIDATION
     // ===================================
-    if (!step1 || !step2 || !step3 || !step4) {
+    if (!step1) {
       return NextResponse.json(
-        { error: 'Données incomplètes. Toutes les étapes sont requises.' },
+        { error: 'Données incomplètes.' },
+        { status: 400 }
+      )
+    }
+
+    // Validate required fields
+    if (!step1.firstName || !step1.email || !step1.phone) {
+      return NextResponse.json(
+        { error: 'Nom, email et téléphone sont requis.' },
         { status: 400 }
       )
     }
@@ -49,38 +52,6 @@ export async function POST(request: NextRequest) {
         { error: 'Format d\'email invalide' },
         { status: 400 }
       )
-    }
-
-    // Validate password strength (min 8 chars)
-    if (!step4.password || step4.password.length < 8) {
-      return NextResponse.json(
-        { error: 'Le mot de passe doit contenir au moins 8 caractères' },
-        { status: 400 }
-      )
-    }
-
-    // Validate password confirmation
-    if (step4.password !== step4.confirmPassword) {
-      return NextResponse.json(
-        { error: 'Les mots de passe ne correspondent pas' },
-        { status: 400 }
-      )
-    }
-
-    // Validate documents (optional for quick registration)
-    const hasDocuments = step3.documents && step3.documents.length > 0
-    
-    // If documents are provided, validate they are properly uploaded
-    if (hasDocuments) {
-      const allDocumentsUploaded = step3.documents.every((doc: any) => 
-        doc.assetId && doc.assetId !== 'temp-placeholder'
-      )
-      if (!allDocumentsUploaded) {
-        return NextResponse.json(
-          { error: 'Tous les documents doivent être téléchargés avec succès' },
-          { status: 400 }
-        )
-      }
     }
 
     // ===================================
@@ -101,73 +72,26 @@ export async function POST(request: NextRequest) {
     }
 
     // ===================================
-    // 3. HASH PASSWORD
+    // 3. CREATE STUDENT DOCUMENT IN SANITY
     // ===================================
-    console.log('🔐 Hashing password...')
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(step4.password, saltRounds)
+    
+    // Combine firstName and lastName into fullName
+    const fullName = step1.lastName 
+      ? `${step1.firstName} ${step1.lastName}` 
+      : step1.firstName
 
-    // ===================================
-    // 4. GENERATE EMAIL VERIFICATION TOKEN
-    // ===================================
-    const verificationToken = crypto.randomBytes(32).toString('hex')
-
-    // ===================================
-    // 5. PREPARE DOCUMENTS WITH SANITY REFERENCES
-    // ===================================
-    console.log('📎 Preparing document references...')
-    const documentsWithReferences = hasDocuments 
-      ? step3.documents
-          .filter((doc: any) => doc.assetId && doc.assetId !== 'temp-placeholder')
-          .map((doc: any) => ({
-            _type: 'object',
-            file: {
-              _type: 'file',
-              asset: {
-                _type: 'reference',
-                _ref: doc.assetId, // Reference to uploaded Sanity asset
-              },
-            },
-            name: doc.name,
-            mimeType: doc.type,
-            size: doc.size,
-            uploadedAt: new Date().toISOString(),
-          }))
-      : [] // Empty array for quick registration without documents
-
-    // ===================================
-    // 6. CREATE STUDENT DOCUMENT IN SANITY
-    // ===================================
     const studentData = {
       _type: 'student',
       
-      // Step 1: Personal Information
-      firstName: step1.firstName,
-      lastName: step1.lastName,
+      // Basic information from form
+      fullName: fullName,
       email: step1.email,
       phone: step1.phone,
-      dateOfBirth: step1.dateOfBirth,
-      nationality: step1.nationality,
-      countryOfResidence: step1.countryOfResidence,
-
-      // Step 2: Education Information
-      currentEducationLevel: step2.currentEducationLevel,
-      desiredDegree: step2.desiredDegree,
-      fieldOfStudy: step2.fieldOfStudy,
-      preferredCountry: step2.preferredCountry,
-      preferredUniversity: step2.preferredUniversity || '',
-      intendedStartDate: step2.intendedStartDate,
-
-      // Step 3: Documents
-      documents: documentsWithReferences,
-
-      // Step 4: Security
-      passwordHash,
+      country: step1.countryOfResidence || '',
 
       // Metadata
-      status: 'pending',
-      emailVerified: false,
-      verificationToken,
+      status: 'nouveau',
+      source: 'site-web',
       registeredAt: new Date().toISOString(),
     }
 
@@ -176,31 +100,16 @@ export async function POST(request: NextRequest) {
     console.log(`✅ Student created successfully: ${createdStudent._id}`)
 
     // ===================================
-    // 7. TODO: SEND CONFIRMATION EMAIL
-    // ===================================
-    // TODO: Implement email sending (Resend, SendGrid, etc.)
-    // const verificationLink = `${process.env.NEXT_PUBLIC_SITE_URL}/verify-email?token=${verificationToken}`
-    // await sendEmail({
-    //   to: step1.email,
-    //   subject: 'Confirmez votre inscription - L\'Étudiant à l\'Étranger',
-    //   html: welcomeEmailTemplate({ firstName: step1.firstName, verificationLink })
-    // })
-
-    console.log('📧 Email confirmation skipped (email service not configured yet)')
-    console.log(`   Verification token: ${verificationToken}`)
-
-    // ===================================
-    // 8. RETURN SUCCESS RESPONSE
+    // 4. RETURN SUCCESS RESPONSE
     // ===================================
     return NextResponse.json({
       success: true,
       studentId: createdStudent._id,
       message: 'Inscription réussie! Bienvenue chez L\'Étudiant à l\'Étranger.',
       data: {
-        firstName: step1.firstName,
-        lastName: step1.lastName,
+        fullName: fullName,
         email: step1.email,
-        status: 'pending',
+        status: 'nouveau',
       },
     }, { status: 201 })
 
@@ -237,17 +146,14 @@ export async function POST(request: NextRequest) {
  */
 export async function GET() {
   return NextResponse.json({
-    message: 'Student Registration API',
-    version: '1.0',
+    message: 'Student Registration API - Simplified',
+    version: '2.0',
     status: 'operational',
     endpoints: {
       POST: {
-        description: 'Register a new student with complete 4-step data',
+        description: 'Register a new student with basic information',
         requiredFields: {
-          step1: ['firstName', 'lastName', 'email', 'phone', 'dateOfBirth', 'nationality', 'countryOfResidence'],
-          step2: ['currentEducationLevel', 'desiredDegree', 'fieldOfStudy', 'preferredCountry', 'intendedStartDate'],
-          step3: ['documents (array with assetId)'],
-          step4: ['password', 'confirmPassword'],
+          step1: ['firstName', 'email', 'phone', 'countryOfResidence (optional)'],
         },
       },
     },

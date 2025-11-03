@@ -2,178 +2,66 @@ import { defineType, defineField } from 'sanity'
 import { User } from 'lucide-react'
 
 /**
- * Student Schema - Complete Registration Data
- * Stores all information from the 4-step registration modal:
- * - Step 1: Personal Information
- * - Step 2: Education Details
- * - Step 3: Uploaded Documents (Sanity asset references)
- * - Step 4: Security (hashed password)
+ * Student Schema - Simplified
+ * Matches the QuickRegistrationModal form fields:
+ * - Name (full name)
+ * - Email
+ * - Phone
+ * - Country (optional)
+ * 
+ * Can be manually added, edited, or deleted in Sanity Studio
  */
 export default defineType({
   name: 'student',
-  title: 'Students',
+  title: 'Étudiants',
   type: 'document',
   icon: User,
   fields: [
     // ===================================
-    // STEP 1: Personal Information
+    // Basic Information (from form)
     // ===================================
     defineField({
-      name: 'firstName',
-      title: 'First Name',
+      name: 'fullName',
+      title: 'Nom complet',
       type: 'string',
-      validation: (Rule) => Rule.required().min(2).max(50),
-    }),
-    defineField({
-      name: 'lastName',
-      title: 'Last Name',
-      type: 'string',
-      validation: (Rule) => Rule.required().min(2).max(50),
+      validation: (Rule) => Rule.required().min(2).max(100),
+      description: 'Prénom et nom de l\'étudiant',
     }),
     defineField({
       name: 'email',
       title: 'Email',
       type: 'string',
       validation: (Rule) => Rule.required().email(),
+      description: 'Adresse email de l\'étudiant',
     }),
     defineField({
       name: 'phone',
-      title: 'Phone Number',
+      title: 'Téléphone / WhatsApp',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().min(8),
+      description: 'Numéro de téléphone (format international recommandé)',
     }),
     defineField({
-      name: 'dateOfBirth',
-      title: 'Date of Birth',
-      type: 'date',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'nationality',
-      title: 'Nationality',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'countryOfResidence',
-      title: 'Country of Residence',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-
-    // ===================================
-    // STEP 2: Education Information
-    // ===================================
-    defineField({
-      name: 'currentEducationLevel',
-      title: 'Current Education Level',
+      name: 'country',
+      title: 'Pays d\'origine',
       type: 'string',
       options: {
         list: [
-          { title: 'Baccalauréat', value: 'baccalaureat' },
-          { title: 'Licence (Bachelor)', value: 'licence' },
-          { title: 'Master', value: 'master' },
-          { title: 'Doctorat (PhD)', value: 'doctorat' },
+          { title: '🇫🇷 France', value: 'France' },
+          { title: '🇨🇦 Canada', value: 'Canada' },
+          { title: '🇺🇸 États-Unis', value: 'États-Unis' },
+          { title: '🇬🇧 Royaume-Uni', value: 'Royaume-Uni' },
+          { title: '🇩🇪 Allemagne', value: 'Allemagne' },
+          { title: '🇪🇸 Espagne', value: 'Espagne' },
+          { title: '🇮🇹 Italie', value: 'Italie' },
+          { title: '🇧🇪 Belgique', value: 'Belgique' },
+          { title: '🇨🇭 Suisse', value: 'Suisse' },
+          { title: '🇲🇦 Maroc', value: 'Maroc' },
+          { title: '🇸🇳 Sénégal', value: 'Sénégal' },
+          { title: '🇨🇮 Côte d\'Ivoire', value: 'Côte d\'Ivoire' },
         ],
       },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'desiredDegree',
-      title: 'Desired Degree',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'fieldOfStudy',
-      title: 'Field of Study',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'preferredCountry',
-      title: 'Preferred Country',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'preferredUniversity',
-      title: 'Preferred University',
-      type: 'string',
-    }),
-    defineField({
-      name: 'intendedStartDate',
-      title: 'Intended Start Date',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Septembre 2025', value: '2025-09' },
-          { title: 'Janvier 2026', value: '2026-01' },
-          { title: 'Septembre 2026', value: '2026-09' },
-          { title: 'Plus tard', value: 'later' },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-
-    // ===================================
-    // STEP 3: Documents (Sanity Asset References)
-    // ===================================
-    defineField({
-      name: 'documents',
-      title: 'Uploaded Documents',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'file',
-              title: 'File',
-              type: 'file',
-              description: 'Reference to uploaded Sanity asset',
-            },
-            {
-              name: 'name',
-              title: 'Original Filename',
-              type: 'string',
-            },
-            {
-              name: 'mimeType',
-              title: 'MIME Type',
-              type: 'string',
-            },
-            {
-              name: 'size',
-              title: 'File Size (bytes)',
-              type: 'number',
-            },
-            {
-              name: 'uploadedAt',
-              title: 'Uploaded At',
-              type: 'datetime',
-            },
-          ],
-          preview: {
-            select: {
-              title: 'name',
-              subtitle: 'mimeType',
-            },
-          },
-        },
-      ],
-      description: 'Diplomas, transcripts, passport, and other documents',
-    }),
-
-    // ===================================
-    // STEP 4: Security
-    // ===================================
-    defineField({
-      name: 'passwordHash',
-      title: 'Password Hash',
-      type: 'string',
-      description: 'Hashed password (bcrypt)',
-      hidden: true, // Hide from Studio UI for security
+      description: 'Pays d\'origine de l\'étudiant (optionnel)',
     }),
 
     // ===================================
@@ -181,43 +69,52 @@ export default defineType({
     // ===================================
     defineField({
       name: 'status',
-      title: 'Application Status',
+      title: 'Statut',
       type: 'string',
       options: {
         list: [
-          { title: '📝 Pending', value: 'pending' },
-          { title: '✅ Approved', value: 'approved' },
-          { title: '🔄 In Review', value: 'in-review' },
-          { title: '❌ Rejected', value: 'rejected' },
-          { title: '⏸️ On Hold', value: 'on-hold' },
+          { title: '📝 Nouveau', value: 'nouveau' },
+          { title: '📞 Contacté', value: 'contacte' },
+          { title: '✅ Actif', value: 'actif' },
+          { title: '🎓 En cours', value: 'en-cours' },
+          { title: '✨ Diplômé', value: 'diplome' },
+          { title: '⏸️ En pause', value: 'pause' },
+          { title: '❌ Inactif', value: 'inactif' },
         ],
       },
-      initialValue: 'pending',
+      initialValue: 'nouveau',
+      description: 'Statut actuel de l\'étudiant',
     }),
     defineField({
-      name: 'emailVerified',
-      title: 'Email Verified',
-      type: 'boolean',
-      initialValue: false,
-    }),
-    defineField({
-      name: 'verificationToken',
-      title: 'Email Verification Token',
+      name: 'source',
+      title: 'Source',
       type: 'string',
-      hidden: true,
+      options: {
+        list: [
+          { title: 'Formulaire site web', value: 'site-web' },
+          { title: 'Rendez-vous zcal', value: 'zcal' },
+          { title: 'Manuel (Sanity)', value: 'manuel' },
+          { title: 'Réseaux sociaux', value: 'reseaux-sociaux' },
+          { title: 'Bouche à oreille', value: 'bouche-a-oreille' },
+          { title: 'Autre', value: 'autre' },
+        ],
+      },
+      initialValue: 'site-web',
+      description: 'Comment l\'étudiant nous a trouvé',
     }),
     defineField({
       name: 'registeredAt',
-      title: 'Registration Date',
+      title: 'Date d\'inscription',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
+      description: 'Date de première inscription',
     }),
     defineField({
       name: 'notes',
-      title: 'Admin Notes',
+      title: 'Notes administratives',
       type: 'text',
-      description: 'Internal notes for administrators',
-      rows: 4,
+      description: 'Notes internes pour l\'équipe',
+      rows: 5,
     }),
   ],
 
@@ -226,26 +123,30 @@ export default defineType({
   // ===================================
   preview: {
     select: {
-      firstName: 'firstName',
-      lastName: 'lastName',
+      fullName: 'fullName',
       email: 'email',
+      country: 'country',
       status: 'status',
-      registeredAt: 'registeredAt',
+      phone: 'phone',
     },
     prepare(selection: any) {
-      const { firstName, lastName, email, status, registeredAt } = selection
+      const { fullName, email, country, status, phone } = selection
       const statusMap: Record<string, string> = {
-        pending: '📝',
-        approved: '✅',
-        'in-review': '🔄',
-        rejected: '❌',
-        'on-hold': '⏸️',
+        nouveau: '📝',
+        contacte: '📞',
+        actif: '✅',
+        'en-cours': '🎓',
+        diplome: '✨',
+        pause: '⏸️',
+        inactif: '❌',
       }
       const statusEmoji = statusMap[status] || '📝'
+      const countryDisplay = country ? ` • ${country}` : ''
 
       return {
-        title: `${firstName} ${lastName}`,
-        subtitle: `${statusEmoji} ${status} • ${email}`,
+        title: fullName || 'Sans nom',
+        subtitle: `${statusEmoji} ${email}${countryDisplay}`,
+        description: phone,
         media: User,
       }
     },
@@ -256,17 +157,22 @@ export default defineType({
   // ===================================
   orderings: [
     {
-      title: 'Registration Date (Newest)',
+      title: 'Date d\'inscription (récent)',
       name: 'registeredAtDesc',
       by: [{ field: 'registeredAt', direction: 'desc' }],
     },
     {
-      title: 'Last Name (A-Z)',
-      name: 'lastNameAsc',
-      by: [{ field: 'lastName', direction: 'asc' }],
+      title: 'Date d\'inscription (ancien)',
+      name: 'registeredAtAsc',
+      by: [{ field: 'registeredAt', direction: 'asc' }],
     },
     {
-      title: 'Status',
+      title: 'Nom (A-Z)',
+      name: 'nameAsc',
+      by: [{ field: 'fullName', direction: 'asc' }],
+    },
+    {
+      title: 'Statut',
       name: 'statusAsc',
       by: [{ field: 'status', direction: 'asc' }],
     },

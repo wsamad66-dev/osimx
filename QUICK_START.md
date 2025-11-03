@@ -144,7 +144,7 @@ Update statistics globally:
 ```typescript
 export const STATS = {
   successRate: '95%',
-  studentsHelped: '3500+',
+  studentsHelped: '500+',
   ...
 }
 ```

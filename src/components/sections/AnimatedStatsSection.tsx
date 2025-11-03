@@ -67,8 +67,11 @@ function StatCard({
           </div>
         </div>
 
-        {/* Value */}
-        <div className="text-5xl font-extrabold text-gray-900 group-hover:text-white transition-colors duration-300 mb-2">
+        {/* Value - Attach ref here for animation trigger */}
+        <div 
+          ref={counter.ref}
+          className="text-5xl font-extrabold text-gray-900 group-hover:text-white transition-colors duration-300 mb-2"
+        >
           {displayValue}
         </div>
 
@@ -271,7 +274,7 @@ export function AnimatedStatsSection() {
             aria-label="Rejoindre nos étudiants"
           >
             <Star className="w-6 h-6" />
-            <span>Rejoignez nos 3500+ étudiants satisfaits</span>
+            <span>Rejoignez nos 500+ étudiants satisfaits</span>
             <motion.div
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}

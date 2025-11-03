@@ -1,0 +1,14 @@
+# Exclude large 3D model files
+dist/
+public/models/
+*.glb
+
+# Exclude development files
+.env.local
+.env*.local
+
+# Exclude git files
+.git/
+
+# Exclude test files
+test-files/
